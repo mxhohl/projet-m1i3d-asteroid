@@ -3,6 +3,7 @@
 
 #include "Types/Vec2.hpp"
 #include "Types/Color.hpp"
+#include "Polygon.hpp"
 
 #include <vector>
 extern "C" {
@@ -20,6 +21,8 @@ public:
     void setDrawColor(const Color& color);
     void clear(const Color& color = {0, 0, 0, 255});
     void present();
+
+    void drawPolygon(const Polygon& polygon);
 
     void drawLine(Vec2f start, Vec2f end);
     void drawLines(std::vector<Vec2f> points);

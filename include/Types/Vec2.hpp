@@ -17,6 +17,16 @@ public:
         data[1] = *param;
     }
 
+    Vec2<T>& operator=(const Vec2<T>& copy) {
+        if (this == &copy) {
+            return *this;
+        }
+
+        data[0] = copy.data[0];
+        data[1] = copy.data[1];
+        return *this;
+    }
+
     T x() const {
         return data[0];
     }

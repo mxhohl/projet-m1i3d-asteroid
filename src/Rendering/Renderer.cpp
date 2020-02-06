@@ -1,4 +1,4 @@
-#include "Renderer.hpp"
+#include "Rendering/Renderer.hpp"
 
 #include <iostream>
 
@@ -51,6 +51,14 @@ void Renderer::clear(const Color& color) {
 
 void Renderer::present() {
     SDL_RenderPresent(renderer);
+}
+
+void Renderer::drawPolygon(const Polygon &polygon) {
+    for (size_t i = 0; i < polygon.pointsCount(); ++i) {
+        Vec2f p1 = polygon.getPointInWorldPos(i);
+        Vec2f p2 = polygon.getPointInWorldPos((i + 1) % polygon.pointsCount());
+        SDL_RenderDrawLineF(renderer, p1.x(), p1.y(), p2.x(), p2.y());
+    }
 }
 
 void Renderer::drawLine(Vec2f start, Vec2f end) {

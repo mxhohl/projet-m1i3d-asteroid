@@ -1,7 +1,7 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
-#include "Renderer.hpp"
+#include "Rendering/Renderer.hpp"
 #include "Observer/Subject.hpp"
 #include "Player.hpp"
 
