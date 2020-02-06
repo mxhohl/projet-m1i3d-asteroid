@@ -61,16 +61,26 @@ void Renderer::drawPolygon(const Polygon &polygon) {
     }
 }
 
-void Renderer::drawLine(Vec2f start, Vec2f end) {
+void Renderer::drawLine(const Vec2f& start, const Vec2f& end) {
     SDL_RenderDrawLineF(renderer, start.x(), start.y(), end.x(), end.y());
 }
 
-void Renderer::drawLines(std::vector<Vec2f> points) {
+void Renderer::drawLines(const std::vector<Vec2f>& points) {
     for (size_t i = 0; i < points.size(); i += 2) {
         SDL_RenderDrawLineF(
                 renderer,
                 points[i].x(), points[i].y(),
                 points[i + 1].x(), points[i + 1].y()
         );
+    }
+}
+
+void Renderer::drawPoint(const Vec2f& point) {
+    SDL_RenderDrawPoint(renderer, point.x(), point.y());
+}
+
+void Renderer::drawPoints(const std::vector<Vec2f>& points) {
+    for (const auto& point : points) {
+        SDL_RenderDrawPoint(renderer, point.x(), point.y());
     }
 }

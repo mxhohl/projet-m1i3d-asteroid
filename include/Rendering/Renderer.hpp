@@ -23,9 +23,11 @@ public:
     void present();
 
     void drawPolygon(const Polygon& polygon);
-
-    void drawLine(Vec2f start, Vec2f end);
-    void drawLines(std::vector<Vec2f> points);
+    void drawLine(const Vec2f& start, const Vec2f& end);
+    void drawLines(const std::vector<Vec2f>& points);
+    void drawPoint(const Vec2f& point);
+    void drawPoints(const std::vector<Vec2f>& points);
+    /* TODO: drawRect and drawFillRect */
 
 private:
     SDL_Renderer* renderer;
