@@ -7,7 +7,7 @@ Player::Player() {
             {2, 3},
             {0, 4}
     };
-    polygon.setScale(10);
+    polygon.setScale(5);
     polygon.setPosition({100, 100});
 }
 
