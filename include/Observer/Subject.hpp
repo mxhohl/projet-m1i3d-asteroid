@@ -22,7 +22,7 @@ public:
     }
 
 protected:
-    void notify(const T& data) {
+    void notify(T& data) {
         for (auto observer : observers) {
             observer->update(data);
         }

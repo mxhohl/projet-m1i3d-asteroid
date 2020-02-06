@@ -1,7 +1,13 @@
 #ifndef RENDERER_HPP
 #define RENDERER_HPP
 
+#include "Types/Vec2.hpp"
+#include "Types/Color.hpp"
+
+#include <vector>
+extern "C" {
 #include <SDL.h>
+};
 
 class Renderer {
 public:
@@ -11,8 +17,8 @@ public:
     void create(SDL_Window* window);
     bool isOk() const;
 
-    void setDrawColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a = 255); /* TODO: use Color class */
-    void clear(Uint8 r = 0, Uint8 g = 0, Uint8 b = 0, Uint8 a = 255); /* TODO: use color class */
+    void setDrawColor(const Color& color);
+    void clear(const Color& color = {0, 0, 0, 255});
     void present();
 
     void drawLine(Vec2f start, Vec2f end);
@@ -20,10 +26,7 @@ public:
 
 private:
     SDL_Renderer* renderer;
-    Uint8 red;
-    Uint8 green;
-    Uint8 blue;
-    Uint8 alpha;
+    Color currentColor;
 };
 
 #endif // RENDERER_HPP

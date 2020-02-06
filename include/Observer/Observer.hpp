@@ -4,7 +4,7 @@
 template<class T>
 class Observer {
 public:
-    virtual void update(const T&) = 0;
+    virtual void update(T&) = 0;
 };
 
 #endif // OBSERVER_HPP

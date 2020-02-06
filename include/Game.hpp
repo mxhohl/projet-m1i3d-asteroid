@@ -3,8 +3,11 @@
 
 #include "Renderer.hpp"
 #include "Observer/Subject.hpp"
+#include "Player.hpp"
 
+extern "C" {
 #include <SDL.h>
+};
 
 class Game : public Subject<Renderer> {
 public:
@@ -27,6 +30,9 @@ private:
 
     SDL_Window* window;
     Renderer renderer;
+
+private:
+    std::shared_ptr<Player> player;
 };
 
 #endif // GAME_HPP

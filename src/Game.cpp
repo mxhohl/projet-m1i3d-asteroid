@@ -14,7 +14,7 @@ Game::Game() : ok(true), quit(false) {
     window = SDL_CreateWindow(
         "Maxime Hohl's Asteroid Game", 
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 
-        640, 480, 
+        1280, 720,
         SDL_WINDOW_SHOWN
     );
     if (!window){
@@ -31,6 +31,9 @@ Game::Game() : ok(true), quit(false) {
         ok = false;
         return;
     }
+
+    player = std::make_shared<Player>();
+    addObserver(player);
 }
 
 Game::~Game() {
