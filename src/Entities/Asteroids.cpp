@@ -13,7 +13,7 @@ Asteroids::Asteroids(size_t count) {
 void Asteroids::update(Renderer& renderer) {
     for (auto& asteroid : asteroids) {
         renderer.setDrawColor(asteroid.color);
-        renderer.drawPolygon(asteroid.polygon, asteroid.getTransformMatrix());
+        renderer.draw(asteroid.polygon, asteroid.getTransformMatrix());
     }
 }
 

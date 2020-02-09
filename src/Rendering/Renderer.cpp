@@ -53,7 +53,7 @@ void Renderer::present() {
     SDL_RenderPresent(renderer);
 }
 
-void Renderer::drawPolygon(const Polygon &polygon, const Mat3f& transform) {
+void Renderer::draw(const Polygon &polygon, const Mat3f& transform) {
     for (size_t i = 0; i < polygon.pointsCount(); ++i) {
         Vec2f p1 = transform.transformPoint(polygon[i]);
         Vec2f p2 = transform.transformPoint(
@@ -64,8 +64,8 @@ void Renderer::drawPolygon(const Polygon &polygon, const Mat3f& transform) {
     }
 }
 
-void Renderer::drawLine(const Vec2f& start, const Vec2f& end,
-                        const Mat3f& transform) {
+void Renderer::draw(const Vec2f& start, const Vec2f& end,
+                    const Mat3f& transform) {
     const Vec2f realStart = transform.transformPoint(start);
     const Vec2f realEnd = transform.transformPoint(end);
     SDL_RenderDrawLineF(renderer,
@@ -73,28 +73,22 @@ void Renderer::drawLine(const Vec2f& start, const Vec2f& end,
                         realEnd.x(), realEnd.y());
 }
 
-void Renderer::drawLines(const std::vector<Vec2f>& points,
-                         const Mat3f& transform) {
-    for (size_t i = 0; i < points.size(); i += 2) {
-        const Vec2f p1 = transform.transformPoint(points[i]);
-        const Vec2f p2 = transform.transformPoint(points[i + 1]);
-        SDL_RenderDrawLineF(
-                renderer,
-                p1.x(), p1.y(),
-                p2.x(), p2.y()
-        );
-    }
-}
-
-void Renderer::drawPoint(const Vec2f& point, const Mat3f& transform) {
+void Renderer::draw(const Vec2f& point, const Mat3f& transform) {
     const Vec2f p = transform.transformPoint(point);
     SDL_RenderDrawPoint(renderer, p.x(), p.y());
 }
 
-void Renderer::drawPoints(const std::vector<Vec2f>& points,
-                          const Mat3f& transform) {
-    for (const auto& point : points) {
-        const Vec2f p = transform.transformPoint(point);
-        SDL_RenderDrawPoint(renderer, p.x(), p.y());
+void Renderer::draw(const RectF& rect, bool fill, const Mat3f& transform) {
+    SDL_FRect sdlRect = {
+            rect.x(),
+            rect.y(),
+            rect.width(),
+            rect.height()
+    };
+
+    if (fill) {
+        SDL_RenderDrawRectF(renderer, &sdlRect);
+    } else {
+        SDL_RenderFillRectF(renderer, &sdlRect);
     }
 }

@@ -4,6 +4,7 @@
 #include "Types/Vec2.hpp"
 #include "Types/Mat3.hpp"
 #include "Types/Color.hpp"
+#include "Types/Rect.hpp"
 #include "Polygon.hpp"
 
 #include <vector>
@@ -23,12 +24,15 @@ public:
     void clear(const Color& color = {0, 0, 0, 255});
     void present();
 
-    void drawPolygon(const Polygon& polygon, const Mat3f& transform);
-    void drawLine(const Vec2f& start, const Vec2f& end, const Mat3f& transform);
-    void drawLines(const std::vector<Vec2f>& points, const Mat3f& transform);
-    void drawPoint(const Vec2f& point, const Mat3f& transform);
-    void drawPoints(const std::vector<Vec2f>& points, const Mat3f& transform);
-    /* TODO: drawRect and drawFillRect */
+    void draw(const Polygon& polygon,
+              const Mat3f& transform = Mat3f::identity());
+    void draw(const Vec2f& start, const Vec2f& end,
+              const Mat3f& transform = Mat3f::identity());
+    void draw(const Vec2f& point,
+              const Mat3f& transform = Mat3f::identity());
+    void draw(const RectF& rect,
+              bool fill,
+              const Mat3f& transform = Mat3f::identity());
 
 private:
     SDL_Renderer* renderer;

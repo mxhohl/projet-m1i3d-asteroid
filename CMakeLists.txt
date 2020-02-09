@@ -28,7 +28,7 @@ set(SRC
         src/Entities/Asteroids.cpp
         include/Entities/Asteroid.hpp
         src/Entities/Asteroid.cpp
-        include/Settings.hpp)
+        include/Settings.hpp include/Types/Rect.hpp)
 
 add_executable(${TARGET} ${SRC})
 target_include_directories(${TARGET} PRIVATE include)

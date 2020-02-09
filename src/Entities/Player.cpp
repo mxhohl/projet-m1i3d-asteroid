@@ -22,12 +22,12 @@ Player::Player() {
 
 void Player::update(Renderer& renderer) {
     renderer.setDrawColor({255, 255, 255, 255});
-    renderer.drawPolygon(polygon, getTransformMatrix());
+    renderer.draw(polygon, getTransformMatrix());
 
 #ifdef DEBUG
     if (speed.sqrLength() > 0) {
         renderer.setDrawColor({0, 255, 0, 255});
-        renderer.drawLine(
+        renderer.draw(
                 getPosition(),
                 getPosition() + speed,
                 Mat3f::identity()
@@ -35,7 +35,7 @@ void Player::update(Renderer& renderer) {
     }
 
     renderer.setDrawColor({0, 0, 255, 255});
-    renderer.drawLine(
+    renderer.draw(
             getPosition(),
             getPosition() + forward * 20.,
             Mat3f::identity()
