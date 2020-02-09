@@ -33,7 +33,9 @@ Game::Game() : ok(true), quit(false) {
     }
 
     player = std::make_shared<Player>();
-    addObserver(player);
+    this->Subject<Renderer>::addObserver(player);
+    this->Subject<KeyboardEventData>::addObserver(player);
+    this->Subject<double>::addObserver(player);
 }
 
 Game::~Game() {
@@ -45,12 +47,19 @@ int Game::run() {
         return 1;
     }
 
+    Uint32 lastUpdate = SDL_GetTicks();
+
 	while (!quit) {
 		handleEvents();
 
         renderer.clear();
         this->Subject<Renderer>::notify(renderer);
         renderer.present();
+
+        Uint32 currentTime = SDL_GetTicks();
+        double dt = (currentTime - lastUpdate) / 1000.;
+        this->Subject<double>::notify(dt);
+        lastUpdate = currentTime;
 	}
 
     return 0;
@@ -67,8 +76,19 @@ void Game::handleEvents() {
 
 		switch (event.type) {
             case SDL_QUIT:
-			quit = true;
-			break;
+                quit = true;
+                break;
+		    case SDL_KEYDOWN:
+		    case SDL_KEYUP:
+		        KeyboardEventData data(
+		                event.key.type == SDL_KEYUP
+		                    ? KeyboardEventData::Release
+		                    : KeyboardEventData::Press,
+		                event.key.keysym.scancode,
+		                event.key.keysym.sym
+                );
+		        this->Subject<KeyboardEventData>::notify(data);
+		        break;
 		}
 
 	}

@@ -1,11 +1,11 @@
 #include "Rendering/Polygon.hpp"
 
 
-Polygon::Polygon() : scale(1.) {}
+Polygon::Polygon() = default;
 
-Polygon::Polygon(size_t size) : points(size), scale(1.) {}
+Polygon::Polygon(size_t size) : points(size) {}
 
-Polygon::Polygon(std::initializer_list<Vec2f> points) : scale(1.) {
+Polygon::Polygon(std::initializer_list<Vec2f> points) {
     for (auto point : points) {
         this->points.push_back(point);
     }
@@ -29,24 +29,4 @@ Vec2f& Polygon::operator[](size_t i) {
 
 const Vec2f& Polygon::operator[](size_t i) const {
     return points[i];
-}
-
-Vec2f Polygon::getPointInWorldPos(size_t i) const {
-    return points[i] * scale + position;
-}
-
-float Polygon::getScale() const {
-    return scale;
-}
-
-void Polygon::setScale(float newScale) {
-    scale = newScale;
-}
-
-const Vec2f& Polygon::getPosition() const {
-    return position;
-}
-
-void Polygon::setPosition(const Vec2f& pos) {
-    position = pos;
 }

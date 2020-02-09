@@ -17,15 +17,28 @@ set(SRC
         include/Types/Color.hpp
         src/Types/Color.cpp
         include/Player.hpp
-        src/Player.cpp include/Rendering/Polygon.hpp src/Rendering/Polygon.cpp)
+        src/Player.cpp
+        include/Rendering/Polygon.hpp
+        src/Rendering/Polygon.cpp
+        include/Observer/KeyboardEventData.hpp
+        include/Transformable.hpp
+        src/Transformable.cpp
+        include/Types/Mat3.hpp)
 
 add_executable(${TARGET} ${SRC})
 target_include_directories(${TARGET} PRIVATE include)
-target_link_libraries(${TARGET} PRIVATE SDL2main SDL2-static)
+
+if(CMAKE_BUILD_TYPE MATCHES Debug)
+    target_compile_definitions(${TARGET} PRIVATE -DDEBUG)
+endif()
 
 if(MSVC)
-    # target_compile_options(${TARGET} PRIVATE /W4)
     string(REGEX REPLACE "/W[3|4]" "/w" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 else()
+    if(MINGW)
+        target_link_libraries(${TARGET} PRIVATE mingw32)
+    endif()
     target_compile_options(${TARGET} PRIVATE -Wall -Wextra)
 endif()
+
+target_link_libraries(${TARGET} PRIVATE SDL2main SDL2-static)

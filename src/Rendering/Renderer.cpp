@@ -53,34 +53,48 @@ void Renderer::present() {
     SDL_RenderPresent(renderer);
 }
 
-void Renderer::drawPolygon(const Polygon &polygon) {
+void Renderer::drawPolygon(const Polygon &polygon, const Mat3f& transform) {
     for (size_t i = 0; i < polygon.pointsCount(); ++i) {
-        Vec2f p1 = polygon.getPointInWorldPos(i);
-        Vec2f p2 = polygon.getPointInWorldPos((i + 1) % polygon.pointsCount());
+        Vec2f p1 = transform.transformPoint(polygon[i]);
+        Vec2f p2 = transform.transformPoint(
+                polygon[(i + 1) % polygon.pointsCount()]
+        );
+
         SDL_RenderDrawLineF(renderer, p1.x(), p1.y(), p2.x(), p2.y());
     }
 }
 
-void Renderer::drawLine(const Vec2f& start, const Vec2f& end) {
-    SDL_RenderDrawLineF(renderer, start.x(), start.y(), end.x(), end.y());
+void Renderer::drawLine(const Vec2f& start, const Vec2f& end,
+                        const Mat3f& transform) {
+    const Vec2f realStart = transform.transformPoint(start);
+    const Vec2f realEnd = transform.transformPoint(end);
+    SDL_RenderDrawLineF(renderer,
+                        realStart.x(), realStart.y(),
+                        realEnd.x(), realEnd.y());
 }
 
-void Renderer::drawLines(const std::vector<Vec2f>& points) {
+void Renderer::drawLines(const std::vector<Vec2f>& points,
+                         const Mat3f& transform) {
     for (size_t i = 0; i < points.size(); i += 2) {
+        const Vec2f p1 = transform.transformPoint(points[i]);
+        const Vec2f p2 = transform.transformPoint(points[i + 1]);
         SDL_RenderDrawLineF(
                 renderer,
-                points[i].x(), points[i].y(),
-                points[i + 1].x(), points[i + 1].y()
+                p1.x(), p1.y(),
+                p2.x(), p2.y()
         );
     }
 }
 
-void Renderer::drawPoint(const Vec2f& point) {
-    SDL_RenderDrawPoint(renderer, point.x(), point.y());
+void Renderer::drawPoint(const Vec2f& point, const Mat3f& transform) {
+    const Vec2f p = transform.transformPoint(point);
+    SDL_RenderDrawPoint(renderer, p.x(), p.y());
 }
 
-void Renderer::drawPoints(const std::vector<Vec2f>& points) {
+void Renderer::drawPoints(const std::vector<Vec2f>& points,
+                          const Mat3f& transform) {
     for (const auto& point : points) {
-        SDL_RenderDrawPoint(renderer, point.x(), point.y());
+        const Vec2f p = transform.transformPoint(point);
+        SDL_RenderDrawPoint(renderer, p.x(), p.y());
     }
 }

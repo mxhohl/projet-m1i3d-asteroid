@@ -9,7 +9,9 @@ extern "C" {
 #include <SDL.h>
 };
 
-class Game : public Subject<Renderer> {
+class Game : public Subject<Renderer>,
+             public Subject<KeyboardEventData>,
+             public Subject<double> {
 public:
     Game();
     Game(const Game& copy) = delete;

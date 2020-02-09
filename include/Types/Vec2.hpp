@@ -51,6 +51,18 @@ public:
         return sqrt(sqrLength());
     }
 
+    void normalize() {
+        const auto len = length();
+        data[0] /= len;
+        data[1] /= len;
+    }
+
+    Vec2<T> normalized() const {
+        Vec2 vec(*this);
+        vec.normalize();
+        return vec;
+    }
+
     T& operator[](size_t i) {
         return data[i];
     }
@@ -59,58 +71,63 @@ public:
         return data[i];
     }
 
+    friend std::ostream& operator<< (std::ostream& s, const Vec2<T>& v) {
+        s << std::string("(") << v.data[0] << ", " << v.data[1] << ")";
+        return s;
+    }
+
     friend Vec2<T> operator+(const Vec2<T>& right) {
-        return {
+        return Vec2(
             +right.data[0],
             +right.data[1]
-        };
+        );
     }
 
     friend Vec2<T> operator-(const Vec2<T>& right) {
-        return {
+        return Vec2(
                 -right.data[0],
                 -right.data[1]
-        };
+        );
     }
 
     template <class U>
     friend auto operator+(const Vec2<T>& left, const Vec2<U>& right) {
-        return Vec2 {
+        return Vec2(
             left.data[0] + right.data[0],
             left.data[1] + right.data[1]
-        };
+        );
     }
 
     template <class U>
     friend auto operator-(const Vec2<T>& left, const Vec2<U>& right) {
-        return Vec2 {
+        returnVec2(
                 left.data[0] - right.data[0],
                 left.data[1] - right.data[1]
-        };
+        );
     }
 
     template <class U>
     friend auto operator*(const Vec2<T>& left, U right) {
-        return Vec2 {
+        return Vec2(
                 left.data[0] * right,
                 left.data[1] * right
-        };
+        );
     }
 
     template <class U>
     friend auto operator*(U left, const Vec2<T>& right) {
-        return Vec2 {
+        return Vec2(
                 left * right.data[0],
                 left * right.data[1]
-        };
+        );
     }
 
     template <class U>
     friend auto operator/(const Vec2<T>& left, U right) {
-        return Vec2 {
+        return Vec2(
                 left.data[0] / right,
                 left.data[1] / right
-        };
+        );
     }
 
     template <class U>
@@ -148,6 +165,7 @@ public:
         return left.data[0] != right.data[0]
             || left.data[1] != right.data[1];
     }
+
 
 private:
     std::array<T, 2> data;
