@@ -1,4 +1,4 @@
-#include "Player.hpp"
+#include "Entities/Player.hpp"
 
 Player::Player() {
     polygon = {

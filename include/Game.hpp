@@ -3,7 +3,8 @@
 
 #include "Rendering/Renderer.hpp"
 #include "Observer/Subject.hpp"
-#include "Player.hpp"
+#include "Entities/Player.hpp"
+#include "Entities/Asteroids.hpp"
 
 extern "C" {
 #include <SDL.h>
@@ -35,6 +36,7 @@ private:
 
 private:
     std::shared_ptr<Player> player;
+    std::shared_ptr<Asteroids> asteroids;
 };
 
 #endif // GAME_HPP

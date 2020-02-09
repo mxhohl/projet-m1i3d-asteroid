@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 project(ProjetProgAvancee)
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 add_subdirectory(external/SDL2-2.0.10)
 
@@ -16,14 +16,19 @@ set(SRC
         include/Types/Vec2.hpp
         include/Types/Color.hpp
         src/Types/Color.cpp
-        include/Player.hpp
-        src/Player.cpp
+        include/Entities/Player.hpp
+        src/Entities/Player.cpp
         include/Rendering/Polygon.hpp
         src/Rendering/Polygon.cpp
         include/Observer/KeyboardEventData.hpp
         include/Transformable.hpp
         src/Transformable.cpp
-        include/Types/Mat3.hpp)
+        include/Types/Mat3.hpp
+        include/Entities/Asteroids.hpp
+        src/Entities/Asteroids.cpp
+        include/Entities/Asteroid.hpp
+        src/Entities/Asteroid.cpp
+        include/Settings.hpp)
 
 add_executable(${TARGET} ${SRC})
 target_include_directories(${TARGET} PRIVATE include)

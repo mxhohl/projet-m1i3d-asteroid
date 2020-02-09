@@ -1,5 +1,7 @@
 #include "Game.hpp"
 
+#include "Settings.hpp"
+
 #include <iostream>
 
 Game::Game() : ok(true), quit(false) {
@@ -11,10 +13,13 @@ Game::Game() : ok(true), quit(false) {
         return;
 	}
 
+    Settings& settings = Settings::getInstance();
+
     window = SDL_CreateWindow(
         "Maxime Hohl's Asteroid Game", 
         SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 
-        1280, 720,
+        settings.getParameter<int>("window_width"),
+        settings.getParameter<int>("window_height"),
         SDL_WINDOW_SHOWN
     );
     if (!window){
@@ -36,6 +41,10 @@ Game::Game() : ok(true), quit(false) {
     this->Subject<Renderer>::addObserver(player);
     this->Subject<KeyboardEventData>::addObserver(player);
     this->Subject<double>::addObserver(player);
+
+    asteroids = std::make_shared<Asteroids>(10);
+    this->Subject<Renderer>::addObserver(asteroids);
+    this->Subject<double>::addObserver(asteroids);
 }
 
 Game::~Game() {
