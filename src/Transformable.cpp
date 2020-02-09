@@ -1,6 +1,5 @@
+#include "Settings.hpp"
 #include "Transformable.hpp"
-
-#include <cmath>
 
 Transformable::Transformable() : position{0, 0}, rotation(0), scale{1, 1} {
 
@@ -11,11 +10,30 @@ const Vec2f& Transformable::getPosition() const {
 }
 
 void Transformable::setPosition(const Vec2f& pos) {
-    position = pos;
+    float posX = pos.x();
+    float posY = pos.y();
+
+    auto& settings = Settings::getInstance();
+    const float width = settings.getParameter<int>("window_width");
+    const float height = settings.getParameter<int>("window_height");
+
+    if (posX < 0) {
+        posX += width;
+    } else if (posX > width) {
+        posX -= width;
+    }
+
+    if (posY < 0) {
+        posY += height;
+    } else if (posY > height) {
+        posY -= height;
+    }
+
+    position = Vec2f(posX, posY);
 }
 
 void Transformable::move(const Vec2f &offset) {
-    position += offset;
+    setPosition(position + offset);
 }
 
 float Transformable::getRotation() const {
