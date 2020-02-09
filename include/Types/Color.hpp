@@ -23,28 +23,28 @@ public:
         return *this;
     }
 
-    uint8_t r() const {
+    [[nodiscard]] uint8_t r() const {
         return data[0];
     }
     void r(uint8_t r) {
         data[0] = r;
     }
 
-    uint8_t g() const {
+    [[nodiscard]] uint8_t g() const {
         return data[1];
     }
     void g(uint8_t g) {
         data[1] = g;
     }
 
-    uint8_t b() const {
+    [[nodiscard]] uint8_t b() const {
         return data[2];
     }
     void b(uint8_t b) {
         data[2] = b;
     }
 
-    uint8_t a() const {
+    [[nodiscard]] uint8_t a() const {
         return data[3];
     }
     void a(uint8_t a) {

@@ -18,7 +18,7 @@ public:
     explicit Renderer(SDL_Window* window);
 
     void create(SDL_Window* window);
-    bool isOk() const;
+    [[nodiscard]] bool isOk() const;
 
     void setDrawColor(const Color& color);
     void clear(const Color& color = {0, 0, 0, 255});

@@ -13,21 +13,21 @@ private:
 public:
     Transformable();
 
-    const Vec2f& getPosition() const;
+    [[nodiscard]] const Vec2f& getPosition() const;
     void setPosition(const Vec2f& pos);
     void move(const Vec2f& offset);
 
-    float getRotation() const;
+    [[nodiscard]] float getRotation() const;
     void setRotation(float rot);
     void setRotationDeg(float rot);
     void rotate(float rot);
     void rotateDeg(float rot);
 
-    const Vec2f& getScale() const;
+    [[nodiscard]] const Vec2f& getScale() const;
     void setScale(const Vec2f& s);
     void setScale(float s);
 
-    Mat3f getTransformMatrix() const;
+    [[nodiscard]] Mat3f getTransformMatrix() const;
 
 private:
     Vec2f position;

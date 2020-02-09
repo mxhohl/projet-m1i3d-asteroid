@@ -114,7 +114,7 @@ public:
         return mat;
     }
 
-    Vec2f transformPoint(const Vec2f& point) const {
+    [[nodiscard]] Vec2f transformPoint(const Vec2f& point) const {
         float x = point.x() * data[0] + point.y() * data[3] + data[6];
         float y = point.x() * data[1] + point.y() * data[4] + data[7];
         float w = point.x() * data[2] + point.y() * data[5] + data[8];

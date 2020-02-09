@@ -22,7 +22,7 @@ public:
 
     int run();
 
-    bool isOk() const;
+    [[nodiscard]] bool isOk() const;
 
 private:
     void handleEvents();

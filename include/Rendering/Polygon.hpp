@@ -14,7 +14,7 @@ public:
     void addPoint(Vec2f point);
     void removePoint(size_t i);
 
-    size_t pointsCount() const;
+    [[nodiscard]] size_t pointsCount() const;
 
     Vec2f& operator[](size_t i);
     const Vec2f& operator[](size_t i) const;
