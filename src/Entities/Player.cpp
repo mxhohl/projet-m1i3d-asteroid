@@ -37,7 +37,7 @@ void Player::update(Renderer& renderer) {
     renderer.setDrawColor({0, 0, 255, 255});
     renderer.draw(
             getPosition(),
-            getPosition() + forward * 20.,
+            getPosition() + forward * ACCELERATION_FACTOR,
             Mat3f::identity()
     );
 #endif
