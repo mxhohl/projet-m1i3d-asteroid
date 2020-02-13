@@ -31,7 +31,6 @@ public:
     void draw(const Vec2f& point,
               const Mat3f& transform = Mat3f::identity());
     void draw(const RectF& rect,
-              bool fill,
               const Mat3f& transform = Mat3f::identity());
 
 private:

@@ -78,17 +78,22 @@ void Renderer::draw(const Vec2f& point, const Mat3f& transform) {
     SDL_RenderDrawPoint(renderer, p.x(), p.y());
 }
 
-void Renderer::draw(const RectF& rect, bool fill, const Mat3f& transform) {
-    SDL_FRect sdlRect = {
-            rect.x(),
-            rect.y(),
-            rect.width(),
-            rect.height()
-    };
+void Renderer::draw(const RectF& rect, const Mat3f& transform) {
+    const Vec2f tl = transform.transformPoint(
+            rect.position()
+    );
+    const Vec2f tr = transform.transformPoint(
+            rect.position() + Vec2f(rect.width(), 0)
+    );
+    const Vec2f br = transform.transformPoint(
+            rect.position() + rect.size()
+    );
+    const Vec2f bl = transform.transformPoint(
+            rect.position() + Vec2f(0, rect.height())
+    );
 
-    if (fill) {
-        SDL_RenderDrawRectF(renderer, &sdlRect);
-    } else {
-        SDL_RenderFillRectF(renderer, &sdlRect);
-    }
+    draw(tl, tr, transform);
+    draw(tr, br, transform);
+    draw(br, bl, transform);
+    draw(bl, tl, transform);
 }

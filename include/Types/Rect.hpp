@@ -9,21 +9,24 @@ public:
     Rect() : Rect(0, 0, 0, 0) {}
     Rect(T x, T y, T w, T h) : Rect({x, y}, {w, h}) {}
     Rect(const Vec2<T>& pos, const Vec2<T>& size) :
-        Rect(pos, size.x(), size.y()) {}
-    Rect(const Vec2<T>& pos, T w, T h) : pos(pos), w(w), h(h) {}
+            pos(pos), wh(size) {}
 
-    const Vec2<T>& position() { return pos; }
-    const Vec2<T>& size() { return {w, h}; }
+    const Vec2<T>& position() const { return pos; }
+    const Vec2<T>& size() const { return wh; }
 
     T x() const { return pos.x(); }
     T y() const { return pos.y(); }
-    T width() const { return w; }
-    T height() const { return h; }
+    T width() const { return wh.x(); }
+    T height() const { return wh.y(); }
+
+    void x(const T& x) { pos.x(x); }
+    void y(const T& y) { pos.y(y); }
+    void width(const T& width) { wh.x(width); }
+    void height(const T& height) { wh.y(height); }
 
 private:
     Vec2<T> pos;
-    T w;
-    T h;
+    Vec2<T> wh;
 };
 
 using RectF = Rect<float>;
