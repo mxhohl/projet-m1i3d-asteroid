@@ -38,13 +38,13 @@ Game::Game() : ok(true), quit(false) {
     }
 
     player = std::make_shared<Player>();
-    this->Subject<Renderer>::addObserver(player);
-    this->Subject<KeyboardEventData>::addObserver(player);
-    this->Subject<double>::addObserver(player);
+    this->RenderingHandler::addObserver(player);
+    this->KeyboardHandler::addObserver(player);
+    this->UpdateHandler::addObserver(player);
 
     asteroids = std::make_shared<Asteroids>(10);
-    this->Subject<Renderer>::addObserver(asteroids);
-    this->Subject<double>::addObserver(asteroids);
+    this->RenderingHandler::addObserver(asteroids);
+    this->UpdateHandler::addObserver(asteroids);
 }
 
 Game::~Game() {

@@ -8,8 +8,8 @@
 
 #include <vector>
 
-class Asteroids : public Observer<Renderer>,
-                  public Observer<double> {
+class Asteroids : public Renderable,
+                  public Updatable {
 public:
     Asteroids();
     explicit Asteroids(size_t count);

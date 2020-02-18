@@ -6,9 +6,9 @@
 #include "Rendering/Renderer.hpp"
 #include "Transformable.hpp"
 
-class Player : public Observer<Renderer>,
-               public Observer<KeyboardEventData>,
-               public Observer<double>,
+class Player : public Renderable,
+               public KeyboardListener,
+               public Updatable,
                Transformable {
 private:
     static constexpr float ROTATION_SPEED = 4.;

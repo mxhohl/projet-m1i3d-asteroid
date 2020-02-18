@@ -30,7 +30,10 @@ protected:
 
 private:
     std::vector<std::shared_ptr<Observer<T>>> observers;
-
 };
+
+using RenderingHandler = Subject<Renderer>;
+using KeyboardHandler = Subject<KeyboardEventData>;
+using UpdateHandler = Subject<double>;
 
 #endif // SUBJECT_HPP
