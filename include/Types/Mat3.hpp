@@ -2,6 +2,7 @@
 #define PROJETPROGAVANCEE_MAT3_HPP
 
 #include <array>
+#include <cmath>
 #include "Vec2.hpp"
 
 template <class T>
@@ -45,24 +46,24 @@ public:
                     0, 0, 1);
     }
 
-    static Mat3<T> translation(const Vec2<T>& translation) {
-        return Mat3f(1, 0, 0,
-                     0, 1, 0,
-                     translation.x(), translation.y(), 1);
+    static Mat3<float> translation(const Vec2<T>& translation) {
+        return Mat3(1, 0, 0,
+                    0, 1, 0,
+                    translation.x(), translation.y(), 1);
     }
 
-    static Mat3<T> scale(const Vec2<T>& scale) {
-        return Mat3f(scale.x(), 0, 0,
-                     0, scale.y(), 0,
-                     0, 0, 1);
+    static Mat3<float> scale(const Vec2<T>& scale) {
+        return Mat3(scale.x(), 0, 0,
+                    0, scale.y(), 0,
+                    0, 0, 1);
     }
 
-    static Mat3<T> rotation(float rotation) {
+    static Mat3<float> rotation(float rotation) {
         const float cos = std::cos(rotation);
         const float sin = std::sin(rotation);
-        return Mat3f(cos, sin, 0,
-                     -sin, cos, 0,
-                     0, 0, 1);
+        return Mat3(cos, sin, 0,
+                    -sin, cos, 0,
+                    0, 0, 1);
     }
 
     void transpose() {

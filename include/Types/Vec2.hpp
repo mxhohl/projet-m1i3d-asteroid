@@ -2,6 +2,7 @@
 #define VEC2_HPP
 
 #include <array>
+#include <cmath>
 
 template<class T>
 class Vec2 {
