@@ -20,6 +20,8 @@ void PhysicEngine::update(Renderer& rend) {
     for (auto& entityPoly : entities) {
         rend.draw(entityPoly.second, entityPoly.first->getTransformMatrix());
     }
+#else
+    (void)rend;
 #endif
 }
 
@@ -64,7 +66,7 @@ void quickHull(const std::vector<Vec2f>& points,
                std::vector<Vec2f>& result) {
     int maxDistInd = -1;
     float maxDist = 0;
-    for (int i = 0; i < points.size(); ++i) {
+    for (size_t i = 0; i < points.size(); ++i) {
         const float dist = sidedDist(a, b, points[i]);
         if (getSign(dist) == side && std::abs(dist) > maxDist) {
             maxDistInd = i;

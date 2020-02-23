@@ -1,8 +1,7 @@
 #include "Rendering/Polygon.hpp"
 
 #include <utility>
-#include <iostream>
-
+#include <algorithm>
 
 Polygon::Polygon() = default;
 

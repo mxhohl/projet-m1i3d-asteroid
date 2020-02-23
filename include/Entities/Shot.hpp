@@ -1,6 +1,7 @@
 #ifndef PROJETPROGAVANCEE_SHOT_HPP
 #define PROJETPROGAVANCEE_SHOT_HPP
 
+#include "Settings.hpp"
 #include "Types/Vec2.hpp"
 
 struct Shot {
