@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.10)
 project(ProjetProgAvancee)
 set(CMAKE_CXX_STANDARD 17)
 
+option(ASTEROID_VISUAL_DEBUG "Enable Visual Debug mode" off)
+
 add_subdirectory(external/SDL2-2.0.10)
 
 set(TARGET asteroids)
@@ -28,12 +30,18 @@ set(SRC
         src/Entities/Asteroids.cpp
         include/Entities/Asteroid.hpp
         src/Entities/Asteroid.cpp
-        include/Settings.hpp include/Types/Rect.hpp)
+        include/Settings.hpp
+        include/Types/Rect.hpp
+        include/Physic/PhysicEngine.hpp
+        include/Physic/PhysicEntity.hpp
+        src/Physic/PhysicEntity.cpp
+        src/Physic/PhysicEngine.cpp
+        include/Entities/Shot.hpp)
 
 add_executable(${TARGET} ${SRC})
 target_include_directories(${TARGET} PRIVATE include)
 
-if(CMAKE_BUILD_TYPE MATCHES Debug)
+if(ASTEROID_VISUAL_DEBUG)
     target_compile_definitions(${TARGET} PRIVATE -DDEBUG)
 endif()
 

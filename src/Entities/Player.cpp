@@ -1,6 +1,10 @@
 #include "Entities/Player.hpp"
 
-Player::Player() {
+#include <iostream>
+
+Player::Player(const std::shared_ptr<PhysicEngine>& physicEngine) :
+        shooting(false),
+        shootTimer(SHOOT_RATE) {
     polygon = {
             {0, -2},
             {2, 2},
@@ -13,16 +17,23 @@ Player::Player() {
 
     forward = {0, -1};
 
+    shots = std::make_shared<std::vector<Shot>>();
+    physicEngine->setShots(shots);
+
+    rotationDir = 0;
+
     accelerating = false;
     acceleration = Vec2f(0);
     speed = {0, 0};
-
-    rotationDir = 0;
 }
 
 void Player::update(Renderer& renderer) {
     renderer.setDrawColor({255, 255, 255, 255});
     renderer.draw(polygon, getTransformMatrix());
+
+    for (auto& shot : *shots) {
+        renderer.draw(shot.position);
+    }
 
 #ifdef DEBUG
     if (speed.sqrLength() > 0) {
@@ -59,17 +70,46 @@ void Player::update(KeyboardEventData& data) {
             rotationDir = 0;
         }
     } else if (data.keycode == SDLK_SPACE) {
-        /* TODO */
+        shooting = data.type == KeyboardEventData::Press;
+        if (!shooting) {
+            shootTimer = SHOOT_RATE;
+        }
     }
 }
 
-void Player::update(double &deltaTime) {
-    rotate(ROTATION_SPEED * float(rotationDir) * float(deltaTime));
+void Player::update(double &dt) {
+    if (shooting) {
+        shootTimer += dt;
+
+        if (shootTimer > SHOOT_RATE) {
+            Vec2f bulletPos = Mat3<float>::rotation(
+                    getRotation()).transformPoint({0, -12}
+            );
+            shots->push_back({
+                getPosition() + bulletPos,
+                forward * BULLET_SPEED
+            });
+
+            shootTimer -= SHOOT_RATE;
+        }
+    }
+
+    auto it = shots->begin();
+    while (it != shots->end()) {
+        if (it->update(dt)) {
+            it = shots->erase(it);
+        } else {
+            ++it;
+        }
+    }
+
+    rotate(ROTATION_SPEED * float(rotationDir) * float(dt));
     forward = Mat3f::rotation(getRotation()).transformPoint({0, -1});
 
+    /* TEMPORARY CODE */
     if (accelerating) {
         acceleration = forward * ACCELERATION_FACTOR;
-        speed += acceleration * deltaTime;
+        speed += acceleration * dt;
 
         if (speed.sqrLength() > MAX_SPEED * MAX_SPEED) {
             speed.normalize();
@@ -79,12 +119,12 @@ void Player::update(double &deltaTime) {
         if (speed.sqrLength() > 0) {
             const auto normalised = speed.normalized();
             speed += (normalised
-                    * NATURAL_ACCELERATION_FACTOR
-                    * deltaTime);
+                      * NATURAL_ACCELERATION_FACTOR
+                      * dt);
             if (speed.normalized() != normalised) {
                 speed = Vec2f(0);
             }
         }
     }
-    move(speed * deltaTime);
+    move(speed * dt);
 }

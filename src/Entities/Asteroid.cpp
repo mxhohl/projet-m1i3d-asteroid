@@ -1,13 +1,21 @@
+#include <iostream>
 #include "Entities/Asteroid.hpp"
 
 #include "Settings.hpp"
 
-Asteroid::Asteroid() : Asteroid(Vec2f(0)) {}
+Asteroid::Asteroid() : rotation_speed(0) {};
 
-Asteroid::Asteroid(Vec2f speed) : speed(std::move(speed)) {}
+void Asteroid::onCollide(PhysicEngine::CollisionType collisionType) {
+    if (collisionType == PhysicEngine::CollisionType::WithAsteroid) {
+        // TODO: destruct this asteroid
+        std::cout << "COLLIDE" << std::endl;
+    }
+}
 
 Asteroid Asteroid::random() {
-    static std::default_random_engine generator;
+    static std::default_random_engine generator(
+            Settings::getInstance().getParameter<unsigned int>("seed")
+    );
 
     static std::uniform_real_distribution<float> speed_dist(-50, 50);
     static std::uniform_real_distribution<float> rotation_spd_dist(-0.5, 0.5);
@@ -24,7 +32,7 @@ Asteroid Asteroid::random() {
     static std::uniform_real_distribution<float> scale_dist(10, 20);
 
     Asteroid asteroid;
-    asteroid.speed = {speed_dist(generator), speed_dist(generator)};
+    asteroid.setSpeed({speed_dist(generator), speed_dist(generator)});
     asteroid.rotation_speed = rotation_spd_dist(generator);
     asteroid.setPosition(Vec2f(posX_dist(generator), posY_dist(generator)));
     asteroid.setRotationDeg(rotation_dist(generator));
@@ -37,12 +45,12 @@ Asteroid Asteroid::random() {
             255
     };
 
-    asteroid.generateShape(generator);
+    asteroid.generatePolygon(generator);
 
     return asteroid;
 }
 
-void Asteroid::generateShape(std::default_random_engine generator) {
+void Asteroid::generatePolygon(std::default_random_engine generator) {
     static std::uniform_real_distribution<float> displacement_dist(-0.3, 0.3);
 
     constexpr int points_count = 7;
@@ -58,4 +66,16 @@ void Asteroid::generateShape(std::default_random_engine generator) {
         vec = rotation.transformPoint(vec);
     }
 
+}
+
+Polygon Asteroid::getPolygon() const {
+    return polygon;
+}
+
+const Color& Asteroid::getColor() const {
+    return color;
+}
+
+void Asteroid::setColor(const Color& col) {
+    color = col;
 }

@@ -37,14 +37,17 @@ Game::Game() : ok(true), quit(false) {
         return;
     }
 
-    player = std::make_shared<Player>();
+    physicEngine = std::make_shared<PhysicEngine>();
+    this->RenderingHandler::addObserver(physicEngine);
+    this->UpdateHandler::addObserver(physicEngine);
+
+    player = std::make_shared<Player>(physicEngine);
     this->RenderingHandler::addObserver(player);
     this->KeyboardHandler::addObserver(player);
     this->UpdateHandler::addObserver(player);
 
-    asteroids = std::make_shared<Asteroids>(10);
+    asteroids = std::make_shared<Asteroids>(10, physicEngine);
     this->RenderingHandler::addObserver(asteroids);
-    this->UpdateHandler::addObserver(asteroids);
 }
 
 Game::~Game() {

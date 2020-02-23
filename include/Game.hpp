@@ -1,6 +1,7 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
+#include "Physic/PhysicEngine.hpp"
 #include "Rendering/Renderer.hpp"
 #include "Observer/Subject.hpp"
 #include "Entities/Player.hpp"
@@ -33,6 +34,7 @@ private:
 
     SDL_Window* window;
     Renderer renderer;
+    std::shared_ptr<PhysicEngine> physicEngine;
 
 private:
     std::shared_ptr<Player> player;

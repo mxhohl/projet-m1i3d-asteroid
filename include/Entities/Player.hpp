@@ -1,10 +1,12 @@
 #ifndef PROJETPROGAVANCEE_PLAYER_HPP
 #define PROJETPROGAVANCEE_PLAYER_HPP
 
+#include "Physic/PhysicEngine.hpp"
 #include "Observer/Observer.hpp"
 #include "Observer/KeyboardEventData.hpp"
 #include "Rendering/Renderer.hpp"
 #include "Transformable.hpp"
+#include "Shot.hpp"
 
 class Player : public Renderable,
                public KeyboardListener,
@@ -15,13 +17,15 @@ private:
     static constexpr float MAX_SPEED = 80.;
     static constexpr float ACCELERATION_FACTOR = 80.;
     static constexpr float NATURAL_ACCELERATION_FACTOR = -10.;
+    static constexpr float BULLET_SPEED = 200.;
+    static constexpr float SHOOT_RATE = 0.5;
 
 public:
-    Player();
+    explicit Player(const std::shared_ptr<PhysicEngine>& physicEngine);
 
     void update(Renderer& renderer) override;
     void update(KeyboardEventData& event) override;
-    void update(double& deltaTime) override;
+    void update(double& dt) override;
 
 private:
     Polygon polygon;
@@ -32,6 +36,10 @@ private:
     Vec2f speed;
 
     int rotationDir;
+
+    bool shooting;
+    double shootTimer;
+    std::shared_ptr<std::vector<Shot>> shots;
 };
 
 #endif //PROJETPROGAVANCEE_PLAYER_HPP

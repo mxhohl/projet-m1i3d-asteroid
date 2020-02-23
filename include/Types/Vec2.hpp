@@ -101,7 +101,7 @@ public:
 
     template <class U>
     friend auto operator-(const Vec2<T>& left, const Vec2<U>& right) {
-        returnVec2(
+        return Vec2(
                 left.data[0] - right.data[0],
                 left.data[1] - right.data[1]
         );

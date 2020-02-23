@@ -17,8 +17,8 @@ public:
 
 public:
     template <class T>
-    const T& getParameter(const std::string& parameter) {
-        return std::get<T>(settings[parameter]);
+    const T& getParameter(const std::string& parameter) const {
+        return std::get<T>(settings.at(parameter));
     }
 
 private:
@@ -29,10 +29,11 @@ private:
     void loadSettings() {
         settings.insert({"window_width", 1280});
         settings.insert({"window_height", 720});
+        settings.insert({"seed", 546687u});
     }
 
 private:
-    std::unordered_map<std::string, std::variant<int>> settings;
+    std::unordered_map<std::string, std::variant<int, unsigned int>> settings;
 };
 
 #endif //PROJETPROGAVANCEE_SETTINGS_HPP
