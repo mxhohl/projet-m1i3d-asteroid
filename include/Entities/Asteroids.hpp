@@ -8,13 +8,15 @@
 
 #include <vector>
 
-class Asteroids : public Renderable {
+class Asteroids : public Renderable,
+                  public Updatable {
 public:
     explicit Asteroids(const std::shared_ptr<PhysicEngine>& physicEngine);
     Asteroids(size_t count,
               const std::shared_ptr<PhysicEngine>& physicEngine);
 
     void update(Renderer& renderer) override;
+    void update(double& t) override;
 
 private:
     std::vector<std::shared_ptr<Asteroid>> asteroids;

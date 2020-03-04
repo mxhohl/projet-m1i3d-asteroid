@@ -3,16 +3,15 @@
 
 #include "Settings.hpp"
 
-Asteroid::Asteroid() : rotation_speed(0) {};
+Asteroid::Asteroid() : rotation_speed(0), size(1), exploding(false) {};
 
 void Asteroid::onCollide(PhysicEngine::CollisionType collisionType) {
+    if (exploding) {
+        return;
+    }
+
     if (collisionType == PhysicEngine::CollisionType::WithShot) {
-        if (size <= 0) {
-            /* TODO: destruct this */
-        } else {
-            /* TODO: explode in multiple smaller */
-        }
-        std::cout << "COLLIDE" << std::endl;
+        exploding = true;
     }
 }
 
@@ -33,7 +32,7 @@ Asteroid Asteroid::random() {
     );
     static std::uniform_real_distribution<float> rotation_dist(0, 360);
     static std::uniform_int_distribution<int> color_dist(0, 5);
-    static std::uniform_real_distribution<float> scale_dist(10, 20);
+    static std::uniform_real_distribution<float> scale_dist(0.8, 1.2);
 
     Asteroid asteroid;
     asteroid.setSpeed({speed_dist(generator), speed_dist(generator)});
@@ -42,7 +41,7 @@ Asteroid Asteroid::random() {
     asteroid.setRotationDeg(rotation_dist(generator));
     asteroid.setScale(scale_dist(generator));
 
-    asteroid.size = 2;
+    asteroid.size = 3;
     asteroid.color = {
             static_cast<uint8_t>(color_dist(generator) * 51),
             static_cast<uint8_t>(color_dist(generator) * 51),
@@ -62,7 +61,7 @@ void Asteroid::setColor(const Color& col) {
 }
 
 float Asteroid::getRadius() const {
-    return size * BASE_RADIUS;
+    return float(size) * BASE_RADIUS;
 }
 
 int Asteroid::getSize() const {
@@ -74,5 +73,5 @@ void Asteroid::setSize(int s) {
 }
 
 Circle Asteroid::getCircle() const {
-    return Circle(getSize());
+    return Circle(static_cast<float>(getRadius()));
 }

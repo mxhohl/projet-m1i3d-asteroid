@@ -9,8 +9,10 @@
 #include <random>
 
 class Asteroid : public PhysicEntity {
+    friend class Asteroids;
+
 private:
-    static constexpr float BASE_RADIUS = 1.f;
+    static constexpr float BASE_RADIUS = 10.f;
 
 public:
     Asteroid();
@@ -21,19 +23,19 @@ public:
     [[nodiscard]] const Color& getColor() const;
     void setColor(const Color& col);
 
-    float getRadius() const;
-    int getSize() const;
+    [[nodiscard]] float getRadius() const;
+    [[nodiscard]] int getSize() const;
     void setSize(int s);
 
-    Circle getCircle() const;
-
-private:
-    void generatePolygon();
+    [[nodiscard]] Circle getCircle() const;
 
 private:
     float rotation_speed;
     int size;
     Color color;
+
+    bool exploding;
+
 };
 
 #endif //PROJETPROGAVANCEE_ASTEROID_HPP

@@ -46,6 +46,7 @@ Game::Game() : ok(true), quit(false) {
     this->UpdateHandler::addObserver(player);
 
     asteroids = std::make_shared<Asteroids>(10, physicEngine);
+    this->UpdateHandler::addObserver(asteroids);
     this->RenderingHandler::addObserver(asteroids);
 }
 

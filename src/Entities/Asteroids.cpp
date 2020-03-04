@@ -31,3 +31,23 @@ void Asteroids::update(Renderer& renderer) {
 #endif
     }
 }
+
+void Asteroids::update([[maybe_unused]] double& t) {
+    for (auto it = asteroids.begin(); it != asteroids.end();) {
+        if ((*it)->exploding) {
+            if ((*it)->size == 1) {
+                it = asteroids.erase(it);
+                continue;
+            } else {
+                // TODO: Spawn between 2 and 4 smaller size asteroids
+
+                // TODO: BEGIN TMP
+                --((*it)->size);
+                (*it)->exploding = false;
+                // END TMP
+            }
+        }
+
+        ++it;
+    }
+}
