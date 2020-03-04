@@ -5,6 +5,7 @@
 #include "Types/Mat3.hpp"
 #include "Types/Color.hpp"
 #include "Types/Rect.hpp"
+#include "Types/Circle.hpp"
 #include "Polygon.hpp"
 
 #include <vector>
@@ -31,6 +32,8 @@ public:
     void draw(const Vec2f& point,
               const Mat3f& transform = Mat3f::identity());
     void draw(const RectF& rect,
+              const Mat3f& transform = Mat3f::identity());
+    void draw(const Circle& circle,
               const Mat3f& transform = Mat3f::identity());
 
 private:

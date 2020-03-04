@@ -12,7 +12,9 @@ Asteroids::Asteroids(size_t count,
 
     for (size_t i = 0; i < count; ++i) {
         auto asteroid = std::make_shared<Asteroid>(Asteroid::random());
-        physicEngine->addEntity(asteroid, asteroid->getPolygon());
+        auto circle = asteroid->getCircle();
+        circle.setRadius(circle.getRadius() * asteroid->getScale().x());
+        physicEngine->addEntity(asteroid, circle);
         asteroids.push_back(asteroid);
     }
 }
@@ -20,7 +22,7 @@ Asteroids::Asteroids(size_t count,
 void Asteroids::update(Renderer& renderer) {
     for (auto& asteroid : asteroids) {
         renderer.setDrawColor(asteroid->getColor());
-        renderer.draw(asteroid->getPolygon(), asteroid->getTransformMatrix());
+        renderer.draw(asteroid->getCircle(), asteroid->getTransformMatrix());
 
 #ifdef DEBUG
         renderer.setDrawColor({255, 0, 0, 255});

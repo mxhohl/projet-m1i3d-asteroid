@@ -106,3 +106,7 @@ void Renderer::draw(const RectF& rect, const Mat3f& transform) {
     draw(br, bl, transform);
     draw(bl, tl, transform);
 }
+
+void Renderer::draw(const Circle& circle, const Mat3f& transform) {
+    draw(circle.getPolygon(), transform);
+}

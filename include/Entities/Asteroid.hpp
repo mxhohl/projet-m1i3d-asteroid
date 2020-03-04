@@ -9,21 +9,30 @@
 #include <random>
 
 class Asteroid : public PhysicEntity {
+private:
+    static constexpr float BASE_RADIUS = 1.f;
+
 public:
     Asteroid();
     static Asteroid random();
 
     void onCollide(PhysicEngine::CollisionType collisionType) override;
 
-    void generatePolygon(std::default_random_engine generator);
-    [[nodiscard]] Polygon getPolygon() const;
-
     [[nodiscard]] const Color& getColor() const;
     void setColor(const Color& col);
 
+    float getRadius() const;
+    int getSize() const;
+    void setSize(int s);
+
+    Circle getCircle() const;
+
+private:
+    void generatePolygon();
+
 private:
     float rotation_speed;
-    Polygon polygon;
+    int size;
     Color color;
 };
 

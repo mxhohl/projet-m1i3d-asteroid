@@ -6,8 +6,12 @@
 Asteroid::Asteroid() : rotation_speed(0) {};
 
 void Asteroid::onCollide(PhysicEngine::CollisionType collisionType) {
-    if (collisionType == PhysicEngine::CollisionType::WithAsteroid) {
-        // TODO: destruct this asteroid
+    if (collisionType == PhysicEngine::CollisionType::WithShot) {
+        if (size <= 0) {
+            /* TODO: destruct this */
+        } else {
+            /* TODO: explode in multiple smaller */
+        }
         std::cout << "COLLIDE" << std::endl;
     }
 }
@@ -38,6 +42,7 @@ Asteroid Asteroid::random() {
     asteroid.setRotationDeg(rotation_dist(generator));
     asteroid.setScale(scale_dist(generator));
 
+    asteroid.size = 2;
     asteroid.color = {
             static_cast<uint8_t>(color_dist(generator) * 51),
             static_cast<uint8_t>(color_dist(generator) * 51),
@@ -45,31 +50,7 @@ Asteroid Asteroid::random() {
             255
     };
 
-    asteroid.generatePolygon(generator);
-
     return asteroid;
-}
-
-void Asteroid::generatePolygon(std::default_random_engine generator) {
-    static std::uniform_real_distribution<float> displacement_dist(-0.3, 0.3);
-
-    constexpr int points_count = 7;
-
-    Vec2f vec = {1, 0, 0};
-    auto rotation = Mat3f::rotation(M_PI * 2.0 / float(points_count));
-
-    for (int i = 0; i < points_count; ++i) {
-        polygon.addPoint(
-                vec + Vec2f{displacement_dist(generator),
-                            displacement_dist(generator)}
-        );
-        vec = rotation.transformPoint(vec);
-    }
-
-}
-
-Polygon Asteroid::getPolygon() const {
-    return polygon;
 }
 
 const Color& Asteroid::getColor() const {
@@ -78,4 +59,20 @@ const Color& Asteroid::getColor() const {
 
 void Asteroid::setColor(const Color& col) {
     color = col;
+}
+
+float Asteroid::getRadius() const {
+    return size * BASE_RADIUS;
+}
+
+int Asteroid::getSize() const {
+    return size;
+}
+
+void Asteroid::setSize(int s) {
+    size = s;
+}
+
+Circle Asteroid::getCircle() const {
+    return Circle(getSize());
 }

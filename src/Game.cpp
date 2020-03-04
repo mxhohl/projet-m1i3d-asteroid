@@ -38,7 +38,6 @@ Game::Game() : ok(true), quit(false) {
     }
 
     physicEngine = std::make_shared<PhysicEngine>();
-    this->RenderingHandler::addObserver(physicEngine);
     this->UpdateHandler::addObserver(physicEngine);
 
     player = std::make_shared<Player>(physicEngine);
@@ -99,7 +98,7 @@ void Game::handleEvents() {
 		                event.key.keysym.scancode,
 		                event.key.keysym.sym
                 );
-		        this->Subject<KeyboardEventData>::notify(data);
+		        this->KeyboardHandler::notify(data);
 		        break;
 		}
 
