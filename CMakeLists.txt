@@ -36,7 +36,8 @@ set(SRC
         include/Physic/PhysicEntity.hpp
         src/Physic/PhysicEntity.cpp
         src/Physic/PhysicEngine.cpp
-        include/Entities/Shot.hpp)
+        include/Entities/Shot.hpp
+        include/Utils.hpp)
 
 add_executable(${TARGET} ${SRC})
 target_include_directories(${TARGET} PRIVATE include)

@@ -3,12 +3,14 @@
 
 #include "Rendering/Polygon.hpp"
 #include "Types/Mat3.hpp"
+#include "Utils.hpp"
 
 #include <optional>
+#include <string>
 
 class Circle {
 public:
-    Circle(float radius) : radius(radius) {}
+    explicit Circle(float radius) : radius(radius) {}
 
     friend std::ostream& operator<<(std::ostream& s, const Circle& circle) {
         s << std::string("Circle(") 

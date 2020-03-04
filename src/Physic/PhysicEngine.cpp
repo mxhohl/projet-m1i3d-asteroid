@@ -24,15 +24,23 @@ void PhysicEngine::setShots(const std::shared_ptr<std::vector<Shot>>& sht) {
 }
 
 void PhysicEngine::handleShotsCollisions() {
-    for (auto it = shots->begin(); it != shots->end(); ++it) {
+    bool hit = false;
+    for (auto it = shots->begin(); it != shots->end();) {
         for (auto& entityPoly : entities) {
             if (isPointInCircle(it->position, 
                                 entityPoly.first->getPosition(), 
                                 entityPoly.second)) {
                 entityPoly.first->onCollide(CollisionType::WithShot);
-                /* TODO: peut-être bogué */
-                shots->erase(it);
+                hit = true;
+                break;
             }
+        }
+
+        if (hit) {
+            it = shots->erase(it);
+            hit = false;
+        } else {
+            ++it;
         }
     }
 }
