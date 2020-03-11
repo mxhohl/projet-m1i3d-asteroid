@@ -91,6 +91,8 @@ void Player::update(double &dt) {
         }
     } else if (shootTimer > SHOOT_RATE) {
         shootTimer = SHOOT_RATE;
+    } else if (shootTimer != SHOOT_RATE) {
+        shootTimer += dt;
     }
 
     auto it = shots->begin();
@@ -105,7 +107,6 @@ void Player::update(double &dt) {
     rotate(ROTATION_SPEED * float(rotationDir) * float(dt));
     forward = Mat3f::rotation(getRotation()).transformPoint({0, -1});
 
-    /* TEMPORARY CODE */
     if (accelerating) {
         acceleration = forward * ACCELERATION_FACTOR;
         speed += acceleration * dt;
@@ -120,9 +121,6 @@ void Player::update(double &dt) {
             speed += (normalised
                       * NATURAL_ACCELERATION_FACTOR
                       * dt);
-            if (speed.normalized() != normalised) {
-                speed = Vec2f(0);
-            }
         }
     }
     move(speed * dt);

@@ -14,9 +14,9 @@ class Player : public Renderable,
                Transformable {
 private:
     static constexpr float ROTATION_SPEED = 4.;
-    static constexpr float MAX_SPEED = 80.;
+    static constexpr float MAX_SPEED = 90.;
     static constexpr float ACCELERATION_FACTOR = 80.;
-    static constexpr float NATURAL_ACCELERATION_FACTOR = -10.;
+    static constexpr float NATURAL_ACCELERATION_FACTOR = -20.;
     static constexpr float BULLET_SPEED = 200.;
     static constexpr float SHOOT_RATE = 0.5;
 
