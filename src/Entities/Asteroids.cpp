@@ -35,10 +35,7 @@ void Asteroids::update(Renderer& renderer) {
 void Asteroids::update([[maybe_unused]] double& t) {
     for (auto it = asteroids.begin(); it != asteroids.end();) {
         if ((*it)->exploding) {
-            if ((*it)->size == 1) {
-                it = asteroids.erase(it);
-                continue;
-            } else {
+            if ((*it)->size > 1) {
                 Circle circle((*it)->getCircle().getRadius() * 0.8f);
                 const Polygon& points = circle.getPolygon(3);
                 auto transform = (*it)->getTransformMatrix();
@@ -51,11 +48,14 @@ void Asteroids::update([[maybe_unused]] double& t) {
                     newAsteroid->setScale((*it)->getScale());
                     newAsteroid->setRotation((*it)->getRotation());
 
-                    newAsteroid->setPosition(transform.transformPoint(points[i]));
+                    newAsteroid->setPosition(
+                            transform.transformPoint(points[i])
+                    );
 
                     newAsteroid->setSpeed(
                         (*it)->getSpeed() 
                         + (newAsteroid->getPosition() - (*it)->getPosition())
+                        * 2.f
                     );
 
                     auto newAsteroidCircle = newAsteroid->getCircle();
@@ -68,10 +68,10 @@ void Asteroids::update([[maybe_unused]] double& t) {
                 }
 
                 physicEngine->removeEntity(*it);
-                it = asteroids.erase(it);
             }
+            it = asteroids.erase(it);
+        } else {
+            ++it;
         }
-
-        ++it;
     }
 }
