@@ -71,9 +71,6 @@ void Player::update(KeyboardEventData& data) {
         }
     } else if (data.keycode == SDLK_SPACE) {
         shooting = data.type == KeyboardEventData::Press;
-        if (!shooting) {
-            shootTimer = SHOOT_RATE;
-        }
     }
 }
 
@@ -92,6 +89,8 @@ void Player::update(double &dt) {
 
             shootTimer -= SHOOT_RATE;
         }
+    } else if (shootTimer > SHOOT_RATE) {
+        shootTimer = SHOOT_RATE;
     }
 
     auto it = shots->begin();
