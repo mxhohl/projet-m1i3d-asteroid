@@ -39,12 +39,36 @@ void Asteroids::update([[maybe_unused]] double& t) {
                 it = asteroids.erase(it);
                 continue;
             } else {
-                // TODO: Spawn between 2 and 4 smaller size asteroids
+                Circle circle((*it)->getCircle().getRadius() * 0.8f);
+                const Polygon& points = circle.getPolygon(3);
+                auto transform = (*it)->getTransformMatrix();
+                for (int i = 0; i < 3; ++i) {
+                    auto newAsteroid = std::make_shared<Asteroid>();
+                    newAsteroid->size = (*it)->size - 1;
+                    newAsteroid->color = (*it)->color;
+                    newAsteroid->rotation_speed = (*it)->rotation_speed;
+                    
+                    newAsteroid->setScale((*it)->getScale());
+                    newAsteroid->setRotation((*it)->getRotation());
 
-                // TODO: BEGIN TMP
-                --((*it)->size);
-                (*it)->exploding = false;
-                // END TMP
+                    newAsteroid->setPosition(transform.transformPoint(points[i]));
+
+                    newAsteroid->setSpeed(
+                        (*it)->getSpeed() 
+                        + (newAsteroid->getPosition() - (*it)->getPosition())
+                    );
+
+                    auto circle = newAsteroid->getCircle();
+                    circle.setRadius(circle.getRadius() 
+                                     * newAsteroid->getScale().x());
+                    physicEngine->addEntity(newAsteroid, circle);
+
+                    it = asteroids.insert(it, newAsteroid);
+                    ++it;
+                }
+
+                physicEngine->removeEntity(*it);
+                it = asteroids.erase(it);
             }
         }
 

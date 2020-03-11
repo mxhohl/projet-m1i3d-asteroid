@@ -31,9 +31,9 @@ public:
         return radius * radius;
     }
 
-    const Polygon& getPolygon() const {
+    const Polygon& getPolygon(size_t ptCount = 20) const {
         if (!polygon) {
-            generatePolygon(20);
+            generatePolygon(ptCount);
         }
         return polygon.value();
     }

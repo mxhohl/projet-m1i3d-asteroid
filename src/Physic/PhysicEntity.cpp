@@ -45,3 +45,7 @@ float PhysicEntity::getMaxSpeed() const {
 void PhysicEntity::setMaxSpeed(float maxSpd) {
     maxSpeed = maxSpd;
 }
+
+uint32_t PhysicEntity::getUid() const {
+    return uid;
+}

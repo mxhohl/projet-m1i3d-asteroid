@@ -23,6 +23,8 @@ public:
 
     void addEntity(const std::shared_ptr<PhysicEntity>& entity,
                    const Circle& bb);
+    void removeEntity(const std::shared_ptr<PhysicEntity>& entity);
+
     void setShots(const std::shared_ptr<std::vector<Shot>>& sht);
 
 private:
@@ -36,7 +38,7 @@ private:
 private:
     std::vector<std::pair<std::shared_ptr<PhysicEntity>, Circle>> entities;
     std::shared_ptr<std::vector<Shot>> shots;
-
+    uint32_t entityUidCounter;
 };
 
 #endif //PROJETPROGAVANCEE_PHYSICENGINE_HPP

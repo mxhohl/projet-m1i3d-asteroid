@@ -5,6 +5,8 @@
 #include "PhysicEngine.hpp"
 
 class PhysicEntity : public Transformable {
+    friend class PhysicEngine;
+
 public:
     PhysicEntity();
     PhysicEntity(Vec2f  acceleration, Vec2f  speed, float maxSpeed);
@@ -21,11 +23,16 @@ public:
     [[nodiscard]] float getMaxSpeed() const;
     void setMaxSpeed(float maxSpd);
 
+    uint32_t getUid() const;
+
 private:
     Vec2f acceleration;
     Vec2f speed;
 
     float maxSpeed;
+
+private:
+    uint32_t uid;
 };
 
 #endif //PROJETPROGAVANCEE_PHYSICENTITY_HPP

@@ -5,7 +5,7 @@
 #include "Rendering/Renderer.hpp"
 #include "Physic/PhysicEntity.hpp"
 
-PhysicEngine::PhysicEngine() = default;
+PhysicEngine::PhysicEngine() : entityUidCounter(0) {};
 
 void PhysicEngine::update(double& dt) {
     for (auto& entity : entities) {
@@ -16,7 +16,18 @@ void PhysicEngine::update(double& dt) {
 
 void PhysicEngine::addEntity(const std::shared_ptr<PhysicEntity>& entity,
                              const Circle& bb) {
+    entity->uid = entityUidCounter++;
     entities.emplace_back(entity, bb);
+}
+
+void PhysicEngine::removeEntity(const std::shared_ptr<PhysicEntity>& entity) {
+    for (auto it = entities.begin(); it != entities.end();) {
+        if (std::get<0>(*it)->uid == entity->uid) {
+            entities.erase(it);
+        } else {
+            ++it;
+        }
+    }
 }
 
 void PhysicEngine::setShots(const std::shared_ptr<std::vector<Shot>>& sht) {
