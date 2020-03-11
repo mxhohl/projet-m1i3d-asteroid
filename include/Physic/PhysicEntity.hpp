@@ -23,7 +23,7 @@ public:
     [[nodiscard]] float getMaxSpeed() const;
     void setMaxSpeed(float maxSpd);
 
-    uint32_t getUid() const;
+    [[nodiscard]] uint32_t getUid() const;
 
 private:
     Vec2f acceleration;

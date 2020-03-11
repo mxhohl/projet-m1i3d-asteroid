@@ -58,10 +58,10 @@ void Asteroids::update([[maybe_unused]] double& t) {
                         + (newAsteroid->getPosition() - (*it)->getPosition())
                     );
 
-                    auto circle = newAsteroid->getCircle();
-                    circle.setRadius(circle.getRadius() 
-                                     * newAsteroid->getScale().x());
-                    physicEngine->addEntity(newAsteroid, circle);
+                    auto newAsteroidCircle = newAsteroid->getCircle();
+                    newAsteroidCircle.setRadius(newAsteroidCircle.getRadius()
+                                                * newAsteroid->getScale().x());
+                    physicEngine->addEntity(newAsteroid, newAsteroidCircle);
 
                     it = asteroids.insert(it, newAsteroid);
                     ++it;

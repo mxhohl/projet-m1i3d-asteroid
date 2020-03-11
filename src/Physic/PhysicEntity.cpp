@@ -9,7 +9,8 @@ PhysicEntity::PhysicEntity(Vec2f  acceleration,
                            float maxSpeed) :
         acceleration(std::move(acceleration)),
         speed(std::move(speed)),
-        maxSpeed(maxSpeed) {}
+        maxSpeed(maxSpeed),
+        uid(0) {}
 
 void PhysicEntity::physicUpdate(double dt) {
     if (speed.length() < maxSpeed) {

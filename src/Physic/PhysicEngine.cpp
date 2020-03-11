@@ -2,10 +2,9 @@
 
 #include "Physic/PhysicEngine.hpp"
 
-#include "Rendering/Renderer.hpp"
 #include "Physic/PhysicEntity.hpp"
 
-PhysicEngine::PhysicEngine() : entityUidCounter(0) {};
+PhysicEngine::PhysicEngine() : entityUidCounter(0) {}
 
 void PhysicEngine::update(double& dt) {
     for (auto& entity : entities) {
