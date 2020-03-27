@@ -4,7 +4,7 @@
 
 Renderer::Renderer() : renderer(nullptr) {}
 
-Renderer::Renderer(SDL_Window* window) {
+Renderer::Renderer(SDL_Window* window) : renderer(nullptr) {
     create(window);
 }
 
