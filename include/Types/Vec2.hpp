@@ -91,78 +91,67 @@ public:
         );
     }
 
-    template <class U>
-    friend auto operator+(const Vec2<T>& left, const Vec2<U>& right) {
+    friend auto operator+(const Vec2<T>& left, const Vec2<T>& right) {
         return Vec2(
             left.data[0] + right.data[0],
             left.data[1] + right.data[1]
         );
     }
 
-    template <class U>
-    friend auto operator-(const Vec2<T>& left, const Vec2<U>& right) {
+    friend auto operator-(const Vec2<T>& left, const Vec2<T>& right) {
         return Vec2(
                 left.data[0] - right.data[0],
                 left.data[1] - right.data[1]
         );
     }
 
-    template <class U>
-    friend auto operator*(const Vec2<T>& left, U right) {
+    friend auto operator*(const Vec2<T>& left, T right) {
         return Vec2(
                 left.data[0] * right,
                 left.data[1] * right
         );
     }
 
-    template <class U>
-    friend auto operator*(U left, const Vec2<T>& right) {
+    friend auto operator*(T left, const Vec2<T>& right) {
         return Vec2(
                 left * right.data[0],
                 left * right.data[1]
         );
     }
 
-    template <class U>
-    friend auto operator/(const Vec2<T>& left, U right) {
+    friend auto operator/(const Vec2<T>& left, T right) {
         return Vec2(
                 left.data[0] / right,
                 left.data[1] / right
         );
     }
 
-    template <class U>
-    friend auto operator+=(Vec2<T>& left, const Vec2<U>& right) {
+    friend auto operator+=(Vec2<T>& left, const Vec2<T>& right) {
         left.data[0] += right.data[0];
         left.data[1] += right.data[1];
     }
 
-    template <class U>
-    friend auto operator-=(Vec2<T>& left, const Vec2<U>& right) {
+    friend auto operator-=(Vec2<T>& left, const Vec2<T>& right) {
         left.data[0] -= right.data[0];
         left.data[1] -= right.data[1];
     }
 
-    template <class U>
-    friend auto operator*=(Vec2<T>& left, U right) {
+    friend auto operator*=(Vec2<T>& left, T right) {
         left.data[0] *= right;
         left.data[1] *= right;
     }
 
-    template <class U>
-    friend auto operator/=(Vec2<T>& left, U right) {
+    friend auto operator/=(Vec2<T>& left, T right) {
         left.data[0] /= right;
         left.data[1] /= right;
     }
 
-    template <class U>
-    friend auto operator==(const Vec2<T>& left, const Vec2<U>& right) {
+    friend auto operator==(const Vec2<T>& left, const Vec2<T>& right) {
         return left.data[0] == right.data[0]
             && left.data[1] == right.data[1];
     }
 
-    template <class U>
-    friend auto operator!=(const Vec2<T>& left, const Vec2<U>& right) {
+    friend auto operator!=(const Vec2<T>& left, const Vec2<T>& right) {
         return left.data[0] != right.data[0]
             || left.data[1] != right.data[1];
     }
