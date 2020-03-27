@@ -51,6 +51,14 @@ public:
         data[3] = a;
     }
 
+    static Color White() {
+        return {255, 255, 255, 255};
+    }
+
+    static Color Black() {
+        return {0, 0, 0, 255};
+    }
+
 private:
     std::array<uint8_t, 4> data;
 };
