@@ -48,6 +48,11 @@ Game::Game() : ok(true), quit(false) {
     asteroids = std::make_shared<Asteroids>(10, physicEngine);
     this->UpdateHandler::addObserver(asteroids);
     this->RenderingHandler::addObserver(asteroids);
+
+
+    scoreText = std::make_shared<gui::Text>("Score: 0000");
+    scoreText->setPosition({10, 10});
+    scoreText->setScale(0.7);
 }
 
 Game::~Game() {
@@ -66,6 +71,9 @@ int Game::run() {
 
         renderer.clear();
         this->Subject<Renderer>::notify(renderer);
+
+        scoreText->render(renderer);
+
         renderer.present();
 
         Uint32 currentTime = SDL_GetTicks();

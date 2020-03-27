@@ -1,6 +1,7 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
+#include "gui/Text.hpp"
 #include "Physic/PhysicEngine.hpp"
 #include "Rendering/Renderer.hpp"
 #include "Observer/Subject.hpp"
@@ -39,6 +40,7 @@ private:
 private:
     std::shared_ptr<Player> player;
     std::shared_ptr<Asteroids> asteroids;
+    std::shared_ptr<gui::Text> scoreText;
 };
 
 #endif // GAME_HPP
