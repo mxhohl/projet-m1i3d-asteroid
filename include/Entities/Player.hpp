@@ -9,7 +9,7 @@
 #include "Shot.hpp"
 
 class Player : public Renderable,
-               public KeyboardListener,
+               public KeyboardObserver,
                public Updatable,
                Transformable {
 private:

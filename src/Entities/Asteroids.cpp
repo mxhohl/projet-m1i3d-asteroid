@@ -33,8 +33,11 @@ void Asteroids::update(Renderer& renderer) {
 }
 
 void Asteroids::update([[maybe_unused]] double& t) {
+    int scoreDelta = 0;
     for (auto it = asteroids.begin(); it != asteroids.end();) {
         if ((*it)->exploding) {
+            ++scoreDelta;
+
             if ((*it)->size > 1) {
                 Circle circle((*it)->getCircle().getRadius() * 0.8f);
                 const Polygon& points = circle.getPolygon(3);
@@ -73,5 +76,9 @@ void Asteroids::update([[maybe_unused]] double& t) {
         } else {
             ++it;
         }
+    }
+
+    if (scoreDelta > 0) {
+        notify(scoreDelta);
     }
 }

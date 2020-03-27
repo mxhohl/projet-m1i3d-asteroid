@@ -3,13 +3,15 @@
 
 #include "Rendering/Renderer.hpp"
 #include "Observer/Observer.hpp"
+#include "Observer/Subject.hpp"
 #include "Rendering/Polygon.hpp"
 #include "Asteroid.hpp"
 
 #include <vector>
 
 class Asteroids : public Renderable,
-                  public Updatable {
+                  public Updatable,
+                  public ScoreUpdater {
 public:
     explicit Asteroids(const std::shared_ptr<PhysicEngine>& physicEngine);
     Asteroids(size_t count,

@@ -35,5 +35,6 @@ private:
 using RenderingHandler = Subject<Renderer>;
 using KeyboardHandler = Subject<KeyboardEventData>;
 using UpdateHandler = Subject<double>;
+using ScoreUpdater = Subject<int>;
 
 #endif // SUBJECT_HPP

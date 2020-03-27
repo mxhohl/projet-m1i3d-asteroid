@@ -4,8 +4,8 @@
 
 #include <iostream>
 
-Game::Game() : ok(true), quit(false) {
-    if (SDL_Init(SDL_INIT_VIDEO) != 0){
+Game::Game() : ok(true), quit(false), score(0) {
+    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
 		std::cout << "SDL_Init Error: " 
                   << SDL_GetError() 
                   << std::endl;
@@ -37,6 +37,7 @@ Game::Game() : ok(true), quit(false) {
         return;
     }
 
+
     physicEngine = std::make_shared<PhysicEngine>();
     this->UpdateHandler::addObserver(physicEngine);
 
@@ -48,9 +49,10 @@ Game::Game() : ok(true), quit(false) {
     asteroids = std::make_shared<Asteroids>(10, physicEngine);
     this->UpdateHandler::addObserver(asteroids);
     this->RenderingHandler::addObserver(asteroids);
+    asteroids->addObserver(std::shared_ptr<Game>(this));
 
 
-    scoreText = std::make_shared<gui::Text>("Score: 0000");
+    scoreText = std::make_shared<gui::Text>("Score: 00000");
     scoreText->setPosition({10, 10});
     scoreText->setScale(0.7);
 }
@@ -113,4 +115,9 @@ void Game::handleEvents() {
 
 	}
 
+}
+
+void Game::update(int& scoreDelta) {
+    score += scoreDelta;
+    scoreText->setText("Score: " + toStringPrefixed(score));
 }

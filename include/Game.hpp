@@ -14,7 +14,8 @@ extern "C" {
 
 class Game : public RenderingHandler,
              public KeyboardHandler,
-             public UpdateHandler {
+             public UpdateHandler,
+             public ScoreObserver {
 public:
     Game();
     Game(const Game& copy) = delete;
@@ -26,12 +27,16 @@ public:
 
     [[nodiscard]] bool isOk() const;
 
+    void update(int& scoreDelta) override;
+
 private:
     void handleEvents();
 
 private:
     bool ok;
     bool quit;
+
+    int score;
 
     SDL_Window* window;
     Renderer renderer;
