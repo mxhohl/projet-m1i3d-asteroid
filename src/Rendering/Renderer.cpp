@@ -21,6 +21,8 @@ void Renderer::create(SDL_Window *window) {
                   << std::endl;
         return;
     }
+
+    SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 }
 
 bool Renderer::isOk() const {
