@@ -6,7 +6,7 @@
 
 PhysicEngine::PhysicEngine() : entityUidCounter(0) {}
 
-void PhysicEngine::update(double& dt) {
+void PhysicEngine::update(double dt) {
     for (auto& entity : entities) {
         entity.first->physicUpdate(dt);
     }

@@ -24,8 +24,8 @@ public:
     explicit Player(const std::shared_ptr<PhysicEngine>& physicEngine);
 
     void update(Renderer& renderer) override;
-    void update(KeyboardEventData& event) override;
-    void update(double& dt) override;
+    void update(const KeyboardEventData& event) override;
+    void update(double dt) override;
 
 private:
     Polygon polygon;

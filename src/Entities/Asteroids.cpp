@@ -19,6 +19,8 @@ Asteroids::Asteroids(size_t count,
     }
 }
 
+Asteroids::~Asteroids() = default;
+
 void Asteroids::update(Renderer& renderer) {
     for (auto& asteroid : asteroids) {
         renderer.setDrawColor(asteroid->getColor());
@@ -32,7 +34,7 @@ void Asteroids::update(Renderer& renderer) {
     }
 }
 
-void Asteroids::update([[maybe_unused]] double& t) {
+void Asteroids::update([[maybe_unused]] double dt) {
     int scoreDelta = 0;
     for (auto it = asteroids.begin(); it != asteroids.end();) {
         if ((*it)->exploding) {

@@ -16,19 +16,21 @@ extern "C" {
 class Game : public RenderingHandler,
              public KeyboardHandler,
              public UpdateHandler,
-             public ScoreObserver {
+             public ScoreObserver,
+             public std::enable_shared_from_this<Game> {
 public:
     Game();
     Game(const Game& copy) = delete;
     Game(Game&& move) = delete;
 
-    ~Game();
+    ~Game() override;
 
+    bool init();
     int run();
 
     [[nodiscard]] bool isOk() const;
 
-    void update(int& scoreDelta) override;
+    void update(int scoreDelta) override;
 
 private:
     void handleEvents();
@@ -41,12 +43,13 @@ private:
 
     SDL_Window* window;
     Renderer renderer;
-    std::shared_ptr<gui::Gui> gui;
-    std::shared_ptr<PhysicEngine> physicEngine;
 
 private:
     std::shared_ptr<Player> player;
     std::shared_ptr<Asteroids> asteroids;
+    std::shared_ptr<PhysicEngine> physicEngine;
+    std::shared_ptr<gui::Gui> gui;
+
     std::shared_ptr<gui::Text> scoreText;
 };
 

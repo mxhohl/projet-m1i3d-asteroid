@@ -10,6 +10,8 @@
 template<class T>
 class Subject {
 public:
+    virtual ~Subject() = default;
+
     void addObserver(std::shared_ptr<Observer<T>> observer) {
         observers.push_back(observer);
     }
@@ -22,7 +24,7 @@ public:
     }
 
 protected:
-    void notify(T& data) {
+    void notify(T data) {
         for (auto observer : observers) {
             observer->update(data);
         }
@@ -32,8 +34,8 @@ private:
     std::vector<std::shared_ptr<Observer<T>>> observers;
 };
 
-using RenderingHandler = Subject<Renderer>;
-using KeyboardHandler = Subject<KeyboardEventData>;
+using RenderingHandler = Subject<Renderer&>;
+using KeyboardHandler = Subject<const KeyboardEventData&>;
 using UpdateHandler = Subject<double>;
 using ScoreUpdater = Subject<int>;
 

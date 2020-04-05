@@ -4,28 +4,33 @@
 
 #include <iostream>
 
-Game::Game() : ok(true), quit(false), score(0) {
+Game::Game() : ok(false), quit(false), score(0), window(nullptr) {
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-		std::cout << "SDL_Init Error: " 
-                  << SDL_GetError() 
+        std::cout << "SDL_Init Error: "
+                  << SDL_GetError()
                   << std::endl;
-		ok = false;
-        return;
-	}
+        ok = false;
+    }
+}
 
+Game::~Game() {
+	SDL_Quit();
+}
+
+bool Game::init() {
     Settings& settings = Settings::getInstance();
 
     window = SDL_CreateWindow(
-        "Maxime Hohl's Asteroid Game", 
-        SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 
-        settings.getParameter<int>("window_width"),
-        settings.getParameter<int>("window_height"),
-        SDL_WINDOW_SHOWN
+            "Maxime Hohl's Asteroid Game",
+            SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
+            settings.getParameter<int>("window_width"),
+            settings.getParameter<int>("window_height"),
+            SDL_WINDOW_SHOWN
     );
     if (!window){
         std::cout << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
         ok = false;
-        return;
+        return false;
     }
 
     renderer.create(window);
@@ -34,7 +39,7 @@ Game::Game() : ok(true), quit(false), score(0) {
         SDL_DestroyWindow(window);
         std::cout << "Unable to create renderer" << std::endl;
         ok = false;
-        return;
+        return false;
     }
 
 
@@ -49,7 +54,7 @@ Game::Game() : ok(true), quit(false), score(0) {
     asteroids = std::make_shared<Asteroids>(10, physicEngine);
     this->UpdateHandler::addObserver(asteroids);
     this->RenderingHandler::addObserver(asteroids);
-    asteroids->addObserver(std::shared_ptr<Game>(this));
+    asteroids->addObserver(shared_from_this()); // TODO: pb ICI
 
 
     gui = std::make_shared<gui::Gui>();
@@ -59,14 +64,14 @@ Game::Game() : ok(true), quit(false), score(0) {
     scoreText->setText("Score: 00000");
     scoreText->setPosition({10, 10});
     scoreText->setScale(0.7);
-}
 
-Game::~Game() {
-	SDL_Quit();
+    ok = true;
+    return true;
 }
 
 int Game::run() {
     if (!ok) {
+        std::cerr << "Error" << std::endl;
         return 1;
     }
 
@@ -76,7 +81,7 @@ int Game::run() {
 		handleEvents();
 
         renderer.clear();
-        this->Subject<Renderer>::notify(renderer);
+        this->RenderingHandler::notify(renderer);
         renderer.present();
 
         Uint32 currentTime = SDL_GetTicks();
@@ -118,7 +123,7 @@ void Game::handleEvents() {
 
 }
 
-void Game::update(int& scoreDelta) {
+void Game::update(int scoreDelta) {
     score += scoreDelta;
     scoreText->setText("Score: " + toStringPrefixed(score));
 }

@@ -12,7 +12,7 @@ namespace gui {
 class Gui : public Renderable {
 public:
     Gui();
-    ~Gui();
+    ~Gui() override;
 
     template <class T>
     typename std::enable_if_t<std::is_base_of_v<Entity, T>, std::shared_ptr<T>>

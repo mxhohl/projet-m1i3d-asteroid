@@ -19,7 +19,7 @@ public:
 public:
     PhysicEngine();
 
-    void update(double& dt) override;
+    void update(double dt) override;
 
     void addEntity(const std::shared_ptr<PhysicEntity>& entity,
                    const Circle& bb);

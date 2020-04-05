@@ -16,9 +16,10 @@ public:
     explicit Asteroids(const std::shared_ptr<PhysicEngine>& physicEngine);
     Asteroids(size_t count,
               const std::shared_ptr<PhysicEngine>& physicEngine);
+    ~Asteroids() override;
 
     void update(Renderer& renderer) override;
-    void update(double& t) override;
+    void update(double dt) override;
 
 private:
     std::vector<std::shared_ptr<Asteroid>> asteroids;

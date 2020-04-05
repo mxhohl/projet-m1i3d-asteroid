@@ -54,7 +54,7 @@ void Player::update(Renderer& renderer) {
 #endif
 }
 
-void Player::update(KeyboardEventData& data) {
+void Player::update(const KeyboardEventData& data) {
     if (data.keycode == SDLK_z) {
         accelerating = data.type == KeyboardEventData::Press;
     } else if (data.keycode == SDLK_q) {
@@ -74,7 +74,7 @@ void Player::update(KeyboardEventData& data) {
     }
 }
 
-void Player::update(double &dt) {
+void Player::update(double dt) {
     if (shooting) {
         shootTimer += dt;
 
