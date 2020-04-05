@@ -2,6 +2,7 @@
 #define GAME_HPP
 
 #include "gui/Text.hpp"
+#include "gui/Gui.hpp"
 #include "Physic/PhysicEngine.hpp"
 #include "Rendering/Renderer.hpp"
 #include "Observer/Subject.hpp"
@@ -40,6 +41,7 @@ private:
 
     SDL_Window* window;
     Renderer renderer;
+    std::shared_ptr<gui::Gui> gui;
     std::shared_ptr<PhysicEngine> physicEngine;
 
 private:

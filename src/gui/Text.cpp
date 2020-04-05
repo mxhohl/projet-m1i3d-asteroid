@@ -5,9 +5,9 @@
 
 using namespace gui;
 
-Text::Text(std::string text, Color color) :
-        text(std::move(text)),
-        color(std::move(color)) {}
+Text::Text(uint32_t uid) : Entity(uid) {}
+
+Text::~Text() = default;
 
 const std::string& Text::getText() const {
     return text;

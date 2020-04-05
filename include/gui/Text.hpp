@@ -2,15 +2,17 @@
 #define PROJETPROGAVANCEE_TEXT_HPP
 
 #include <string>
-#include "Rendering/Renderer.hpp"
 
+#include "Rendering/Renderer.hpp"
 #include "Transformable.hpp"
+#include "Entity.hpp"
 
 namespace gui {
 
-class Text : public Transformable {
+class Text : public Entity {
 public:
-    explicit Text(std::string text = "", Color color = Color::White());
+    explicit Text(uint32_t uid);
+    ~Text() override;
 
     [[nodiscard]] const std::string& getText() const;
     void setText(const std::string& t);
@@ -18,12 +20,13 @@ public:
     [[nodiscard]] const Color& getColor() const;
     void setColor(const Color& col);
 
-    [[nodiscard]] float getHeight() const;
-    [[nodiscard]] float getWidth() const;
+    [[nodiscard]] float getHeight() const override;
+    [[nodiscard]] float getWidth() const override;
     static float getWidth(const std::string& str);
     static float getWidth(const char* str);
 
-    void render(Renderer& renderer);
+protected:
+    void render(Renderer& renderer) override;
 
 private:
     int renderChar(Renderer& renderer, char c, int& spacing,

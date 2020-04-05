@@ -52,7 +52,11 @@ Game::Game() : ok(true), quit(false), score(0) {
     asteroids->addObserver(std::shared_ptr<Game>(this));
 
 
-    scoreText = std::make_shared<gui::Text>("Score: 00000");
+    gui = std::make_shared<gui::Gui>();
+    this->RenderingHandler::addObserver(gui);
+
+    scoreText = gui->create<gui::Text>();
+    scoreText->setText("Score: 00000");
     scoreText->setPosition({10, 10});
     scoreText->setScale(0.7);
 }
@@ -73,9 +77,6 @@ int Game::run() {
 
         renderer.clear();
         this->Subject<Renderer>::notify(renderer);
-
-        scoreText->render(renderer);
-
         renderer.present();
 
         Uint32 currentTime = SDL_GetTicks();
