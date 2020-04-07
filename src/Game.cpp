@@ -63,6 +63,7 @@ bool Game::init() {
     scoreText->setText("Score: 00000");
     scoreText->setPosition({10, 10});
     scoreText->setScale(0.7);
+    scoreText->setColor({255, 255, 255, 255});
 
     ok = true;
     return true;
