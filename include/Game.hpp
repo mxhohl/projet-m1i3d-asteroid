@@ -15,14 +15,21 @@ extern "C" {
 
 class Game : public RenderingHandler,
              public KeyboardHandler,
-             public UpdateHandler,
-             public ScoreObserver,
-             public std::enable_shared_from_this<Game> {
+             public UpdateHandler {
 public:
-    Game();
+    static Game& getInstance() {
+        static Game instance;
+        return instance;
+    }
+
     Game(const Game& copy) = delete;
     Game(Game&& move) = delete;
+    void operator=(const Game&) = delete;
 
+private:
+    Game();
+
+public:
     ~Game() override;
 
     bool init();
@@ -30,7 +37,7 @@ public:
 
     [[nodiscard]] bool isOk() const;
 
-    void update(int scoreDelta) override;
+    void addToScore(int scoreDelta);
 
 private:
     void handleEvents();

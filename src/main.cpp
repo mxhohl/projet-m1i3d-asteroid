@@ -3,7 +3,8 @@
 #include "Game.hpp"
 
 int main(int, char**){
-	Game game;
+	Game& game = Game::getInstance();
+
 	if (!game.init()) {
 	    std::cerr << "Unable to initialize game" << std::endl;
 	    SDL_ShowSimpleMessageBox(
@@ -14,5 +15,6 @@ int main(int, char**){
         );
 	    return 1;
 	}
+
 	return game.run();
 }

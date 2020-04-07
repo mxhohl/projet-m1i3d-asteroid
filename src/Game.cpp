@@ -54,7 +54,6 @@ bool Game::init() {
     asteroids = std::make_shared<Asteroids>(10, physicEngine);
     this->UpdateHandler::addObserver(asteroids);
     this->RenderingHandler::addObserver(asteroids);
-    asteroids->addObserver(shared_from_this()); // TODO: pb ICI
 
 
     gui = std::make_shared<gui::Gui>();
@@ -123,7 +122,7 @@ void Game::handleEvents() {
 
 }
 
-void Game::update(int scoreDelta) {
+void Game::addToScore(int scoreDelta) {
     score += scoreDelta;
     scoreText->setText("Score: " + toStringPrefixed(score));
 }

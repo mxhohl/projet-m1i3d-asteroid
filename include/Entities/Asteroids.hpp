@@ -10,8 +10,7 @@
 #include <vector>
 
 class Asteroids : public Renderable,
-                  public Updatable,
-                  public ScoreUpdater {
+                  public Updatable {
 public:
     explicit Asteroids(const std::shared_ptr<PhysicEngine>& physicEngine);
     Asteroids(size_t count,

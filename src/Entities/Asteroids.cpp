@@ -3,6 +3,8 @@
 #include <utility>
 #include <iostream>
 
+#include "Game.hpp"
+
 Asteroids::Asteroids(const std::shared_ptr<PhysicEngine>& physicEngine) :
         Asteroids(0, physicEngine) {}
 
@@ -81,6 +83,6 @@ void Asteroids::update([[maybe_unused]] double dt) {
     }
 
     if (scoreDelta > 0) {
-        notify(scoreDelta);
+        Game::getInstance().addToScore(scoreDelta);
     }
 }

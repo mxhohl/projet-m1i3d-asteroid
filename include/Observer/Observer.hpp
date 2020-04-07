@@ -14,6 +14,5 @@ public:
 using Updatable = Observer<double>;
 using Renderable = Observer<Renderer&>;
 using KeyboardObserver = Observer<const KeyboardEventData&>;
-using ScoreObserver = Observer<int>;
 
 #endif // OBSERVER_HPP
