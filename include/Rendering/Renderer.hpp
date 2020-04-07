@@ -32,6 +32,7 @@ public:
     void draw(const Vec2f& point,
               const Mat3f& transform = Mat3f::identity());
     void draw(const RectF& rect,
+              bool fill = false,
               const Mat3f& transform = Mat3f::identity());
     void draw(const Circle& circle,
               const Mat3f& transform = Mat3f::identity());

@@ -63,7 +63,38 @@ bool Game::init() {
     scoreText->setText("Score: 00000");
     scoreText->setPosition({10, 10});
     scoreText->setScale(0.7);
-    scoreText->setColor({255, 255, 255, 255});
+    scoreText->setColor(Color::White());
+
+    endTextPanel = gui->create<gui::Panel>();
+    endTextPanel->setColor({200, 200, 200, 50});
+    endTextPanel->setWidth(300);
+    endTextPanel->setHeight(150);
+    endTextPanel->setPosition(Vec2f(
+            static_cast<float>(settings.getParameter<int>("window_width")) / 2.f - 150.f,
+            static_cast<float>(settings.getParameter<int>("window_height")) / 2.f - 75.f
+    ));
+
+    endTextTitle = gui->create<gui::Text>();
+    endTextTitle->setText("GAME OVER");
+    endTextTitle->setColor(Color::White());
+    endTextTitle->setScale(1.35);
+    endTextTitle->setPosition(Vec2f{
+        endTextPanel->getPosition().x() + (endTextPanel->getWidth() - endTextTitle->getWidth() * endTextTitle->getScale().x()) / 2.f,
+        endTextPanel->getPosition().y() + (endTextPanel->getHeight() - endTextTitle->getHeight() * endTextTitle->getScale().y()) / 2.f - 30.f
+    });
+
+    endTextSubtitle = gui->create<gui::Text>();
+    endTextSubtitle->setText("Press SPACE to retry");
+    endTextSubtitle->setScale(0.7);
+    endTextSubtitle->setColor(Color::White());
+    endTextSubtitle->setPosition(Vec2f{
+        endTextPanel->getPosition().x() + (endTextPanel->getWidth() - endTextSubtitle->getWidth() * endTextSubtitle->getScale().x()) / 2.f,
+        endTextPanel->getPosition().y() + (endTextPanel->getHeight() - endTextSubtitle->getHeight() * endTextSubtitle->getScale().y()) / 2.f + 30.f
+    });
+
+    endTextPanel->addEntity(endTextTitle, gui::Anchor::Middle);
+    endTextPanel->addEntity(endTextSubtitle, gui::Anchor::Middle);
+    endTextPanel->hide();
 
     ok = true;
     return true;
@@ -108,14 +139,19 @@ void Game::handleEvents() {
                 break;
 		    case SDL_KEYDOWN:
 		    case SDL_KEYUP:
-		        KeyboardEventData data(
-		                event.key.type == SDL_KEYUP
-		                    ? KeyboardEventData::Release
-		                    : KeyboardEventData::Press,
-		                event.key.keysym.scancode,
-		                event.key.keysym.sym
-                );
-		        this->KeyboardHandler::notify(data);
+                if (event.type == SDL_KEYUP
+                    && event.key.keysym.sym == SDLK_SPACE) {
+                    endTextPanel->toggleVisibility();
+                } else {
+                    KeyboardEventData data(
+                            event.key.type == SDL_KEYUP
+                            ? KeyboardEventData::Release
+                            : KeyboardEventData::Press,
+                            event.key.keysym.scancode,
+                            event.key.keysym.sym
+                    );
+                    this->KeyboardHandler::notify(data);
+                }
 		        break;
 		}
 

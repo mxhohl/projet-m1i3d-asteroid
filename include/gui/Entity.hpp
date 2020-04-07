@@ -11,7 +11,7 @@ class Entity : public Transformable {
     friend class Gui;
 
 protected:
-    explicit Entity(uint32_t uid) : uid(uid) {}
+    explicit Entity(uint32_t uid) : uid(uid), visible(true) {}
 
 public:
     virtual ~Entity() = default;
@@ -23,11 +23,45 @@ public:
     [[nodiscard]] virtual float getWidth() const = 0;
     [[nodiscard]] virtual float getHeight() const = 0;
 
+    void show() {
+        visible = true;
+        onShow();
+    }
+
+    void hide() {
+        visible = false;
+        onHide();
+    }
+
+    void setVisible(bool v) {
+        bool changed = v != visible;
+        visible = v;
+
+        if (changed) {
+            if (visible) {
+                onShow();
+            } else {
+                onHide();
+            }
+        }
+    }
+
+    [[nodiscard]] bool isVisible() const {
+        return visible;
+    }
+
+    void toggleVisibility() {
+        setVisible(!visible);
+    }
+
 protected:
     virtual void render(Renderer& renderer) = 0;
+    virtual void onHide() {}
+    virtual void onShow() {}
 
 private:
     uint32_t uid = 0;
+    bool visible;
 
 };
 

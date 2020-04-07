@@ -10,6 +10,8 @@ Gui::~Gui() = default;
 
 void Gui::update(Renderer& renderer) {
     for (const auto& entity : entities) {
-        entity.second->render(renderer);
+        if (entity.second->visible) {
+            entity.second->render(renderer);
+        }
     }
 }

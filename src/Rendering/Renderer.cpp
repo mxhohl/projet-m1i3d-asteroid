@@ -89,7 +89,7 @@ void Renderer::draw(const Vec2f& point, const Mat3f& transform) {
     SDL_RenderDrawPoint(renderer, p.x(), p.y());
 }
 
-void Renderer::draw(const RectF& rect, const Mat3f& transform) {
+void Renderer::draw(const RectF& rect, bool fill, const Mat3f& transform) {
     const Vec2f tl = transform.transformPoint(
             rect.position()
     );
@@ -103,10 +103,20 @@ void Renderer::draw(const RectF& rect, const Mat3f& transform) {
             rect.position() + Vec2f(0, rect.height())
     );
 
-    draw(tl, tr, transform);
-    draw(tr, br, transform);
-    draw(br, bl, transform);
-    draw(bl, tl, transform);
+    if (fill) {
+        SDL_FRect sdlRect = {
+                tl.x(),
+                tl.y(),
+                br.x() - tl.x(),
+                br.y() - tl.y()
+        };
+        SDL_RenderFillRectF(renderer, &sdlRect);
+    } else {
+        draw(tl, tr, transform);
+        draw(tr, br, transform);
+        draw(br, bl, transform);
+        draw(bl, tl, transform);
+    }
 }
 
 void Renderer::draw(const Circle& circle, const Mat3f& transform) {

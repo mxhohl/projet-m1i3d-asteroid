@@ -2,6 +2,7 @@
 #define PROJETPROGAVANCEE_TEXT_HPP
 
 #include <string>
+#include <memory>
 
 #include "Rendering/Renderer.hpp"
 #include "Transformable.hpp"
@@ -10,6 +11,9 @@
 namespace gui {
 
 class Text : public Entity {
+public:
+    using Ptr = std::shared_ptr<Text>;
+
 public:
     explicit Text(uint32_t uid);
     ~Text() override;

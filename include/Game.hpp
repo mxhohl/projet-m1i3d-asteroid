@@ -1,6 +1,7 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
+#include <gui/Panel.hpp>
 #include "gui/Text.hpp"
 #include "gui/Gui.hpp"
 #include "Physic/PhysicEngine.hpp"
@@ -57,7 +58,11 @@ private:
     std::shared_ptr<PhysicEngine> physicEngine;
     std::shared_ptr<gui::Gui> gui;
 
-    std::shared_ptr<gui::Text> scoreText;
+    gui::Text::Ptr scoreText;
+
+    gui::Panel::Ptr endTextPanel;
+    gui::Text::Ptr endTextTitle;
+    gui::Text::Ptr endTextSubtitle;
 };
 
 #endif // GAME_HPP
