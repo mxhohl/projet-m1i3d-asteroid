@@ -70,8 +70,8 @@ bool Game::init() {
     endTextPanel->setWidth(300);
     endTextPanel->setHeight(150);
     endTextPanel->setPosition(Vec2f(
-            static_cast<float>(settings.getParameter<int>("window_width")) / 2.f - 150.f,
-            static_cast<float>(settings.getParameter<int>("window_height")) / 2.f - 75.f
+            settings.getParameter<int>("window_width") / 2.f - 150.f,
+            settings.getParameter<int>("window_height") / 2.f - 75.f
     ));
 
     endTextTitle = gui->create<gui::Text>();
@@ -79,8 +79,14 @@ bool Game::init() {
     endTextTitle->setColor(Color::White());
     endTextTitle->setScale(1.35);
     endTextTitle->setPosition(Vec2f{
-        endTextPanel->getPosition().x() + (endTextPanel->getWidth() - endTextTitle->getWidth() * endTextTitle->getScale().x()) / 2.f,
-        endTextPanel->getPosition().y() + (endTextPanel->getHeight() - endTextTitle->getHeight() * endTextTitle->getScale().y()) / 2.f - 30.f
+        endTextPanel->getPosition().x()
+            + (endTextPanel->getWidth()
+                - endTextTitle->getWidth() * endTextTitle->getScale().x())
+        / 2.f,
+        endTextPanel->getPosition().y()
+            + (endTextPanel->getHeight()
+                - endTextTitle->getHeight() * endTextTitle->getScale().y())
+        / 2.f - 30.f
     });
 
     endTextSubtitle = gui->create<gui::Text>();
@@ -88,8 +94,15 @@ bool Game::init() {
     endTextSubtitle->setScale(0.7);
     endTextSubtitle->setColor(Color::White());
     endTextSubtitle->setPosition(Vec2f{
-        endTextPanel->getPosition().x() + (endTextPanel->getWidth() - endTextSubtitle->getWidth() * endTextSubtitle->getScale().x()) / 2.f,
-        endTextPanel->getPosition().y() + (endTextPanel->getHeight() - endTextSubtitle->getHeight() * endTextSubtitle->getScale().y()) / 2.f + 30.f
+        endTextPanel->getPosition().x()
+            + (endTextPanel->getWidth()
+                - endTextSubtitle->getWidth() * endTextSubtitle->getScale().x())
+        / 2.f,
+        endTextPanel->getPosition().y()
+            + (endTextPanel->getHeight()
+                - endTextSubtitle->getHeight()
+                    * endTextSubtitle->getScale().y())
+        / 2.f + 30.f
     });
 
     endTextPanel->addEntity(endTextTitle, gui::Anchor::Middle);
