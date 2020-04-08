@@ -46,6 +46,7 @@ private:
 private:
     bool ok;
     bool quit;
+    bool paused;
 
     int score;
 

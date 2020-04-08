@@ -117,7 +117,11 @@ int Game::run() {
 
         Uint32 currentTime = SDL_GetTicks();
         double dt = (currentTime - lastUpdate) / 1000.;
-        this->Subject<double>::notify(dt);
+
+        if (!paused) {
+            this->Subject<double>::notify(dt);
+        }
+
         lastUpdate = currentTime;
 	}
 
@@ -140,9 +144,12 @@ void Game::handleEvents() {
 		    case SDL_KEYDOWN:
 		    case SDL_KEYUP:
                 if (event.type == SDL_KEYUP
-                    && event.key.keysym.sym == SDLK_SPACE) {
+                 && event.key.keysym.sym == SDLK_SPACE) {
                     endTextPanel->toggleVisibility();
-                } else {
+                    paused = endTextPanel->isVisible();
+                }
+
+                if (!paused) {
                     KeyboardEventData data(
                             event.key.type == SDL_KEYUP
                             ? KeyboardEventData::Release
@@ -152,6 +159,7 @@ void Game::handleEvents() {
                     );
                     this->KeyboardHandler::notify(data);
                 }
+
 		        break;
 		}
 
