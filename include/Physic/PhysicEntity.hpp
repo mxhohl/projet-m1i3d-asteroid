@@ -11,7 +11,16 @@ public:
     PhysicEntity();
     PhysicEntity(Vec2f  acceleration, Vec2f  speed, float maxSpeed);
 
-    virtual void onCollide(PhysicEngine::CollisionType collisionType) = 0;
+    friend bool operator==(const PhysicEntity& e1, const PhysicEntity& e2) {
+        return e1.uid == e2.uid;
+    }
+
+    friend bool operator!=(const PhysicEntity& e1, const PhysicEntity& e2) {
+        return e1.uid != e2.uid;
+    }
+
+    virtual void onCollide(PhysicEngine::CollisionType collisionType,
+                           Vec2f position) = 0;
     void physicUpdate(double dt);
 
     [[nodiscard]] const Vec2f& getAcceleration() const;
@@ -23,12 +32,16 @@ public:
     [[nodiscard]] float getMaxSpeed() const;
     void setMaxSpeed(float maxSpd);
 
+    [[nodiscard]] float getMinSpeed() const;
+    void setMinSpeed(float minSpd);
+
     [[nodiscard]] uint32_t getUid() const;
 
 private:
     Vec2f acceleration;
     Vec2f speed;
 
+    float minSpeed;
     float maxSpeed;
 
 private:

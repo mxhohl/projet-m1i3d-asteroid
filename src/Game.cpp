@@ -4,7 +4,8 @@
 
 #include <iostream>
 
-Game::Game() : ok(false), quit(false), score(0), window(nullptr) {
+Game::Game() : ok(false), quit(false), paused(false), score(0),
+               window(nullptr) {
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         std::cout << "SDL_Init Error: "
                   << SDL_GetError()

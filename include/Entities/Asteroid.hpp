@@ -18,7 +18,8 @@ public:
     Asteroid();
     static Asteroid random();
 
-    void onCollide(PhysicEngine::CollisionType collisionType) override;
+    void onCollide(PhysicEngine::CollisionType collisionType,
+                   [[maybe_unused]]Vec2f position) override;
 
     [[nodiscard]] const Color& getColor() const;
     void setColor(const Color& col);

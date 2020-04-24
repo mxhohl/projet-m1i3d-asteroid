@@ -9,17 +9,21 @@ PhysicEntity::PhysicEntity(Vec2f  acceleration,
                            float maxSpeed) :
         acceleration(std::move(acceleration)),
         speed(std::move(speed)),
+        minSpeed(0),
         maxSpeed(maxSpeed),
         uid(0) {}
 
 void PhysicEntity::physicUpdate(double dt) {
-    if (speed.length() < maxSpeed) {
-        speed += acceleration * dt;
-        if (speed.length() > maxSpeed) {
-            speed.normalize();
-            speed *= maxSpeed;
-        }
+    speed += acceleration * dt;
+
+    if (speed.length() > maxSpeed) {
+        speed.normalize();
+        speed *= maxSpeed;
+    } else if (minSpeed != 0 && speed.length() < minSpeed) {
+        speed.normalize();
+        speed *= minSpeed;
     }
+
     setPosition(getPosition() + speed * dt);
 }
 
@@ -45,6 +49,14 @@ float PhysicEntity::getMaxSpeed() const {
 
 void PhysicEntity::setMaxSpeed(float maxSpd) {
     maxSpeed = maxSpd;
+}
+
+float PhysicEntity::getMinSpeed() const {
+    return minSpeed;
+}
+
+void PhysicEntity::setMinSpeed(float minSpd) {
+    minSpeed = minSpd;
 }
 
 uint32_t PhysicEntity::getUid() const {

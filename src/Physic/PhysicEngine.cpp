@@ -10,7 +10,9 @@ void PhysicEngine::update(double dt) {
     for (auto& entity : entities) {
         entity.first->physicUpdate(dt);
     }
+
     handleShotsCollisions();
+    handleEntitiesCollisions();
 }
 
 void PhysicEngine::addEntity(const std::shared_ptr<PhysicEntity>& entity,
@@ -40,7 +42,8 @@ void PhysicEngine::handleShotsCollisions() {
             if (isPointInCircle(it->position, 
                                 entityPoly.first->getPosition(), 
                                 entityPoly.second)) {
-                entityPoly.first->onCollide(CollisionType::WithShot);
+                entityPoly.first->onCollide(CollisionType::WithShot,
+                                            it->position);
                 hit = true;
                 break;
             }
@@ -55,8 +58,55 @@ void PhysicEngine::handleShotsCollisions() {
     }
 }
 
+void PhysicEngine::handleEntitiesCollisions() {
+    Vec2f collisionPoint;
+
+    for (size_t i = 0; i < entities.size(); ++i) {
+        for (size_t j = i + 1; j < entities.size(); ++j) {
+            const auto entityPoly1 = entities[i];
+            const auto entityPoly2 = entities[j];
+
+            if (*entityPoly1.first != *entityPoly2.first) {
+                if (isCirclesCollides(entityPoly1.first->getPosition(),
+                                      entityPoly1.second,
+                                      entityPoly2.first->getPosition(),
+                                      entityPoly2.second,
+                                      &collisionPoint)) {
+
+                    entityPoly1.first->onCollide(
+                            CollisionType::WithAsteroid,
+                            collisionPoint
+                    );
+                    entityPoly2.first->onCollide(
+                            CollisionType::WithAsteroid,
+                            collisionPoint
+                    );
+
+                }
+            }
+        }
+    }
+}
+
 bool PhysicEngine::isPointInCircle(const Vec2f& point,
                                    const Vec2f& center,
                                    const Circle& circle) {
     return (center - point).sqrLength() < circle.getSqrRadius();
+}
+
+bool PhysicEngine::isCirclesCollides(const Vec2f& pos1, const Circle& circle1,
+                                     const Vec2f& pos2, const Circle& circle2,
+                                     Vec2f* collisionPoint) {
+
+    const auto v = pos2 - pos1;
+    if (v.length() <= circle1.getRadius() + circle2.getRadius()) {
+        if (collisionPoint) {
+            const auto d = v.length();
+            const auto a = (circle1.getSqrRadius()
+                            - circle2.getSqrRadius() + d * d) / (2.f * d);
+            *collisionPoint = pos1 + v.normalized() * a;
+        }
+        return true;
+    }
+    return false;
 }

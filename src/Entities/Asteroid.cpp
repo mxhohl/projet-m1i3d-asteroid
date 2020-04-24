@@ -5,13 +5,19 @@
 
 Asteroid::Asteroid() : rotation_speed(0), size(1), exploding(false) {};
 
-void Asteroid::onCollide(PhysicEngine::CollisionType collisionType) {
+void Asteroid::onCollide(PhysicEngine::CollisionType collisionType,
+                         Vec2f position) {
     if (exploding) {
         return;
     }
 
     if (collisionType == PhysicEngine::CollisionType::WithShot) {
         exploding = true;
+    } else if (collisionType == PhysicEngine::CollisionType::WithAsteroid) {
+        const auto bounceDirection =
+                ((getPosition() - position).normalized()
+                + getSpeed().normalized()).normalized();
+        setSpeed(bounceDirection * getSpeed().length());
     }
 }
 

@@ -29,11 +29,15 @@ public:
 
 private:
     void handleShotsCollisions();
+    void handleEntitiesCollisions();
 
 private:
     static bool isPointInCircle(const Vec2f& point,
                                 const Vec2f& center,
                                 const Circle& circle);
+    static bool isCirclesCollides(const Vec2f& pos1, const Circle& circle1,
+                                  const Vec2f& pos2, const Circle& circle2,
+                                  Vec2f* collisionPoint);
 
 private:
     std::vector<std::pair<std::shared_ptr<PhysicEntity>, Circle>> entities;
