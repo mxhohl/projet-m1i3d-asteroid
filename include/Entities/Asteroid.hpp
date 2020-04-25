@@ -5,6 +5,7 @@
 #include "Types/Vec2.hpp"
 #include "Types/Color.hpp"
 #include "Rendering/Polygon.hpp"
+#include "Player.hpp"
 
 #include <random>
 
@@ -12,11 +13,12 @@ class Asteroid : public PhysicEntity {
     friend class Asteroids;
 
 private:
-    static constexpr float BASE_RADIUS = 10.f;
+    static constexpr float BASE_RADIUS = 15.f;
+    static constexpr float MIN_PLAYER_DIST_ON_SPAWN = 100.f;
 
 public:
     Asteroid();
-    static Asteroid random();
+    static Asteroid random(const std::shared_ptr<Player>& player = nullptr);
 
     void onCollide(PhysicEngine::CollisionType collisionType,
                    [[maybe_unused]]Vec2f position) override;

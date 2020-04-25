@@ -51,6 +51,11 @@ bool Game::init() {
     this->RenderingHandler::addObserver(player);
     this->KeyboardHandler::addObserver(player);
     this->UpdateHandler::addObserver(player);
+    player->setScale(5);
+    player->setPosition({
+        settings.getParameter<int>("window_width") / 2.f,
+        settings.getParameter<int>("window_height") / 2.f
+    });
 
     asteroids = std::make_shared<Asteroids>(10, physicEngine);
     this->UpdateHandler::addObserver(asteroids);
@@ -146,6 +151,15 @@ bool Game::isOk() const {
     return ok;
 }
 
+std::shared_ptr<Player> Game::getPlayer() const {
+    return player;
+}
+
+void Game::addToScore(int scoreDelta) {
+    score += scoreDelta;
+    scoreText->setText("Score: " + toStringPrefixed(score));
+}
+
 void Game::handleEvents() {
     SDL_Event event;
 
@@ -179,9 +193,4 @@ void Game::handleEvents() {
 
 	}
 
-}
-
-void Game::addToScore(int scoreDelta) {
-    score += scoreDelta;
-    scoreText->setText("Score: " + toStringPrefixed(score));
 }

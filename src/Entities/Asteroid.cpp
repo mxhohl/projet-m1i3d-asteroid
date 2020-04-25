@@ -21,7 +21,7 @@ void Asteroid::onCollide(PhysicEngine::CollisionType collisionType,
     }
 }
 
-Asteroid Asteroid::random() {
+Asteroid Asteroid::random(const std::shared_ptr<Player>& player) {
     static std::default_random_engine generator(
             Settings::getInstance().getParameter<unsigned int>("seed")
     );
@@ -43,11 +43,19 @@ Asteroid Asteroid::random() {
     Asteroid asteroid;
     asteroid.setSpeed({speed_dist(generator), speed_dist(generator)});
     asteroid.rotation_speed = rotation_spd_dist(generator);
-    asteroid.setPosition(Vec2f(posX_dist(generator), posY_dist(generator)));
     asteroid.setRotationDeg(rotation_dist(generator));
     asteroid.setScale(scale_dist(generator));
 
-    asteroid.size = 3;
+    Vec2f position;
+    do {
+        position = Vec2f(posX_dist(generator), posY_dist(generator));
+    } while(player &&
+            (player->getPosition() - position).length()
+            < MIN_PLAYER_DIST_ON_SPAWN
+    );
+    asteroid.setPosition(position);
+
+    asteroid.size = 2;
     asteroid.color = {
             static_cast<uint8_t>(color_dist(generator) * 51),
             static_cast<uint8_t>(color_dist(generator) * 51),

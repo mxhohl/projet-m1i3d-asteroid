@@ -11,7 +11,7 @@
 class Player : public Renderable,
                public KeyboardObserver,
                public Updatable,
-               Transformable {
+               public Transformable {
 private:
     static constexpr float ROTATION_SPEED = 4.;
     static constexpr float MAX_SPEED = 90.;

@@ -13,7 +13,9 @@ Asteroids::Asteroids(size_t count,
         physicEngine(physicEngine) {
 
     for (size_t i = 0; i < count; ++i) {
-        auto asteroid = std::make_shared<Asteroid>(Asteroid::random());
+        auto asteroid = std::make_shared<Asteroid>(Asteroid::random(
+                Game::getInstance().getPlayer()
+        ));
         auto circle = asteroid->getCircle();
         circle.setRadius(circle.getRadius() * asteroid->getScale().x());
         physicEngine->addEntity(asteroid, circle);

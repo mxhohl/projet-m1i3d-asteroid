@@ -38,6 +38,7 @@ public:
 
     [[nodiscard]] bool isOk() const;
 
+    [[nodiscard]] std::shared_ptr<Player> getPlayer() const;
     void addToScore(int scoreDelta);
 
 private:

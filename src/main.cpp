@@ -3,7 +3,7 @@
 #include "Game.hpp"
 
 void terminate() {
-    std::cerr << "Terminate function called" << std::endl;
+    std::cerr << "Terminating Asteroids..." << std::endl;
     abort();
 }
 
@@ -27,8 +27,10 @@ int main(int, char**){
         return game.run();
     } catch (std::exception& exception) {
         std::cerr << "Exception: " << exception.what() << std::endl;
+        terminate();
     } catch (...) {
 	    std::cerr << "Caught an unknown exception." << std::endl;
+	    terminate();
 	}
 
 	return 1;

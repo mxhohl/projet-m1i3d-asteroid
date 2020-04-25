@@ -6,6 +6,7 @@ TODO
  - Déplacer la class Polygon du dossier Renddering au dossier Types.
  - Utiliser un système de coordonés custom pour les GUI (forcer les éléments dans 
    un Panel et avoir un Panel "Global")
+ - Ajout d'un système de gestion des erreurs (LOG (fichier, terminal) + Message box)
 
 BUGS
 ----

@@ -12,9 +12,6 @@ Player::Player(const std::shared_ptr<PhysicEngine>& physicEngine) :
             {-2, 2}
     };
 
-    setScale(5);
-    setPosition({600, 700});
-
     forward = {0, -1};
 
     shots = std::make_shared<std::vector<Shot>>();
