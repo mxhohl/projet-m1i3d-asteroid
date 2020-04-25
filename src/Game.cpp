@@ -160,6 +160,10 @@ void Game::addToScore(int scoreDelta) {
     scoreText->setText("Score: " + toStringPrefixed(score));
 }
 
+int Game::getScore() const {
+    return score;
+}
+
 void Game::handleEvents() {
     SDL_Event event;
 

@@ -13,13 +13,7 @@ Asteroids::Asteroids(size_t count,
         physicEngine(physicEngine) {
 
     for (size_t i = 0; i < count; ++i) {
-        auto asteroid = std::make_shared<Asteroid>(Asteroid::random(
-                Game::getInstance().getPlayer()
-        ));
-        auto circle = asteroid->getCircle();
-        circle.setRadius(circle.getRadius() * asteroid->getScale().x());
-        physicEngine->addEntity(asteroid, circle);
-        asteroids.push_back(asteroid);
+        spawnAsteroid();
     }
 }
 
@@ -38,7 +32,26 @@ void Asteroids::update(Renderer& renderer) {
     }
 }
 
-void Asteroids::update([[maybe_unused]] double dt) {
+void Asteroids::update(double dt) {
+    int scoreDelta = handleExplosions();
+    if (scoreDelta > 0) {
+        Game::getInstance().addToScore(scoreDelta);
+    }
+
+    handleAsteroidsSpawn(dt);
+}
+
+void Asteroids::spawnAsteroid() {
+    auto asteroid = std::make_shared<Asteroid>(Asteroid::random(
+            Game::getInstance().getPlayer()
+    ));
+    auto circle = asteroid->getCircle();
+    circle.setRadius(circle.getRadius() * asteroid->getScale().x());
+    physicEngine->addEntity(asteroid, circle);
+    asteroids.push_back(asteroid);
+}
+
+int Asteroids::handleExplosions() {
     int scoreDelta = 0;
     for (auto it = asteroids.begin(); it != asteroids.end();) {
         if ((*it)->exploding) {
@@ -53,7 +66,7 @@ void Asteroids::update([[maybe_unused]] double dt) {
                     newAsteroid->size = (*it)->size - 1;
                     newAsteroid->color = (*it)->color;
                     newAsteroid->rotation_speed = (*it)->rotation_speed;
-                    
+
                     newAsteroid->setScale((*it)->getScale());
                     newAsteroid->setRotation((*it)->getRotation());
 
@@ -62,7 +75,7 @@ void Asteroids::update([[maybe_unused]] double dt) {
                     );
 
                     newAsteroid->setSpeed(
-                        (*it)->getSpeed() 
+                        (*it)->getSpeed()
                         + (newAsteroid->getPosition() - (*it)->getPosition())
                         * 2.f
                     );
@@ -83,8 +96,17 @@ void Asteroids::update([[maybe_unused]] double dt) {
             ++it;
         }
     }
+    return scoreDelta;
+}
 
-    if (scoreDelta > 0) {
-        Game::getInstance().addToScore(scoreDelta);
+void Asteroids::handleAsteroidsSpawn(double dt) {
+    asteroidSpawnTimer += dt;
+
+    const auto currentSpawnRate = ASTEROID_BASE_SPAWN_RATE
+            * (1 + Game::getInstance().getScore() / 30.);
+
+    while (asteroidSpawnTimer >= currentSpawnRate) {
+        asteroidSpawnTimer -= currentSpawnRate;
+        spawnAsteroid();
     }
 }

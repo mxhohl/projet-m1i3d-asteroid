@@ -40,6 +40,7 @@ public:
 
     [[nodiscard]] std::shared_ptr<Player> getPlayer() const;
     void addToScore(int scoreDelta);
+    int getScore() const;
 
 private:
     void handleEvents();
