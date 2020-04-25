@@ -158,7 +158,7 @@ void Game::handleEvents() {
 		    case SDL_KEYDOWN:
 		    case SDL_KEYUP:
                 if (event.type == SDL_KEYUP
-                 && event.key.keysym.sym == SDLK_SPACE) {
+                 && event.key.keysym.sym == SDLK_p) {
                     endTextPanel->toggleVisibility();
                     paused = endTextPanel->isVisible();
                 }
