@@ -22,6 +22,7 @@ public:
     [[nodiscard]] bool isOk() const;
 
     void setDrawColor(const Color& color);
+    [[nodiscard]] Color getDrawColor() const;
     void clear(const Color& color = {0, 0, 0, 255});
     void present();
 

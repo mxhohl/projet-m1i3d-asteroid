@@ -68,52 +68,29 @@ bool Game::init() {
     scoreText = gui->create<gui::Text>();
     scoreText->setText("Score: 00000");
     scoreText->setPosition({10, 10});
-    scoreText->setScale(0.7);
+    scoreText->setCharacterSize(20);
     scoreText->setColor(Color::White());
 
     endTextPanel = gui->create<gui::Panel>();
     endTextPanel->setColor({200, 200, 200, 50});
     endTextPanel->setWidth(300);
     endTextPanel->setHeight(150);
-    endTextPanel->setPosition(Vec2f(
-            settings.getParameter<int>("window_width") / 2.f - 150.f,
-            settings.getParameter<int>("window_height") / 2.f - 75.f
-    ));
+    endTextPanel->setAnchor(gui::Anchor::Middle);
+    endTextPanel->hide();
 
-    endTextTitle = gui->create<gui::Text>();
+    endTextTitle = gui->create<gui::Text>(endTextPanel);
     endTextTitle->setText("GAME OVER");
     endTextTitle->setColor(Color::White());
-    endTextTitle->setScale(1.35);
-    endTextTitle->setPosition(Vec2f{
-        endTextPanel->getPosition().x()
-            + (endTextPanel->getWidth()
-                - endTextTitle->getWidth() * endTextTitle->getScale().x())
-        / 2.f,
-        endTextPanel->getPosition().y()
-            + (endTextPanel->getHeight()
-                - endTextTitle->getHeight() * endTextTitle->getScale().y())
-        / 2.f - 30.f
-    });
+    endTextTitle->setCharacterSize(45);
+    endTextTitle->setAnchor(gui::Anchor::TopMiddle);
+    endTextTitle->setPosition({0, 20});
 
-    endTextSubtitle = gui->create<gui::Text>();
+    endTextSubtitle = gui->create<gui::Text>(endTextPanel);
     endTextSubtitle->setText("Press SPACE to retry");
-    endTextSubtitle->setScale(0.7);
     endTextSubtitle->setColor(Color::White());
-    endTextSubtitle->setPosition(Vec2f{
-        endTextPanel->getPosition().x()
-            + (endTextPanel->getWidth()
-                - endTextSubtitle->getWidth() * endTextSubtitle->getScale().x())
-        / 2.f,
-        endTextPanel->getPosition().y()
-            + (endTextPanel->getHeight()
-                - endTextSubtitle->getHeight()
-                    * endTextSubtitle->getScale().y())
-        / 2.f + 30.f
-    });
-
-    endTextPanel->addEntity(endTextTitle, gui::Anchor::Middle);
-    endTextPanel->addEntity(endTextSubtitle, gui::Anchor::Middle);
-    endTextPanel->hide();
+    endTextSubtitle->setAnchor(gui::Anchor::BottomMiddle);
+    endTextSubtitle->setPosition({0, -30});
+    endTextSubtitle->setCharacterSize(20);
 
     ok = true;
     return true;

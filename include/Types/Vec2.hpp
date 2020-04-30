@@ -8,6 +8,8 @@ template<class T>
 class Vec2 {
 public:
     Vec2() : Vec2(0) {}
+    template<class U>
+    explicit Vec2(const Vec2<U>& copy) : Vec2(copy.x(), copy.y()) {}
     Vec2(const Vec2& copy) = default;
     Vec2(Vec2&& move) noexcept = default;
     explicit Vec2(T v) : Vec2(v, v) {}
@@ -162,5 +164,7 @@ private:
 };
 
 using Vec2f = Vec2<float>;
+using Vec2i = Vec2<int>;
+using Vec2u = Vec2<unsigned>;
 
 #endif // VEC2_HPP

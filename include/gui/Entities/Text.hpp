@@ -4,9 +4,8 @@
 #include <string>
 #include <memory>
 
-#include "Rendering/Renderer.hpp"
 #include "Transformable.hpp"
-#include "Entity.hpp"
+#include "gui/Entity.hpp"
 
 namespace gui {
 
@@ -15,7 +14,7 @@ public:
     using Ptr = std::shared_ptr<Text>;
 
 public:
-    explicit Text(uint32_t uid);
+    explicit Text(std::shared_ptr<Gui> gui);
     ~Text() override;
 
     [[nodiscard]] const std::string& getText() const;
@@ -24,20 +23,24 @@ public:
     [[nodiscard]] const Color& getColor() const;
     void setColor(const Color& col);
 
-    [[nodiscard]] float getHeight() const override;
-    [[nodiscard]] float getWidth() const override;
-    static float getWidth(const std::string& str);
-    static float getWidth(const char* str);
+    [[nodiscard]] unsigned int getCharacterSize() const;
+    void setCharacterSize(unsigned int size);
+
+    [[nodiscard]] unsigned int getHeight() const override;
+    [[nodiscard]] unsigned int getWidth() const override;
+    [[nodiscard]] unsigned int getWidth(const char* str) const;
 
 protected:
-    void render(Renderer& renderer) override;
+    void onRender(GUIRenderer& renderer) const override;
 
 private:
-    int renderChar(Renderer& renderer, char c, int& spacing,
-                   const Vec2f& lineHeightVec, const Mat3f& transform);
+    int renderChar(GUIRenderer& renderer, char c, int spacing,
+                   const Vec2i& lineHeightVec) const;
 
 private:
     std::string text;
+    unsigned int characterSize;
+    float scale;
     Color color;
 
 private:

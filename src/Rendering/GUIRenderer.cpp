@@ -1,6 +1,7 @@
 #include "Rendering/Renderer.hpp"
 
 #include <iostream>
+#include <gui/GUIRenderer.hpp>
 
 Renderer::Renderer() : renderer(nullptr) {}
 
@@ -36,6 +37,10 @@ void Renderer::setDrawColor(const Color& color) {
             color.r(), color.g(), color.b(),
             color.a()
     );
+}
+
+Color Renderer::getDrawColor() const {
+    return currentColor;
 }
 
 void Renderer::clear(const Color& color) {

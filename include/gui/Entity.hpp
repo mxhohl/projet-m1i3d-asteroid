@@ -1,66 +1,84 @@
 #ifndef PROJETPROGAVANCEE_ENTITY_HPP
 #define PROJETPROGAVANCEE_ENTITY_HPP
 
-#include <cstdint>
-#include "Transformable.hpp"
+#include "Anchor.hpp"
+#include "Types/Vec2.hpp"
 #include "Rendering/Renderer.hpp"
+#include "GUIRenderer.hpp"
+
+#include <memory>
+#include <vector>
 
 namespace gui {
 
-class Entity : public Transformable {
+class Gui;
+
+class Entity : public std::enable_shared_from_this<Entity> {
     friend class Gui;
 
 protected:
-    explicit Entity(uint32_t uid) : uid(uid), visible(true) {}
+    explicit Entity(std::shared_ptr<Gui> gui);
 
 public:
-    virtual ~Entity() = default;
+    virtual ~Entity();
 
-    friend bool operator==(const Entity& left, const Entity& right) {
-        return left.uid == right.uid && left.uid != 0;
+    [[nodiscard]] std::shared_ptr<Entity> getParent() const;
+    void setParent(const std::shared_ptr<Entity>& newParent);
+
+    [[nodiscard]] virtual unsigned int getWidth() const = 0;
+    [[nodiscard]] virtual unsigned int getHeight() const = 0;
+    [[nodiscard]] Vec2u getSize() const;
+
+    [[nodiscard]] const Vec2i& getPosition() const;
+    void setPosition(const Vec2i& pos);
+    void move(const Vec2i& dp);
+
+    [[nodiscard]] Vec2i getRelativePosition() const;
+    [[nodiscard]] Vec2i getAbsolutePosition() const;
+
+    [[nodiscard]] Anchor getAnchor() const;
+    void setAnchor(Anchor a);
+
+    void show();
+    void hide();
+    void setVisible(bool v);
+    [[nodiscard]] bool isVisible() const;
+    void toggleVisibility();
+
+public:
+    std::vector<std::shared_ptr<Entity>>::iterator begin() noexcept {
+        return children.begin();
     }
 
-    [[nodiscard]] virtual float getWidth() const = 0;
-    [[nodiscard]] virtual float getHeight() const = 0;
-
-    void show() {
-        visible = true;
-        onShow();
+    std::vector<std::shared_ptr<Entity>>::const_iterator begin() const noexcept {
+        return children.begin();
     }
 
-    void hide() {
-        visible = false;
-        onHide();
+    std::vector<std::shared_ptr<Entity>>::iterator end() {
+        return children.end();
     }
 
-    void setVisible(bool v) {
-        bool changed = v != visible;
-        visible = v;
-
-        if (changed) {
-            if (visible) {
-                onShow();
-            } else {
-                onHide();
-            }
-        }
-    }
-
-    [[nodiscard]] bool isVisible() const {
-        return visible;
-    }
-
-    void toggleVisibility() {
-        setVisible(!visible);
+    std::vector<std::shared_ptr<Entity>>::const_iterator end() const noexcept {
+        return children.end();
     }
 
 protected:
-    virtual void render(Renderer& renderer) = 0;
-    virtual void onHide() {}
-    virtual void onShow() {}
+    virtual void onRender(GUIRenderer& renderer) const = 0;
+    virtual void onHide();
+    virtual void onShow();
 
 private:
-    uint32_t uid = 0;
+    void render(GUIRenderer& parentRenderer) const;
+    void setNewParent(const std::shared_ptr<Entity>& toSet);
+    void removeInParent();
+
+private:
+    std::shared_ptr<Gui> gui;
+    std::weak_ptr<Entity> parent;
+    std::vector<std::shared_ptr<Entity>> children;
+
+    Vec2i position;
+    Anchor anchor;
     bool visible;
 
 };
