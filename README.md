@@ -12,4 +12,5 @@ TODO
 BUGS
 ----
 - Crash lors de la destruction d'un astéroïde avec une vitesse de {0,0}
-- A la destruction d'astéroïdes, des fantomes restes dans le système de physique (taille > 1)
+- A la destruction d'astéroïdes, des fantomes restes dans le système de physique
+- Crash lors de la collison tor/astéroïde quand compilé avec MSVC

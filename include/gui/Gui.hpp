@@ -5,30 +5,30 @@
 #include "Entity.hpp"
 
 #include <memory>
-#include <unordered_map>
+#include <vector>
 
 namespace gui {
 
-class Gui : public Renderable {
+class Gui : public Renderable, public std::enable_shared_from_this<Gui> {
+    friend class Entity;
+
 public:
     Gui();
     ~Gui() override;
 
     template <class T>
     typename std::enable_if_t<std::is_base_of_v<Entity, T>, std::shared_ptr<T>>
-    create() {
-        uint32_t uid = uidCount++;
-        auto newEntity = std::make_shared<T>(uid);
+    create(std::shared_ptr<Entity> parent = nullptr) {
+        auto newEntity = std::make_shared<T>(shared_from_this());
+        newEntity->setNewParent(parent);
 
-        entities[uid] = newEntity;
         return newEntity;
     }
 
     void update(Renderer& renderer) override;
 
 private:
-    uint32_t uidCount;
-    std::unordered_map<uint32_t, std::shared_ptr<Entity>> entities;
+    std::vector<std::shared_ptr<Entity>> children;
 
 };
 

@@ -1,8 +1,8 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
-#include <gui/Panel.hpp>
-#include "gui/Text.hpp"
+#include <gui/Entities/Panel.hpp>
+#include "gui/Entities/Text.hpp"
 #include "gui/Gui.hpp"
 #include "Physic/PhysicEngine.hpp"
 #include "Rendering/Renderer.hpp"
@@ -40,10 +40,11 @@ public:
 
     [[nodiscard]] std::shared_ptr<Player> getPlayer() const;
     void addToScore(int scoreDelta);
-    int getScore() const;
+    [[nodiscard]] int getScore() const;
 
 private:
     void handleEvents();
+    void togglePause();
 
 private:
     bool ok;
@@ -63,9 +64,9 @@ private:
 
     gui::Text::Ptr scoreText;
 
-    gui::Panel::Ptr endTextPanel;
-    gui::Text::Ptr endTextTitle;
-    gui::Text::Ptr endTextSubtitle;
+    gui::Panel::Ptr middleScreenPanel;
+    gui::Text::Ptr middleScreenTitle;
+    gui::Text::Ptr middleScreenSubtitle;
 };
 
 #endif // GAME_HPP

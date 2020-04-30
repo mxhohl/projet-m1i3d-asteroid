@@ -12,7 +12,7 @@ set(SRC
         include/Game.hpp
         src/Game.cpp
         include/Rendering/Renderer.hpp
-        src/Rendering/Renderer.cpp
+        src/Rendering/GUIRenderer.cpp
         include/Observer/Observer.hpp
         include/Observer/Subject.hpp
         include/Types/Vec2.hpp
@@ -38,14 +38,16 @@ set(SRC
         src/Physic/PhysicEngine.cpp
         include/Entities/Shot.hpp
         include/Utils.hpp
-        include/gui/Text.hpp
-        src/gui/Text.cpp
-        include/gui/Panel.hpp
+        include/gui/Entities/Text.hpp
+        src/gui/Entities/Text.cpp
+        include/gui/Entities/Panel.hpp
         include/gui/Entity.hpp
         include/gui/Anchor.hpp
-        src/gui/Panel.cpp
+        src/gui/Entities/Panel.cpp
         include/gui/Gui.hpp
-        src/gui/Gui.cpp)
+        src/gui/Gui.cpp src/gui/Entity.cpp
+        include/gui/GUIRenderer.hpp
+        src/gui/GUIRenderer.cpp)
 
 add_executable(${TARGET} ${SRC})
 target_include_directories(${TARGET} PRIVATE include)
