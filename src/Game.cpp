@@ -71,26 +71,26 @@ bool Game::init() {
     scoreText->setCharacterSize(20);
     scoreText->setColor(Color::White());
 
-    endTextPanel = gui->create<gui::Panel>();
-    endTextPanel->setColor({200, 200, 200, 50});
-    endTextPanel->setWidth(300);
-    endTextPanel->setHeight(150);
-    endTextPanel->setAnchor(gui::Anchor::Middle);
-    endTextPanel->hide();
+    middleScreenPanel = gui->create<gui::Panel>();
+    middleScreenPanel->setColor({200, 200, 200, 70});
+    middleScreenPanel->setWidth(300);
+    middleScreenPanel->setHeight(150);
+    middleScreenPanel->setAnchor(gui::Anchor::Middle);
+    middleScreenPanel->hide();
 
-    endTextTitle = gui->create<gui::Text>(endTextPanel);
-    endTextTitle->setText("GAME OVER");
-    endTextTitle->setColor(Color::White());
-    endTextTitle->setCharacterSize(45);
-    endTextTitle->setAnchor(gui::Anchor::TopMiddle);
-    endTextTitle->setPosition({0, 20});
+    middleScreenTitle = gui->create<gui::Text>(middleScreenPanel);
+    middleScreenTitle->setText("GAME OVER");
+    middleScreenTitle->setColor(Color::White());
+    middleScreenTitle->setCharacterSize(45);
+    middleScreenTitle->setAnchor(gui::Anchor::TopMiddle);
+    middleScreenTitle->setPosition({0, 20});
 
-    endTextSubtitle = gui->create<gui::Text>(endTextPanel);
-    endTextSubtitle->setText("Press SPACE to retry");
-    endTextSubtitle->setColor(Color::White());
-    endTextSubtitle->setAnchor(gui::Anchor::BottomMiddle);
-    endTextSubtitle->setPosition({0, -30});
-    endTextSubtitle->setCharacterSize(20);
+    middleScreenSubtitle = gui->create<gui::Text>(middleScreenPanel);
+    middleScreenSubtitle->setText("Press SPACE to retry");
+    middleScreenSubtitle->setColor(Color::White());
+    middleScreenSubtitle->setAnchor(gui::Anchor::BottomMiddle);
+    middleScreenSubtitle->setPosition({0, -30});
+    middleScreenSubtitle->setCharacterSize(20);
 
     ok = true;
     return true;
@@ -154,8 +154,7 @@ void Game::handleEvents() {
 		    case SDL_KEYUP:
                 if (event.type == SDL_KEYUP
                  && event.key.keysym.sym == SDLK_p) {
-                    endTextPanel->toggleVisibility();
-                    paused = endTextPanel->isVisible();
+                    togglePause();
                 }
 
                 if (!paused) {
@@ -174,4 +173,14 @@ void Game::handleEvents() {
 
 	}
 
+}
+
+void Game::togglePause() {
+    paused = !paused;
+    middleScreenPanel->setVisible(paused);
+
+    if (paused) {
+        middleScreenTitle->setText("PAUSED");
+        middleScreenSubtitle->setText("Press P to unpause");
+    }
 }

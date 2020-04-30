@@ -44,6 +44,7 @@ public:
 
 private:
     void handleEvents();
+    void togglePause();
 
 private:
     bool ok;
@@ -63,9 +64,9 @@ private:
 
     gui::Text::Ptr scoreText;
 
-    gui::Panel::Ptr endTextPanel;
-    gui::Text::Ptr endTextTitle;
-    gui::Text::Ptr endTextSubtitle;
+    gui::Panel::Ptr middleScreenPanel;
+    gui::Text::Ptr middleScreenTitle;
+    gui::Text::Ptr middleScreenSubtitle;
 };
 
 #endif // GAME_HPP
