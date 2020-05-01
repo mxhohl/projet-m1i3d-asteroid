@@ -32,4 +32,6 @@ int main(int, char**){
 	    std::cerr << "Caught an unknown exception." << std::endl;
 	    terminate();
 	}
+
+    return -1;
 }
