@@ -30,6 +30,7 @@ private:
         settings.insert({"window_width", 1280});
         settings.insert({"window_height", 720});
         settings.insert({"seed", 546687u});
+        settings.insert({"init_asteroid_count", 10u});
     }
 
 private:

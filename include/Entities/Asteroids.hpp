@@ -15,13 +15,14 @@ public:
     static constexpr double ASTEROID_BASE_SPAWN_RATE = 3.;
 
 public:
-    explicit Asteroids(const std::shared_ptr<PhysicEngine>& physicEngine);
-    Asteroids(size_t count,
-              const std::shared_ptr<PhysicEngine>& physicEngine);
+    explicit Asteroids(std::shared_ptr<PhysicEngine>  physicEngine);
     ~Asteroids() override;
 
     void update(Renderer& renderer) override;
     void update(double dt) override;
+
+    void reset();
+    void spawnAsteroids(size_t count);
 
 private:
     void spawnAsteroid();

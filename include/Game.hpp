@@ -33,7 +33,6 @@ private:
 public:
     ~Game() override;
 
-    bool init();
     int run();
 
     [[nodiscard]] bool isOk() const;
@@ -43,8 +42,11 @@ public:
     [[nodiscard]] int getScore() const;
 
     void endGame();
+    void startGame();
 
 private:
+    void setDefaultValues();
+
     void handleEvents();
     void togglePause();
 

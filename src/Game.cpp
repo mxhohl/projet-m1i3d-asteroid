@@ -12,13 +12,7 @@ Game::Game() : ok(false), quit(false), paused(false), gameOver(false), score(0),
                   << std::endl;
         ok = false;
     }
-}
 
-Game::~Game() {
-	SDL_Quit();
-}
-
-bool Game::init() {
     Settings& settings = Settings::getInstance();
 
     window = SDL_CreateWindow(
@@ -31,7 +25,7 @@ bool Game::init() {
     if (!window){
         std::cout << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
         ok = false;
-        return false;
+        return;
     }
 
     renderer.create(window);
@@ -40,7 +34,7 @@ bool Game::init() {
         SDL_DestroyWindow(window);
         std::cout << "Unable to create renderer" << std::endl;
         ok = false;
-        return false;
+        return;
     }
 
 
@@ -51,14 +45,9 @@ bool Game::init() {
     this->RenderingHandler::addObserver(player);
     this->KeyboardHandler::addObserver(player);
     this->UpdateHandler::addObserver(player);
-    physicEngine->setPlayer(player);
-    player->setScale(5);
-    player->setPosition({
-        settings.getParameter<int>("window_width") / 2.f,
-        settings.getParameter<int>("window_height") / 2.f
-    });
 
-    asteroids = std::make_shared<Asteroids>(10, physicEngine);
+
+    asteroids = std::make_shared<Asteroids>(physicEngine);
     this->UpdateHandler::addObserver(asteroids);
     this->RenderingHandler::addObserver(asteroids);
 
@@ -67,7 +56,6 @@ bool Game::init() {
     this->RenderingHandler::addObserver(gui);
 
     scoreText = gui->create<gui::Text>();
-    scoreText->setText("Score: 00000");
     scoreText->setPosition({10, 10});
     scoreText->setCharacterSize(20);
     scoreText->setColor(Color::White());
@@ -77,24 +65,60 @@ bool Game::init() {
     middleScreenPanel->setWidth(300);
     middleScreenPanel->setHeight(150);
     middleScreenPanel->setAnchor(gui::Anchor::Middle);
-    middleScreenPanel->hide();
 
     middleScreenTitle = gui->create<gui::Text>(middleScreenPanel);
-    middleScreenTitle->setText("Lorem ispum");
     middleScreenTitle->setColor(Color::White());
     middleScreenTitle->setCharacterSize(45);
     middleScreenTitle->setAnchor(gui::Anchor::TopMiddle);
     middleScreenTitle->setPosition({0, 20});
 
     middleScreenSubtitle = gui->create<gui::Text>(middleScreenPanel);
-    middleScreenSubtitle->setText("Dolor sit amet");
     middleScreenSubtitle->setColor(Color::White());
     middleScreenSubtitle->setAnchor(gui::Anchor::BottomMiddle);
     middleScreenSubtitle->setPosition({0, -30});
     middleScreenSubtitle->setCharacterSize(20);
 
+    setDefaultValues();
+
     ok = true;
-    return true;
+}
+
+Game::~Game() {
+	SDL_Quit();
+}
+
+void Game::setDefaultValues() {
+    Settings& settings = Settings::getInstance();
+
+    physicEngine->setPlayer(player);
+    player->setScale(5);
+    player->setPosition({
+        settings.getParameter<int>("window_width") / 2.f,
+        settings.getParameter<int>("window_height") / 2.f
+    });
+
+    scoreText->setText("Score: 00000");
+    middleScreenPanel->hide();
+    middleScreenTitle->setText("Lorem ispum");
+    middleScreenSubtitle->setText("Dolor sit amet");
+
+    score = 0;
+    paused = false;
+    gameOver = false;
+}
+
+void Game::startGame() {
+    Settings& settings = Settings::getInstance();
+
+    asteroids->reset();
+    player->reset();
+    physicEngine->reset();
+
+    setDefaultValues();
+
+    asteroids->spawnAsteroids(
+            settings.getParameter<unsigned>("init_asteroid_count")
+    );
 }
 
 int Game::run() {
@@ -169,7 +193,7 @@ void Game::handleEvents() {
                 if (gameOver
                  && event.type == SDL_KEYUP
                  && event.key.keysym.sym == SDLK_SPACE) {
-                    std::cout << "RESTART GAME" << std::endl;
+                    startGame();
                 }
 
                 if (!paused && !gameOver) {

@@ -5,17 +5,10 @@
 
 #include "Game.hpp"
 
-Asteroids::Asteroids(const std::shared_ptr<PhysicEngine>& physicEngine) :
-        Asteroids(0, physicEngine) {}
+Asteroids::Asteroids(std::shared_ptr<PhysicEngine> physicEngine)  :
+        physicEngine(std::move(physicEngine)),
+        asteroidSpawnTimer(0) {}
 
-Asteroids::Asteroids(size_t count,
-                     const std::shared_ptr<PhysicEngine>& physicEngine) :
-        physicEngine(physicEngine) {
-
-    for (size_t i = 0; i < count; ++i) {
-        spawnAsteroid();
-    }
-}
 
 Asteroids::~Asteroids() = default;
 
@@ -39,6 +32,16 @@ void Asteroids::update(double dt) {
     }
 
     handleAsteroidsSpawn(dt);
+}
+
+void Asteroids::spawnAsteroids(size_t count) {
+    for (size_t i = 0; i < count; ++i) {
+        spawnAsteroid();
+    }
+}
+
+void Asteroids::reset() {
+    asteroids.clear();
 }
 
 void Asteroids::spawnAsteroid() {

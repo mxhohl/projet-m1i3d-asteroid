@@ -13,7 +13,7 @@ int main(int, char**){
     try {
         Game& game = Game::getInstance();
 
-        if (!game.init()) {
+        if (!game.isOk()) {
             std::cerr << "Unable to initialize game" << std::endl;
             SDL_ShowSimpleMessageBox(
                     SDL_MESSAGEBOX_ERROR,
@@ -23,6 +23,8 @@ int main(int, char**){
             );
             return 1;
         }
+
+        game.startGame();
 
         return game.run();
     } catch (std::exception& exception) {

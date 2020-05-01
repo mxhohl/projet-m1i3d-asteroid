@@ -42,6 +42,10 @@ void PhysicEngine::setPlayer(const std::shared_ptr<Player> &p) {
     player = p;
 }
 
+void PhysicEngine::reset() {
+    entities.clear();
+}
+
 void PhysicEngine::handleShotsCollisions() {
     bool hit = false;
     for (auto it = shots->begin(); it != shots->end();) {

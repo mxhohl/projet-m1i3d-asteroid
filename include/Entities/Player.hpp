@@ -29,6 +29,8 @@ public:
     void update(const KeyboardEventData& event) override;
     void update(double dt) override;
 
+    void reset();
+
     void onCollide();
 
 private:

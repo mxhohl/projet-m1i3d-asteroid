@@ -30,6 +30,8 @@ public:
 
     void setPlayer(const std::shared_ptr<Player>& p);
 
+    void reset();
+
 private:
     void handleShotsCollisions();
     void handleEntitiesCollisions();

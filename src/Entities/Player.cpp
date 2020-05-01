@@ -136,6 +136,17 @@ void Player::update(double dt) {
     move(speed * dt);
 }
 
+void Player::reset() {
+    shots->clear();
+    shooting = false;
+    shootTimer = SHOOT_RATE;
+    rotationDir = 0;
+    accelerating = false;
+    acceleration = Vec2f(0);
+    speed = {0, 0};
+    setRotation(0);
+}
+
 void Player::onCollide() {
     Game::getInstance().endGame();
 }
