@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-Game::Game() : ok(false), quit(false), paused(false), score(0),
+Game::Game() : ok(false), quit(false), paused(false), gameOver(false), score(0),
                window(nullptr) {
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         std::cout << "SDL_Init Error: "
@@ -51,6 +51,7 @@ bool Game::init() {
     this->RenderingHandler::addObserver(player);
     this->KeyboardHandler::addObserver(player);
     this->UpdateHandler::addObserver(player);
+    physicEngine->setPlayer(player);
     player->setScale(5);
     player->setPosition({
         settings.getParameter<int>("window_width") / 2.f,
@@ -79,14 +80,14 @@ bool Game::init() {
     middleScreenPanel->hide();
 
     middleScreenTitle = gui->create<gui::Text>(middleScreenPanel);
-    middleScreenTitle->setText("GAME OVER");
+    middleScreenTitle->setText("Lorem ispum");
     middleScreenTitle->setColor(Color::White());
     middleScreenTitle->setCharacterSize(45);
     middleScreenTitle->setAnchor(gui::Anchor::TopMiddle);
     middleScreenTitle->setPosition({0, 20});
 
     middleScreenSubtitle = gui->create<gui::Text>(middleScreenPanel);
-    middleScreenSubtitle->setText("Press SPACE to retry");
+    middleScreenSubtitle->setText("Dolor sit amet");
     middleScreenSubtitle->setColor(Color::White());
     middleScreenSubtitle->setAnchor(gui::Anchor::BottomMiddle);
     middleScreenSubtitle->setPosition({0, -30});
@@ -114,7 +115,7 @@ int Game::run() {
         Uint32 currentTime = SDL_GetTicks();
         double dt = (currentTime - lastUpdate) / 1000.;
 
-        if (!paused) {
+        if (!paused && !gameOver) {
             this->Subject<double>::notify(dt);
         }
 
@@ -141,6 +142,14 @@ int Game::getScore() const {
     return score;
 }
 
+void Game::endGame() {
+    gameOver = true;
+
+    middleScreenPanel->show();
+    middleScreenTitle->setText("GAME OVER");
+    middleScreenSubtitle->setText("Press SPACE to retry");
+}
+
 void Game::handleEvents() {
     SDL_Event event;
 
@@ -157,7 +166,13 @@ void Game::handleEvents() {
                     togglePause();
                 }
 
-                if (!paused) {
+                if (gameOver
+                 && event.type == SDL_KEYUP
+                 && event.key.keysym.sym == SDLK_SPACE) {
+                    std::cout << "RESTART GAME" << std::endl;
+                }
+
+                if (!paused && !gameOver) {
                     KeyboardEventData data(
                             event.key.type == SDL_KEYUP
                             ? KeyboardEventData::Release

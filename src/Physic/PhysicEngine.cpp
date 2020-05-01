@@ -1,8 +1,8 @@
 #include <iostream>
 
 #include "Physic/PhysicEngine.hpp"
-
 #include "Physic/PhysicEntity.hpp"
+#include "Entities/Player.hpp"
 
 PhysicEngine::PhysicEngine() : entityUidCounter(0) {}
 
@@ -13,6 +13,9 @@ void PhysicEngine::update(double dt) {
 
     handleShotsCollisions();
     handleEntitiesCollisions();
+    if (player) {
+        handlePlayerCollisions();
+    }
 }
 
 void PhysicEngine::addEntity(const std::shared_ptr<PhysicEntity>& entity,
@@ -33,6 +36,10 @@ void PhysicEngine::removeEntity(const std::shared_ptr<PhysicEntity>& entity) {
 
 void PhysicEngine::setShots(const std::shared_ptr<std::vector<Shot>>& sht) {
     shots = sht;
+}
+
+void PhysicEngine::setPlayer(const std::shared_ptr<Player> &p) {
+    player = p;
 }
 
 void PhysicEngine::handleShotsCollisions() {
@@ -88,6 +95,16 @@ void PhysicEngine::handleEntitiesCollisions() {
     }
 }
 
+void PhysicEngine::handlePlayerCollisions() {
+    for (const auto& entityPoly : entities) {
+        if (isPlayerCollides(player,
+                             entityPoly.first->getPosition(),
+                             entityPoly.second)) {
+            player->onCollide();
+        }
+    }
+}
+
 bool PhysicEngine::isPointInCircle(const Vec2f& point,
                                    const Vec2f& center,
                                    const Circle& circle) {
@@ -109,4 +126,12 @@ bool PhysicEngine::isCirclesCollides(const Vec2f& pos1, const Circle& circle1,
         return true;
     }
     return false;
+}
+
+bool PhysicEngine::isPlayerCollides(const std::shared_ptr<Player> &player,
+                                    const Vec2f &center,
+                                    const Circle &circle) {
+    return isPointInCircle(player->getAbsoluteCollidePoint(0), center, circle)
+        || isPointInCircle(player->getAbsoluteCollidePoint(1), center, circle)
+        || isPointInCircle(player->getAbsoluteCollidePoint(2), center, circle);
 }

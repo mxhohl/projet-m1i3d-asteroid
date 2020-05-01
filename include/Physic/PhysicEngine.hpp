@@ -8,6 +8,7 @@
 #include <memory>
 
 class PhysicEntity;
+class Player;
 
 class PhysicEngine : public Updatable {
 public:
@@ -27,9 +28,12 @@ public:
 
     void setShots(const std::shared_ptr<std::vector<Shot>>& sht);
 
+    void setPlayer(const std::shared_ptr<Player>& p);
+
 private:
     void handleShotsCollisions();
     void handleEntitiesCollisions();
+    void handlePlayerCollisions();
 
 private:
     static bool isPointInCircle(const Vec2f& point,
@@ -38,10 +42,14 @@ private:
     static bool isCirclesCollides(const Vec2f& pos1, const Circle& circle1,
                                   const Vec2f& pos2, const Circle& circle2,
                                   Vec2f* collisionPoint);
+    static bool isPlayerCollides(const std::shared_ptr<Player>& player,
+                                 const Vec2f& center,
+                                 const Circle& circle);
 
 private:
     std::vector<std::pair<std::shared_ptr<PhysicEntity>, Circle>> entities;
     std::shared_ptr<std::vector<Shot>> shots;
+    std::shared_ptr<Player> player;
     uint32_t entityUidCounter;
 };
 

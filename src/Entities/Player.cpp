@@ -1,6 +1,7 @@
 #include "Entities/Player.hpp"
 
 #include <iostream>
+#include "Game.hpp"
 
 Player::Player(const std::shared_ptr<PhysicEngine>& physicEngine) :
         shooting(false),
@@ -22,6 +23,18 @@ Player::Player(const std::shared_ptr<PhysicEngine>& physicEngine) :
     accelerating = false;
     acceleration = Vec2f(0);
     speed = {0, 0};
+}
+
+Vec2f Player::getAbsoluteCollidePoint(size_t i) {
+    if (i == 0) {
+        return getTransformMatrix().transformPoint({0, -2});
+    } else if (i == 1) {
+        return getTransformMatrix().transformPoint({2, 2});
+    } else if (i == 2) {
+        return getTransformMatrix().transformPoint({-2, 2});
+    } else {
+        return {-1, -1};
+    }
 }
 
 void Player::update(Renderer& renderer) {
@@ -121,4 +134,8 @@ void Player::update(double dt) {
         }
     }
     move(speed * dt);
+}
+
+void Player::onCollide() {
+    Game::getInstance().endGame();
 }

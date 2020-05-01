@@ -23,9 +23,13 @@ private:
 public:
     explicit Player(const std::shared_ptr<PhysicEngine>& physicEngine);
 
+    [[nodiscard]] Vec2f getAbsoluteCollidePoint(size_t i);
+
     void update(Renderer& renderer) override;
     void update(const KeyboardEventData& event) override;
     void update(double dt) override;
+
+    void onCollide();
 
 private:
     Polygon polygon;

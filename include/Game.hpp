@@ -42,6 +42,8 @@ public:
     void addToScore(int scoreDelta);
     [[nodiscard]] int getScore() const;
 
+    void endGame();
+
 private:
     void handleEvents();
     void togglePause();
@@ -50,6 +52,7 @@ private:
     bool ok;
     bool quit;
     bool paused;
+    bool gameOver;
 
     int score;
 
