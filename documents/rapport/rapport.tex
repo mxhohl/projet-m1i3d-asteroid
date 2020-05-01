@@ -192,10 +192,12 @@ Le calcul des mouvements des objets se basent sur les trois formules simples sui
 avec $a$ l'accélération, $v$ la vitesse et $r$ la position~:
 \begin{align}
 	a_t &= a_0\\
-	v_t &= v_{t-1} + a_t * \Delta t\\
-	r_t &= r_{t-1} + v_t * \Delta t
+	v_t &= v_{t-\Delta t} + a_t * \Delta t\\
+	r_t &= r_{t-\Delta t} + v_t * \Delta t
 \end{align}
-Avec $a_0$, $v_0$ et $r_0$ défini.
+Avec $a_0$, $v_0$ et $r_0$ étant respectivement l'accélération initial, la vitesse 
+initial et la position initial et $\Delta t$ le temps écoulé depuis le dernier 
+appel de rafraichissement du système de physique.
 
 Le système de collision ne permet actuellement que de détecter des collisions du type
 cercle-cercle, cercle/point et cercle/joueur.
@@ -214,14 +216,13 @@ alors il y a collision entre cercle et joueur.
 	\caption{Le polygone du joueur}
 	\begin{tikzpicture}[scale=-.5]
 		\draw (0, -2) -- (2, 2) -- (0, 1) -- (-2, 2) -- cycle;
-		\fill[red] (-0.1, -2.1) rectangle (0.1, -1.9);
-		\fill[red] (1.9, 1.9) rectangle (2.1, 2.1);
-		\fill[red] (-2.11, 1.9) rectangle (-1.9, 2.1);
+		
+		\draw[red] (0, -2) circle (0.1cm);
+		\draw[red] (2, 2) circle (0.1cm);
+		\draw[red] (-2, 2) circle (0.1cm);
 	\end{tikzpicture}
 	\label{fig:model-joueur}
 \end{figure}
-
-\todo[inline]{Correctement positionner les points rouge} 
 
 
 \section{Le module de GUI}
@@ -309,7 +310,7 @@ Le jeu en lui même est axé autour des trois \textit{class} suivantes~:
 \end{itemize}
 
 
-\chapter{Problèmes}
+\chapter{Problèmes rencontrés et voies d'amélioration}
 
 \todo[inline]{A faire}
 
