@@ -9,18 +9,18 @@ Le rapport est disponible dans le dossier `documents/rapport`.
 TODO
 ----
  - Améliorer le calcul de la vitesse des astéroïdes après explosion
+ - supression du paramètre de vitesse des astéroides
+ - mettre une taille aléatoire sur les astéroides générés après destruction
+ - Faire en sorte que les astéroïdes ne se spawn pas dessus
  - Ajouter tout les paramètre dans le système de `settings` à la place de constexpr
+ - Ajouter la lecture des settings à partir d'un fichier de config
  - Mettre une seed aléatoire
  - Empecher le démarrage d'une nouvelle partie quand le joueur "spam" la touche espace
- - Ajouter la lecture des settings à partir d'un fichier de config
- - Faire en sorte que les astéroïdes ne se spawn pas dessus
  - Ajout de la doc Doxygen
  - Ajout de pmp pour les moteur de physique et les astéroides
- - PLUS DE LOG
- - remove rotation informations from asteroids
- - set random scale on new spawning asteroids
+ - TOUJOURS PLUS DE LOG
 
 BUGS
 ----
  - Crash lors de la destruction d'un astéroïde avec une vitesse de {0,0}
- - Crash lors de la collison tor/astéroïde quand compilé avec MSVC
+ - Crash lors de la collison tir/astéroïde quand compilé avec MSVC
