@@ -33,7 +33,6 @@ public:
     [[nodiscard]] engine::Circle getCircle() const;
 
 private:
-    float rotation_speed;
     int size;
     engine::Color color;
 

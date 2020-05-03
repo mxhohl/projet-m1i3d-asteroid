@@ -9,7 +9,6 @@ Le rapport est disponible dans le dossier `documents/rapport`.
 TODO
 ----
  - Améliorer le calcul de la vitesse des astéroïdes après explosion
- - supression du paramètre de vitesse des astéroides
  - mettre une taille aléatoire sur les astéroides générés après destruction
  - Faire en sorte que les astéroïdes ne se spawn pas dessus
  - Ajouter tout les paramètre dans le système de `settings` à la place de constexpr
@@ -24,3 +23,4 @@ BUGS
 ----
  - Crash lors de la destruction d'un astéroïde avec une vitesse de {0,0}
  - Crash lors de la collison tir/astéroïde quand compilé avec MSVC
+ - Des astéroides avec une vitesse beaucoup trop élevée aparaissent parfois

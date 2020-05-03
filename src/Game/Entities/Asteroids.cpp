@@ -68,7 +68,6 @@ int Asteroids::handleExplosions() {
                     auto newAsteroid = std::make_shared<Asteroid>();
                     newAsteroid->size = (*it)->size - 1;
                     newAsteroid->color = (*it)->color;
-                    newAsteroid->rotation_speed = (*it)->rotation_speed;
 
                     newAsteroid->setScale((*it)->getScale());
                     newAsteroid->setRotation((*it)->getRotation());

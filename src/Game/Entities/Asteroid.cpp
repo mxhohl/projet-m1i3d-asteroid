@@ -3,7 +3,7 @@
 
 #include "Engine/Settings.hpp"
 
-Asteroid::Asteroid() : rotation_speed(0), size(1), exploding(false) {};
+Asteroid::Asteroid() : size(1), exploding(false) {};
 
 void Asteroid::onCollide(engine::PhysicEngine::CollisionType collisionType,
                          engine::Vec2f position) {
@@ -27,7 +27,6 @@ Asteroid Asteroid::random(const std::shared_ptr<Player>& player) {
     );
 
     static std::uniform_real_distribution<float> speed_dist(-50, 50);
-    static std::uniform_real_distribution<float> rotation_spd_dist(-0.5, 0.5);
     static std::uniform_int_distribution<int> posX_dist(
             0,
             engine::Settings::getInstance().getParameter<int>("window_width")
@@ -36,14 +35,11 @@ Asteroid Asteroid::random(const std::shared_ptr<Player>& player) {
             0,
             engine::Settings::getInstance().getParameter<int>("window_height")
     );
-    static std::uniform_real_distribution<float> rotation_dist(0, 360);
     static std::uniform_int_distribution<int> color_dist(0, 5);
     static std::uniform_real_distribution<float> scale_dist(0.8, 1.2);
 
     Asteroid asteroid;
     asteroid.setSpeed({speed_dist(generator), speed_dist(generator)});
-    asteroid.rotation_speed = rotation_spd_dist(generator);
-    asteroid.setRotationDeg(rotation_dist(generator));
     asteroid.setScale(scale_dist(generator));
 
     engine::Vec2f position;
