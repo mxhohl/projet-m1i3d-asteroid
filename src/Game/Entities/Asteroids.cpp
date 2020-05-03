@@ -91,9 +91,9 @@ int Asteroids::handleExplosions() {
                     it = asteroids.insert(it, newAsteroid);
                     ++it;
                 }
-
-                physicEngine->removeEntity(*it);
             }
+
+            physicEngine->removeEntity(*it);
             it = asteroids.erase(it);
         } else {
             ++it;

@@ -15,11 +15,12 @@ TODO
  - Ajouter la lecture des settings à partir d'un fichier de config
  - Faire en sorte que les astéroïdes ne se spawn pas dessus
  - Ajout de la doc Doxygen
- - Ajout de pmp pour les moteur de physique
+ - Ajout de pmp pour les moteur de physique et les astéroides
  - PLUS DE LOG
+ - remove rotation informations from asteroids
+ - set random scale on new spawning asteroids
 
 BUGS
 ----
  - Crash lors de la destruction d'un astéroïde avec une vitesse de {0,0}
- - A la destruction d'astéroïdes, des fantomes restes dans le système de physique
  - Crash lors de la collison tor/astéroïde quand compilé avec MSVC
