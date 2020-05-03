@@ -115,23 +115,6 @@ void Logger::displayMessageBox(Level level, const std::string& funcName,
     );
 }
 
-inline bool fileExists(const std::string& name) {
-    std::ifstream iFile;
-    iFile.open(name.c_str());
-
-    std::cout << name << " -> " << (iFile.is_open() ? "exists" : "do not exists") << std::endl;
-
-    return iFile.is_open();
-}
-
-template <class... Args>
-inline std::string sstr(Args&&... args) {
-    std::ostringstream sstr;
-    sstr << std::dec;
-    (sstr << ... << args);
-    return sstr.str();
-}
-
 void Logger::openLogFile() {
     const std::string baseFileName = ::toString(
             std::chrono::system_clock::now(),
@@ -146,7 +129,6 @@ void Logger::openLogFile() {
         fileName = sstr(baseFileName, nb, ".log");
     }
 
-    std::cout << fileName << std::endl;
     logFile.open(fileName, std::ios::out | std::ios::app);
 
     if (!logFile.good()) {
