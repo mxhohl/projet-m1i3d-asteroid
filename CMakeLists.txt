@@ -20,8 +20,8 @@ set(SRC
         src/Engine/Types/Color.cpp
         include/Game/Entities/Player.hpp
         src/Game/Entities/Player.cpp
-        include/Engine/Rendering/Polygon.hpp
-        src/Engine/Rendering/Polygon.cpp
+        include/Engine/Types/Polygon.hpp
+        src/Engine/Types/Polygon.cpp
         include/Engine/Observer/KeyboardEventData.hpp
         include/Engine/Transformable.hpp
         src/Engine/Transformable.cpp

@@ -6,7 +6,7 @@
 #include "Engine/Types/Color.hpp"
 #include "Engine/Types/Rect.hpp"
 #include "Engine/Types/Circle.hpp"
-#include "Polygon.hpp"
+#include "Engine/Types/Polygon.hpp"
 
 #include <vector>
 extern "C" {

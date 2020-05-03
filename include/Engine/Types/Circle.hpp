@@ -1,7 +1,7 @@
 #ifndef PROJETPROGAVANCEE_CIRCLE_HPP
 #define PROJETPROGAVANCEE_CIRCLE_HPP
 
-#include "Engine/Rendering/Polygon.hpp"
+#include "Polygon.hpp"
 #include "Mat3.hpp"
 #include "Engine/Utils.hpp"
 

@@ -1,4 +1,4 @@
-#include "Engine/Rendering/Polygon.hpp"
+#include "Engine/Types/Polygon.hpp"
 
 #include <utility>
 #include <algorithm>

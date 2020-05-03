@@ -8,7 +8,6 @@ Le rapport est disponible dans le dossier `documents/rapport`.
 
 TODO
 ----
- - Déplacer la class Polygon du dossier Renddering au dossier Types.
  - Améliorer le calcul de la vitesse des astéroïdes après explosion
  - Ajouter tout les paramètre dans le système de `settings` à la place de constexpr
  - Mettre une seed aléatoire

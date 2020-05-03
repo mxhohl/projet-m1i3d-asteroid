@@ -4,7 +4,7 @@
 #include "Engine/Physic/PhysicEntity.hpp"
 #include "Engine/Types/Vec2.hpp"
 #include "Engine/Types/Color.hpp"
-#include "Engine/Rendering/Polygon.hpp"
+#include "Engine/Types/Polygon.hpp"
 #include "Player.hpp"
 
 #include <random>

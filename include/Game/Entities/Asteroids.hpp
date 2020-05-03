@@ -4,7 +4,7 @@
 #include "Engine/Rendering/Renderer.hpp"
 #include "Engine/Observer/Observer.hpp"
 #include "Engine/Observer/Subject.hpp"
-#include "Engine/Rendering/Polygon.hpp"
+#include "Engine/Types/Polygon.hpp"
 #include "Asteroid.hpp"
 
 #include <vector>
