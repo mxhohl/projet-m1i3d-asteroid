@@ -17,7 +17,7 @@ void Asteroids::update(engine::Renderer& renderer) {
         renderer.setDrawColor(asteroid->getColor());
         renderer.draw(asteroid->getCircle(), asteroid->getTransformMatrix());
 
-#ifdef DEBUG
+#ifdef DEBUG_MOD
         renderer.setDrawColor({255, 0, 0, 255});
         renderer.draw(asteroid->getPosition(),
                       asteroid->getPosition() + asteroid->getSpeed());

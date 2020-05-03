@@ -45,7 +45,7 @@ void Player::update(engine::Renderer& renderer) {
         renderer.draw(shot.position);
     }
 
-#ifdef DEBUG
+#ifdef DEBUG_MOD
     if (speed.sqrLength() > 0) {
         renderer.setDrawColor({0, 255, 0, 255});
         renderer.draw(

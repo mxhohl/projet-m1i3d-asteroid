@@ -1,8 +1,6 @@
 #include <iostream>
 #include "Game/Entities/Asteroid.hpp"
 
-#include "Engine/Settings.hpp"
-
 Asteroid::Asteroid() : size(1), exploding(false) {};
 
 void Asteroid::onCollide(engine::PhysicEngine::CollisionType collisionType,

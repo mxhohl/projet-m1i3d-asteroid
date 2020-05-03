@@ -55,7 +55,7 @@ add_executable(${TARGET} ${SRC})
 target_include_directories(${TARGET} PRIVATE include)
 
 if(ASTEROID_VISUAL_DEBUG)
-    target_compile_definitions(${TARGET} PRIVATE -DDEBUG)
+    target_compile_definitions(${TARGET} PRIVATE -DDEBUG_MOD)
 endif()
 
 if(MSVC)

@@ -19,6 +19,7 @@ TODO
  - Empecher le démarrage d'une nouvelle partie quand le joueur "spam" la touche espace
  - Ajout de la doc Doxygen
  - TOUJOURS PLUS DE LOG
+ - Supprimer le point au milieu des entités quand pas on mode debug
 
 BUGS
 ----

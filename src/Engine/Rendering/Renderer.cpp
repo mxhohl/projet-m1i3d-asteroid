@@ -69,7 +69,8 @@ void Renderer::draw(const Polygon &polygon, const Mat3f& transform) {
 
         SDL_RenderDrawLineF(renderer, p1.x(), p1.y(), p2.x(), p2.y());
     }
-#ifdef DEBUG
+
+#ifdef DEBUG_MOD
     SDL_SetRenderDrawColor(renderer, 0, 255, 255, 255);
     draw(polygon.getCentroid(), transform);
     SDL_SetRenderDrawColor(
