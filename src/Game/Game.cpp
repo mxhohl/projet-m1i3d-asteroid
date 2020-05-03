@@ -59,6 +59,13 @@ Game::Game() : ok(false), quit(false), paused(false), gameOver(false), score(0),
     scoreText->setCharacterSize(20);
     scoreText->setColor(engine::Color::White());
 
+    refreshTimeText = gui->create<engine::gui::Text>();
+    refreshTimeText->setPosition({-2, 2});
+    refreshTimeText->setAnchor(engine::gui::Anchor::TopRight);
+    refreshTimeText->setColor({0, 150, 0, 200});
+    refreshTimeText->setCharacterSize(10);
+    refreshTimeText->setText("1000 ms");
+
     middleScreenPanel = gui->create<engine::gui::Panel>();
     middleScreenPanel->setColor({200, 200, 200, 70});
     middleScreenPanel->setWidth(300);
@@ -136,7 +143,10 @@ int Game::run() {
         renderer.present();
 
         Uint32 currentTime = SDL_GetTicks();
-        double dt = (currentTime - lastUpdate) / 1000.;
+        double dtms = currentTime - lastUpdate;
+        double dt = dtms / 1000.;
+
+        refreshTimeText->setText(sstr(dtms, " ms"));
 
         if (!paused && !gameOver) {
             this->engine::Subject<double>::notify(dt);

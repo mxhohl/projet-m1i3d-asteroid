@@ -68,6 +68,7 @@ private:
     std::shared_ptr<engine::gui::Gui> gui;
 
     engine::gui::Text::Ptr scoreText;
+    engine::gui::Text::Ptr refreshTimeText;
 
     engine::gui::Panel::Ptr middleScreenPanel;
     engine::gui::Text::Ptr middleScreenTitle;
