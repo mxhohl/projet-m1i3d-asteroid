@@ -47,7 +47,9 @@ set(SRC
         include/gui/Gui.hpp
         src/gui/Gui.cpp src/gui/Entity.cpp
         include/gui/GUIRenderer.hpp
-        src/gui/GUIRenderer.cpp include/Logger.hpp src/Logger.cpp)
+        src/gui/GUIRenderer.cpp
+        include/Logger.hpp
+        src/Logger.cpp)
 
 add_executable(${TARGET} ${SRC})
 target_include_directories(${TARGET} PRIVATE include)

@@ -1,15 +1,14 @@
 #include "Game.hpp"
 
 #include "Settings.hpp"
+#include "Logger.hpp"
 
 #include <iostream>
 
 Game::Game() : ok(false), quit(false), paused(false), gameOver(false), score(0),
                window(nullptr) {
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-        std::cout << "SDL_Init Error: "
-                  << SDL_GetError()
-                  << std::endl;
+        FATAL(sstr("SDL_Init Error: ", SDL_GetError()));
         ok = false;
     }
 
@@ -23,7 +22,7 @@ Game::Game() : ok(false), quit(false), paused(false), gameOver(false), score(0),
             SDL_WINDOW_SHOWN
     );
     if (!window){
-        std::cout << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
+        FATAL(sstr("SDL_CreateWindow Error: ", SDL_GetError()));
         ok = false;
         return;
     }
@@ -32,7 +31,7 @@ Game::Game() : ok(false), quit(false), paused(false), gameOver(false), score(0),
 
     if (!renderer.isOk()){
         SDL_DestroyWindow(window);
-        std::cout << "Unable to create renderer" << std::endl;
+        ERROR("Unable to create renderer");
         ok = false;
         return;
     }
@@ -123,7 +122,7 @@ void Game::startGame() {
 
 int Game::run() {
     if (!ok) {
-        std::cerr << "Error" << std::endl;
+        ERROR("Unable to run game which is not ok");
         return 1;
     }
 

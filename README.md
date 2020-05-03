@@ -4,7 +4,6 @@ Projet Asteroids de Maxime Hohl
 TODO
 ----
  - Déplacer la class Polygon du dossier Renddering au dossier Types.
- - Ajout d'un système de gestion des erreurs (LOG (fichier, terminal) + Message box)
  - Améliorer le calcul de la vitesse des astéroïdes après explosion
  - Ajouter tout les paramètre dans le système de `settings` à la place de constexpr
  - Mettre une seed aléatoire
@@ -14,6 +13,7 @@ TODO
  - Faire un dossier `Engine` et un dossier `Game`
  - Ajout d'un namespace `engine`
  - Ajout de la doc Doxygen
+ - Ajout de pmp pour les moteur de physique
 
 BUGS
 ----

@@ -1,7 +1,8 @@
 #include "Rendering/Renderer.hpp"
 
 #include <iostream>
-#include <gui/GUIRenderer.hpp>
+
+#include "Logger.hpp"
 
 Renderer::Renderer() : renderer(nullptr) {}
 
@@ -17,10 +18,7 @@ void Renderer::create(SDL_Window *window) {
     );
 
     if (!renderer) {
-        std::cerr << "SDL_CreateRenderer Error:"
-                  << SDL_GetError()
-                  << std::endl;
-        return;
+        FATAL(sstr("SDL_CreateRenderer Error: ", SDL_GetError()));
     }
 
     SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);

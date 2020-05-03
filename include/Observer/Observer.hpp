@@ -2,7 +2,7 @@
 #define OBSERVER_HPP
 
 class Renderer;
-class KeyboardEventData;
+struct KeyboardEventData;
 
 template<class T>
 class Observer {
