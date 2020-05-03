@@ -1,6 +1,11 @@
 Projet Asteroids de Maxime Hohl
 ===============================
 
+Rapport
+-------
+
+Le rapport est disponible dans le dossier `documents/rapport`.
+
 TODO
 ----
  - Déplacer la class Polygon du dossier Renddering au dossier Types.
