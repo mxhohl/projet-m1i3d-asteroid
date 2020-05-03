@@ -4,7 +4,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 option(ASTEROID_VISUAL_DEBUG "Enable Visual Debug mode" off)
 
-add_subdirectory(external/SDL2-2.0.10)
+add_subdirectory(external/SDL2-2.0.12)
 
 set(TARGET asteroids)
 set(SRC
