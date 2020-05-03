@@ -187,283 +187,283 @@ compile_commands.json
 ################################################################################
 
 ## Core latex/pdflatex auxiliary files:
-documents/*.aux
-documents/*.lof
-documents/*.log
-documents/*.lot
-documents/*.fls
-documents/*.out
-documents/*.toc
-documents/*.fmt
-documents/*.fot
-documents/*.cb
-documents/*.cb2
-documents/.*.lb
+documents/**/*.aux
+documents/**/*.lof
+documents/**/*.log
+documents/**/*.lot
+documents/**/*.fls
+documents/**/*.out
+documents/**/*.toc
+documents/**/*.fmt
+documents/**/*.fot
+documents/**/*.cb
+documents/**/*.cb2
+documents/**/.*.lb
 
 ## Intermediate documents:
-documents/*.dvi
-documents/*.xdv
-documents/*-converted-to.*
+documents/**/*.dvi
+documents/**/*.xdv
+documents/**/*-converted-to.*
 # these rules might exclude image files for figures etc.
-# *.ps
-# *.eps
-# *.pdf
+# documents/**/*.ps
+# documents/**/*.eps
+# documents/**/*.pdf
 
 ## Generated if empty string is given at "Please type another file name for output:"
-documents/.pdf
+documents/**/.pdf
 
 ## Bibliography auxiliary files (bibtex/biblatex/biber):
-documents/*.bbl
-documents/*.bcf
-documents/*.blg
-documents/*-blx.aux
-documents/*-blx.bib
-documents/*.run.xml
+documents/**/*.bbl
+documents/**/*.bcf
+documents/**/*.blg
+documents/**/*-blx.aux
+documents/**/*-blx.bib
+documents/**/*.run.xml
 
 ## Build tool auxiliary files:
-documents/*.fdb_latexmk
-documents/*.synctex
-documents/*.synctex(busy)
-documents/*.synctex.gz
-documents/*.synctex.gz(busy)
-documents/*.pdfsync
+documents/**/*.fdb_latexmk
+documents/**/*.synctex
+documents/**/*.synctex(busy)
+documents/**/*.synctex.gz
+documents/**/*.synctex.gz(busy)
+documents/**/*.pdfsync
 
 ## Build tool directories for auxiliary files
 # latexrun
-documents/latex.out/
+documents/**/latex.out/
 
 ## Auxiliary and intermediate files from other packages:
 # algorithms
-documents/*.alg
-documents/*.loa
+documents/**/*.alg
+documents/**/*.loa
 
 # achemso
-documents/acs-*.bib
+documents/**/acs-*.bib
 
 # amsthm
-documents/*.thm
+documents/**/*.thm
 
 # beamer
-documents/*.nav
-documents/*.pre
-documents/*.snm
-documents/*.vrb
+documents/**/*.nav
+documents/**/*.pre
+documents/**/*.snm
+documents/**/*.vrb
 
 # changes
-documents/*.soc
+documents/**/*.soc
 
 # comment
-documents/*.cut
+documents/**/*.cut
 
 # cprotect
-documents/*.cpt
+documents/**/*.cpt
 
 # elsarticle (documentclass of Elsevier journals)
-documents/*.spl
+documents/**/*.spl
 
 # endnotes
-documents/*.ent
+documents/**/*.ent
 
 # fixme
-documents/*.lox
+documents/**/*.lox
 
 # feynmf/feynmp
-documents/*.mf
-documents/*.mp
-documents/*.t[1-9]
-documents/*.t[1-9][0-9]
-documents/*.tfm
+documents/**/*.mf
+documents/**/*.mp
+documents/**/*.t[1-9]
+documents/**/*.t[1-9][0-9]
+documents/**/*.tfm
 
 #(r)(e)ledmac/(r)(e)ledpar
-documents/*.end
-documents/*.?end
-documents/*.[1-9]
-documents/*.[1-9][0-9]
-documents/*.[1-9][0-9][0-9]
-documents/*.[1-9]R
-documents/*.[1-9][0-9]R
-documents/*.[1-9][0-9][0-9]R
-documents/*.eledsec[1-9]
-documents/*.eledsec[1-9]R
-documents/*.eledsec[1-9][0-9]
-documents/*.eledsec[1-9][0-9]R
-documents/*.eledsec[1-9][0-9][0-9]
-documents/*.eledsec[1-9][0-9][0-9]R
+documents/**/*.end
+documents/**/*.?end
+documents/**/*.[1-9]
+documents/**/*.[1-9][0-9]
+documents/**/*.[1-9][0-9][0-9]
+documents/**/*.[1-9]R
+documents/**/*.[1-9][0-9]R
+documents/**/*.[1-9][0-9][0-9]R
+documents/**/*.eledsec[1-9]
+documents/**/*.eledsec[1-9]R
+documents/**/*.eledsec[1-9][0-9]
+documents/**/*.eledsec[1-9][0-9]R
+documents/**/*.eledsec[1-9][0-9][0-9]
+documents/**/*.eledsec[1-9][0-9][0-9]R
 
 # glossaries
-documents/*.acn
-documents/*.acr
-documents/*.glg
-documents/*.glo
-documents/*.gls
-documents/*.glsdefs
-documents/*.lzo
-documents/*.lzs
+documents/**/*.acn
+documents/**/*.acr
+documents/**/*.glg
+documents/**/*.glo
+documents/**/*.gls
+documents/**/*.glsdefs
+documents/**/*.lzo
+documents/**/*.lzs
 
 # uncomment this for glossaries-extra (will ignore makeindex's style files!)
-# documents/*.ist
+# documents/**/*.ist
 
 # gnuplottex
-documents/*-gnuplottex-*
+documents/**/*-gnuplottex-*
 
 # gregoriotex
-documents/*.gaux
-documents/*.gtex
+documents/**/*.gaux
+documents/**/*.gtex
 
 # htlatex
-documents/*.4ct
-documents/*.4tc
-documents/*.idv
-documents/*.lg
-documents/*.trc
-documents/*.xref
+documents/**/*.4ct
+documents/**/*.4tc
+documents/**/*.idv
+documents/**/*.lg
+documents/**/*.trc
+documents/**/*.xref
 
 # hyperref
-documents/*.brf
+documents/**/*.brf
 
 # knitr
-documents/*-concordance.tex
+documents/**/*-concordance.tex
 # TODO Uncomment the next line if you use knitr and want to ignore its generated tikz files
 # documents/*.tikz
-documents/*-tikzDictionary
+documents/**/*-tikzDictionary
 
 # listings
-documents/*.lol
+documents/**/*.lol
 
 # luatexja-ruby
-documents/*.ltjruby
+documents/**/*.ltjruby
 
 # makeidx
-documents/*.idx
-documents/*.ilg
-documents/*.ind
+documents/**/*.idx
+documents/**/*.ilg
+documents/**/*.ind
 
 # minitoc
-documents/*.maf
-documents/*.mlf
-documents/*.mlt
-documents/*.mtc[0-9]*
-documents/*.slf[0-9]*
-documents/*.slt[0-9]*
-documents/*.stc[0-9]*
+documents/**/*.maf
+documents/**/*.mlf
+documents/**/*.mlt
+documents/**/*.mtc[0-9]*
+documents/**/*.slf[0-9]*
+documents/**/*.slt[0-9]*
+documents/**/*.stc[0-9]*
 
 # minted
-documents/_minted*
-documents/*.pyg
+documents/**/_minted*
+documents/**/*.pyg
 
 # morewrites
-documents/*.mw
+documents/**/*.mw
 
 # nomencl
-documents/*.nlg
-documents/*.nlo
-documents/*.nls
+documents/**/*.nlg
+documents/**/*.nlo
+documents/**/*.nls
 
 # pax
-documents/*.pax
+documents/**/*.pax
 
 # pdfpcnotes
-documents/*.pdfpc
+documents/**/*.pdfpc
 
 # sagetex
-documents/*.sagetex.sage
-documents/*.sagetex.py
-documents/*.sagetex.scmd
+documents/**/*.sagetex.sage
+documents/**/*.sagetex.py
+documents/**/*.sagetex.scmd
 
 # scrwfile
-documents/*.wrt
+documents/**/*.wrt
 
 # sympy
-documents/*.sout
-documents/*.sympy
-documents/sympy-plots-for-*.tex/
+documents/**/*.sout
+documents/**/*.sympy
+documents/**/sympy-plots-for-*.tex/
 
 # pdfcomment
-documents/*.upa
-documents/*.upb
+documents/**/*.upa
+documents/**/*.upb
 
 # pythontex
-documents/*.pytxcode
-documents/pythontex-files-*/
+documents/**/*.pytxcode
+documents/**/pythontex-files-*/
 
 # tcolorbox
-documents/*.listing
+documents/**/*.listing
 
 # thmtools
-documents/*.loe
+documents/**/*.loe
 
 # TikZ & PGF
-documents/*.dpth
-documents/*.md5
-documents/*.auxlock
+documents/**/*.dpth
+documents/**/*.md5
+documents/**/*.auxlock
 
 # todonotes
-documents/*.tdo
+documents/**/*.tdo
 
 # vhistory
-documents/*.hst
-documents/*.ver
+documents/**/*.hst
+documents/**/*.ver
 
 # easy-todo
-documents/*.lod
+documents/**/*.lod
 
 # xcolor
-documents/*.xcp
+documents/**/*.xcp
 
 # xmpincl
-documents/*.xmpi
+documents/**/*.xmpi
 
 # xindy
-documents/*.xdy
+documents/**/*.xdy
 
 # xypic precompiled matrices and outlines
-documents/*.xyc
-documents/*.xyd
+documents/**/*.xyc
+documents/**/*.xyd
 
 # endfloat
-documents/*.ttt
-documents/*.fff
+documents/**/*.ttt
+documents/**/*.fff
 
 # Latexian
-documents/TSWLatexianTemp*
+documents/**/TSWLatexianTemp*
 
 ## Editors:
 # WinEdt
-documents/*.bak
-documents/*.sav
+documents/**/*.bak
+documents/**/*.sav
 
 # Texpad
-documents/.texpadtmp
+documents/**/.texpadtmp
 
 # LyX
-documents/*.lyx~
+documents/**/*.lyx~
 
 # Kile
-documents/*.backup
+documents/**/*.backup
 
 # gummi
-documents/.*.swp
+documents/**/.*.swp
 
 # KBibTeX
-documents/*~[0-9]*
+documents/**/*~[0-9]*
 
 # TeXnicCenter
-documents/*.tps
+documents/**/*.tps
 
 # auto folder when using emacs and auctex
-documents/./auto/*
-documents/*.el
+documents/**/./auto/*
+documents/**/*.el
 
 # expex forward references with \gathertags
-documents/*-tags.tex
+documents/**/*-tags.tex
 
 # standalone packages
-documents/*.sta
+documents/**/*.sta
 
 # Makeindex log files
-documents/*.lpz
+documents/**/*.lpz
 
 # REVTeX puts footnotes in the bibliography by default, unless the nofootinbib
 # option is specified. Footnotes are the stored in a file with suffix Notes.bib.
 # Uncomment the next line to have this generated file ignored.
-#documents/*Notes.bib
+#documents/**/*Notes.bib
