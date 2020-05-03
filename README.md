@@ -16,7 +16,6 @@ TODO
  - Faire en sorte que les astéroïdes ne se spawn pas dessus
  - Ajouter tout les paramètre dans le système de `settings` à la place de constexpr
  - Ajouter la lecture des settings à partir d'un fichier de config
- - Mettre une seed aléatoire
  - Empecher le démarrage d'une nouvelle partie quand le joueur "spam" la touche espace
  - Ajout de la doc Doxygen
  - TOUJOURS PLUS DE LOG

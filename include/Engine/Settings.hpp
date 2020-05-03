@@ -4,6 +4,7 @@
 #include <string>
 #include <unordered_map>
 #include <variant>
+#include <chrono>
 
 namespace engine {
 
@@ -32,8 +33,15 @@ private:
     void loadSettings() {
         settings.insert({"window_width", 1280});
         settings.insert({"window_height", 720});
-        settings.insert({"seed", 546687u});
         settings.insert({"init_asteroid_count", 10u});
+        settings.insert({
+            "seed",
+            static_cast<unsigned>(
+                    546687 * rand()
+                    + std::chrono::system_clock::now()
+                            .time_since_epoch().count()
+            )
+        });
     }
 
 private:
