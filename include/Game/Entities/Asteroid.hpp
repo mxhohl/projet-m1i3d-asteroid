@@ -12,13 +12,37 @@
 class Asteroid : public engine::PhysicEntity {
     friend class Asteroids;
 
+public:
+    struct RandomContext {
+        RandomContext() :
+                generator(engine::Settings::getInstance().getParameter<unsigned int>("seed")),
+                speed_dist(-50, 50),
+                posX_dist(0, engine::Settings::getInstance().getParameter<int>("window_width")),
+                posY_dist(0, engine::Settings::getInstance().getParameter<int>("window_height")),
+                color_dist(0, 5),
+                scale_dist(0.8, 1.2) {}
+
+        std::default_random_engine generator;
+        std::uniform_real_distribution<float> speed_dist;
+        std::uniform_int_distribution<int> posX_dist;
+        std::uniform_int_distribution<int> posY_dist;
+        std::uniform_int_distribution<int> color_dist;
+        std::uniform_real_distribution<float> scale_dist;
+    };
+
 private:
     static constexpr float BASE_RADIUS = 15.f;
     static constexpr float MIN_PLAYER_DIST_ON_SPAWN = 100.f;
 
 public:
     Asteroid();
-    static Asteroid random(const std::shared_ptr<Player>& player = nullptr);
+    static Asteroid random(RandomContext& randomContext,
+                           const std::shared_ptr<Player>& player = nullptr);
+
+    static std::shared_ptr<Asteroid> fromExplosion(
+            const std::shared_ptr<Asteroid>& parent,
+            RandomContext& randomContext,
+            const engine::Vec2f& position);
 
     void onCollide(engine::PhysicEngine::CollisionType collisionType,
                    [[maybe_unused]] engine::Vec2f position) override;

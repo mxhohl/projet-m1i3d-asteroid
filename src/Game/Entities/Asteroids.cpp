@@ -46,6 +46,7 @@ void Asteroids::reset() {
 
 void Asteroids::spawnAsteroid() {
     auto asteroid = std::make_shared<Asteroid>(Asteroid::random(
+            randomContext,
             Game::getInstance().getPlayer()
     ));
     auto circle = asteroid->getCircle();
@@ -65,26 +66,16 @@ int Asteroids::handleExplosions() {
                 const engine::Polygon& points = circle.getPolygon(3);
                 auto transform = (*it)->getTransformMatrix();
                 for (int i = 0; i < 3; ++i) {
-                    auto newAsteroid = std::make_shared<Asteroid>();
-                    newAsteroid->size = (*it)->size - 1;
-                    newAsteroid->color = (*it)->color;
-
-                    newAsteroid->setScale((*it)->getScale());
-                    newAsteroid->setRotation((*it)->getRotation());
-
-                    newAsteroid->setPosition(
+                    auto newAsteroid = Asteroid::fromExplosion(
+                            *it,
+                            randomContext,
                             transform.transformPoint(points[i])
-                    );
-
-                    newAsteroid->setSpeed(
-                        (*it)->getSpeed()
-                        + (newAsteroid->getPosition() - (*it)->getPosition())
-                        * 2.f
                     );
 
                     auto newAsteroidCircle = newAsteroid->getCircle();
                     newAsteroidCircle.setRadius(newAsteroidCircle.getRadius()
                                                 * newAsteroid->getScale().x());
+
                     physicEngine->addEntity(newAsteroid, newAsteroidCircle);
 
                     it = asteroids.insert(it, newAsteroid);

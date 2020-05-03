@@ -31,6 +31,8 @@ private:
     void handleAsteroidsSpawn(double dt);
 
 private:
+    Asteroid::RandomContext randomContext;
+
     std::vector<std::shared_ptr<Asteroid>> asteroids;
     std::shared_ptr<engine::PhysicEngine> physicEngine;
 

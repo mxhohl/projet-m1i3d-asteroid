@@ -9,7 +9,6 @@ Le rapport est disponible dans le dossier `documents/rapport`.
 TODO
 ----
  - Améliorer le calcul de la vitesse des astéroïdes après explosion
- - mettre une taille aléatoire sur les astéroides générés après destruction
  - Faire en sorte que les astéroïdes ne se spawn pas dessus
  - Ajouter tout les paramètre dans le système de `settings` à la place de constexpr
  - Ajouter la lecture des settings à partir d'un fichier de config
