@@ -11,6 +11,9 @@ TODO
  - Empecher le démarrage d'une nouvelle partie quand le joueur "spam" la touche espace
  - Ajouter la lecture des settings à partir d'un fichier de config
  - Faire en sorte que les astéroïdes ne se spawn pas dessus
+ - Faire un dossier `Engine` et un dossier `Game`
+ - Ajout d'un namespace `engine`
+ - Ajout de la doc Doxygen
 
 BUGS
 ----

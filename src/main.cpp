@@ -1,6 +1,7 @@
 #include <iostream>
 
 #include "Game.hpp"
+#include "Logger.hpp"
 
 void terminate() {
     std::cerr << "Terminating Asteroids..." << std::endl;
@@ -9,6 +10,12 @@ void terminate() {
 
 int main(int, char**){
     std::set_terminate(terminate);
+
+    DEBUG("test debug");
+    INFO("test info");
+    WARN("test warning");
+    ERROR("test error");
+    FATAL("test fatal");
 
     try {
         Game& game = Game::getInstance();
