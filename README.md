@@ -6,6 +6,10 @@ Rapport
 
 Le rapport est disponible dans le dossier `documents/rapport`.
 
+ - Parler de l'ajout de OpenMP lib mais pas nécéssaire car 13ms (calculer fps) 
+   constant sur ma machine ce qui est plus que avec OpenMP (car trop peut 
+   d'éléments peut-�tre avec particules)
+
 TODO
 ----
  - Améliorer le calcul de la vitesse des astéroïdes après explosion
@@ -15,7 +19,6 @@ TODO
  - Mettre une seed aléatoire
  - Empecher le démarrage d'une nouvelle partie quand le joueur "spam" la touche espace
  - Ajout de la doc Doxygen
- - Ajout de pmp pour les moteur de physique et les astéroides
  - TOUJOURS PLUS DE LOG
 
 BUGS
