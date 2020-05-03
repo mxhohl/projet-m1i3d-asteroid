@@ -2,7 +2,7 @@
 
 #include <utility>
 
-using namespace gui;
+using namespace engine::gui;
 
 Panel::Panel(std::shared_ptr<Gui> gui) :
         Entity(std::move(gui)),
@@ -26,7 +26,7 @@ void Panel::setHeight(int h) {
     height = h;
 }
 
-const Color &Panel::getColor() const {
+const engine::Color &Panel::getColor() const {
     return color;
 }
 

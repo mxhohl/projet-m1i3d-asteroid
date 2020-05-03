@@ -1,24 +1,24 @@
 #ifndef PROJETPROGAVANCEE_ASTEROIDS_HPP
 #define PROJETPROGAVANCEE_ASTEROIDS_HPP
 
-#include "Rendering/Renderer.hpp"
-#include "Observer/Observer.hpp"
-#include "Observer/Subject.hpp"
-#include "Rendering/Polygon.hpp"
+#include "Engine/Rendering/Renderer.hpp"
+#include "Engine/Observer/Observer.hpp"
+#include "Engine/Observer/Subject.hpp"
+#include "Engine/Rendering/Polygon.hpp"
 #include "Asteroid.hpp"
 
 #include <vector>
 
-class Asteroids : public Renderable,
-                  public Updatable {
+class Asteroids : public engine::Renderable,
+                  public engine::Updatable {
 public:
     static constexpr double ASTEROID_BASE_SPAWN_RATE = 3.;
 
 public:
-    explicit Asteroids(std::shared_ptr<PhysicEngine>  physicEngine);
+    explicit Asteroids(std::shared_ptr<engine::PhysicEngine>  physicEngine);
     ~Asteroids() override;
 
-    void update(Renderer& renderer) override;
+    void update(engine::Renderer& renderer) override;
     void update(double dt) override;
 
     void reset();
@@ -32,7 +32,7 @@ private:
 
 private:
     std::vector<std::shared_ptr<Asteroid>> asteroids;
-    std::shared_ptr<PhysicEngine> physicEngine;
+    std::shared_ptr<engine::PhysicEngine> physicEngine;
 
     double asteroidSpawnTimer;
 };

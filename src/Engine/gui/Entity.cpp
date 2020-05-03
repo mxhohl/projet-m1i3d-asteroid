@@ -5,7 +5,7 @@
 #include <algorithm>
 #include <utility>
 
-using namespace gui;
+using namespace engine::gui;
 
 Entity::Entity(std::shared_ptr<Gui>  gui) :
         gui(std::move(gui)),
@@ -25,11 +25,11 @@ void Entity::setParent(const std::shared_ptr<Entity>& newParent) {
     setNewParent(newParent);
 }
 
-Vec2u Entity::getSize() const {
+engine::Vec2u Entity::getSize() const {
     return {getWidth(), getHeight()};
 }
 
-const Vec2i& Entity::getPosition() const {
+const engine::Vec2i& Entity::getPosition() const {
     return position;
 }
 
@@ -41,7 +41,7 @@ void Entity::move(const Vec2i& dp) {
     position += dp;
 }
 
-Vec2i Entity::getRelativePosition() const {
+engine::Vec2i Entity::getRelativePosition() const {
     auto parentAbsolutePos = Vec2i(0, 0);
 
     if (!parent.expired()) {
@@ -161,7 +161,7 @@ Vec2i Entity::getRelativePosition() const {
     return parentAbsolutePos + position;
 }
 
-Vec2i Entity::getAbsolutePosition() const {
+engine::Vec2i Entity::getAbsolutePosition() const {
     if (parent.expired()) {
         return getRelativePosition();
     } else {

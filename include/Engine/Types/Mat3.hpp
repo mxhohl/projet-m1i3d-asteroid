@@ -5,25 +5,29 @@
 #include <cmath>
 #include "Vec2.hpp"
 
-template <class T>
+namespace engine {
+
+template<class T>
 class Mat3 {
 public:
     Mat3() : data(0) {}
+
     explicit Mat3(T v) : Mat3(v, v, v, v, v, v, v, v, v) {}
+
     Mat3(T v11, T v21, T v31, T v12, T v22, T v32, T v13, T v23, T v33)
-        : data{v11, v21, v31,
-               v12, v22, v32,
-               v13, v23, v33} {}
+            : data{v11, v21, v31,
+                   v12, v22, v32,
+                   v13, v23, v33} {}
 
-    T& operator()(size_t i, size_t j) {
+    T &operator()(size_t i, size_t j) {
         return data[j * 3 + i];
     }
 
-    const T& operator()(size_t i, size_t j) const {
+    const T &operator()(size_t i, size_t j) const {
         return data[j * 3 + i];
     }
 
-    friend std::ostream& operator<<(std::ostream& s, const Mat3<T>& mat) {
+    friend std::ostream &operator<<(std::ostream &s, const Mat3<T> &mat) {
         s << std::string("(");
         for (int i = 0; i < 3; ++i) {
             if (i != 0) {
@@ -46,13 +50,13 @@ public:
                     0, 0, 1);
     }
 
-    static Mat3<float> translation(const Vec2<T>& translation) {
+    static Mat3<float> translation(const Vec2<T> &translation) {
         return Mat3(1, 0, 0,
                     0, 1, 0,
                     translation.x(), translation.y(), 1);
     }
 
-    static Mat3<float> scale(const Vec2<T>& scale) {
+    static Mat3<float> scale(const Vec2<T> &scale) {
         return Mat3(scale.x(), 0, 0,
                     0, scale.y(), 0,
                     0, 0, 1);
@@ -78,31 +82,31 @@ public:
         return mat;
     }
 
-    friend Mat3<T> operator+(const Mat3<T>& left, const Mat3<T>& right) {
+    friend Mat3<T> operator+(const Mat3<T> &left, const Mat3<T> &right) {
         Mat3 mat;
         for (size_t i = 0; i < 9; ++i) {
             mat.data[i] = left.data[i] + right.data[i];
         }
     }
 
-    template <class U>
-    friend Mat3<T> operator*(const Mat3<T>& left, U right) {
+    template<class U>
+    friend Mat3<T> operator*(const Mat3<T> &left, U right) {
         Mat3 mat;
         for (size_t i = 0; i < 9; ++i) {
             mat.data[i] = left.data[i] * right;
         }
     }
 
-    template <class U>
-    friend Mat3<T> operator*(T left, const Mat3<T>& right) {
+    template<class U>
+    friend Mat3<T> operator*(T left, const Mat3<T> &right) {
         Mat3 mat;
         for (size_t i = 0; i < 9; ++i) {
             mat.data[i] = left * right.data[i];
         }
     }
 
-    template <class U>
-    friend Mat3<T> operator*(const Mat3<T>& left, const Mat3<U>& right) {
+    template<class U>
+    friend Mat3<T> operator*(const Mat3<T> &left, const Mat3<U> &right) {
         Mat3 mat(0);
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 3; ++j) {
@@ -115,7 +119,7 @@ public:
         return mat;
     }
 
-    [[nodiscard]] Vec2f transformPoint(const Vec2f& point) const {
+    [[nodiscard]] Vec2f transformPoint(const Vec2f &point) const {
         float x = point.x() * data[0] + point.y() * data[3] + data[6];
         float y = point.x() * data[1] + point.y() * data[4] + data[7];
         float w = point.x() * data[2] + point.y() * data[5] + data[8];
@@ -127,5 +131,7 @@ private:
 };
 
 using Mat3f = Mat3<float>;
+
+}
 
 #endif //PROJETPROGAVANCEE_MAT3_HPP

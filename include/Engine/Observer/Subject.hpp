@@ -7,6 +7,8 @@
 #include <vector>
 #include <algorithm>
 
+namespace engine {
+
 template<class T>
 class Subject {
 public:
@@ -31,11 +33,14 @@ protected:
     }
 
 private:
-    std::vector<std::shared_ptr<Observer<T>>> observers;
+    std::vector<std::shared_ptr<Observer < T>>>
+    observers;
 };
 
-using RenderingHandler = Subject<Renderer&>;
-using KeyboardHandler = Subject<const KeyboardEventData&>;
+using RenderingHandler = Subject<Renderer &>;
+using KeyboardHandler = Subject<const KeyboardEventData &>;
 using UpdateHandler = Subject<double>;
+
+}
 
 #endif // SUBJECT_HPP

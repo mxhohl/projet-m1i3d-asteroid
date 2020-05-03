@@ -7,7 +7,7 @@
 #include <memory>
 #include <vector>
 
-namespace gui {
+namespace engine::gui {
 
 class Gui : public Renderable, public std::enable_shared_from_this<Gui> {
     friend class Entity;

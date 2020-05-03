@@ -1,8 +1,8 @@
-#include "Engine/gui/GUIRenderer.hpp"
+#include "Engine/gui/Renderer.hpp"
 
 #include <utility>
 
-using namespace gui;
+using namespace engine::gui;
 
 GUIRenderer::GUIRenderer(Renderer& renderer,
                          Vec2i currentDPos) :
@@ -13,11 +13,11 @@ GUIRenderer::GUIRenderer(const GUIRenderer& parent, Vec2i position) :
         renderer(parent.renderer),
         currentDPos(parent.currentDPos + position) {}
 
-void GUIRenderer::setDrawColor(const Color& color) {
+void GUIRenderer::setDrawColor(const engine::Color& color) {
     renderer.setDrawColor(color);
 }
 
-Color GUIRenderer::getDrawColor() const {
+engine::Color GUIRenderer::getDrawColor() const {
     return renderer.getDrawColor();
 }
 

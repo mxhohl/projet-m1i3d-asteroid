@@ -3,6 +3,8 @@
 #include <utility>
 #include <algorithm>
 
+using namespace engine;
+
 Polygon::Polygon() = default;
 
 Polygon::Polygon(size_t size) : points(size) {}

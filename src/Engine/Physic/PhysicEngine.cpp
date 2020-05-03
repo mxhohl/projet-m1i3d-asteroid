@@ -4,6 +4,8 @@
 #include "Engine/Physic/PhysicEntity.hpp"
 #include "Game/Entities/Player.hpp"
 
+using namespace engine;
+
 PhysicEngine::PhysicEngine() : entityUidCounter(0) {}
 
 void PhysicEngine::update(double dt) {

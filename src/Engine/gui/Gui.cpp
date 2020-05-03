@@ -1,6 +1,6 @@
 #include "Engine/gui/Gui.hpp"
 
-using namespace gui;
+using namespace engine::gui;
 
 Gui::Gui() = default;
 

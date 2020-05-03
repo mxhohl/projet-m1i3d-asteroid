@@ -6,6 +6,8 @@
 #include "Engine/Logger.hpp"
 #include "Engine/Utils.hpp"
 
+using namespace engine;
+
 Logger::Logger() :
         logLevel(INFO),
         options{

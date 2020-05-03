@@ -3,6 +3,8 @@
 
 #include <SDL.h>
 
+namespace engine {
+
 struct KeyboardEventData {
     enum Type {
         Press,
@@ -10,12 +12,14 @@ struct KeyboardEventData {
     };
 
     KeyboardEventData(Type type, SDL_Scancode scancode, SDL_Keycode keycode) :
-        type(type), scancode(scancode),
-        keycode(keycode) {}
+            type(type), scancode(scancode),
+            keycode(keycode) {}
 
     Type type;
     SDL_Scancode scancode;
     SDL_Keycode keycode;
 };
+
+}
 
 #endif //PROJETPROGAVANCEE_KEYBOARDEVENTDATA_HPP

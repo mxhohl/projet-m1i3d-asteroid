@@ -12,7 +12,7 @@ Game::Game() : ok(false), quit(false), paused(false), gameOver(false), score(0),
         ok = false;
     }
 
-    Settings& settings = Settings::getInstance();
+    auto& settings = engine::Settings::getInstance();
 
     window = SDL_CreateWindow(
             "Maxime Hohl's Asteroid Game",
@@ -37,43 +37,43 @@ Game::Game() : ok(false), quit(false), paused(false), gameOver(false), score(0),
     }
 
 
-    physicEngine = std::make_shared<PhysicEngine>();
-    this->UpdateHandler::addObserver(physicEngine);
+    physicEngine = std::make_shared<engine::PhysicEngine>();
+    this->engine::UpdateHandler::addObserver(physicEngine);
 
     player = std::make_shared<Player>(physicEngine);
-    this->RenderingHandler::addObserver(player);
-    this->KeyboardHandler::addObserver(player);
-    this->UpdateHandler::addObserver(player);
+    this->engine::RenderingHandler::addObserver(player);
+    this->engine::KeyboardHandler::addObserver(player);
+    this->engine::UpdateHandler::addObserver(player);
 
 
     asteroids = std::make_shared<Asteroids>(physicEngine);
-    this->UpdateHandler::addObserver(asteroids);
-    this->RenderingHandler::addObserver(asteroids);
+    this->engine::UpdateHandler::addObserver(asteroids);
+    this->engine::RenderingHandler::addObserver(asteroids);
 
 
-    gui = std::make_shared<gui::Gui>();
-    this->RenderingHandler::addObserver(gui);
+    gui = std::make_shared<engine::gui::Gui>();
+    this->engine::RenderingHandler::addObserver(gui);
 
-    scoreText = gui->create<gui::Text>();
+    scoreText = gui->create<engine::gui::Text>();
     scoreText->setPosition({10, 10});
     scoreText->setCharacterSize(20);
-    scoreText->setColor(Color::White());
+    scoreText->setColor(engine::Color::White());
 
-    middleScreenPanel = gui->create<gui::Panel>();
+    middleScreenPanel = gui->create<engine::gui::Panel>();
     middleScreenPanel->setColor({200, 200, 200, 70});
     middleScreenPanel->setWidth(300);
     middleScreenPanel->setHeight(150);
-    middleScreenPanel->setAnchor(gui::Anchor::Middle);
+    middleScreenPanel->setAnchor(engine::gui::Anchor::Middle);
 
-    middleScreenTitle = gui->create<gui::Text>(middleScreenPanel);
-    middleScreenTitle->setColor(Color::White());
+    middleScreenTitle = gui->create<engine::gui::Text>(middleScreenPanel);
+    middleScreenTitle->setColor(engine::Color::White());
     middleScreenTitle->setCharacterSize(45);
-    middleScreenTitle->setAnchor(gui::Anchor::TopMiddle);
+    middleScreenTitle->setAnchor(engine::gui::Anchor::TopMiddle);
     middleScreenTitle->setPosition({0, 20});
 
-    middleScreenSubtitle = gui->create<gui::Text>(middleScreenPanel);
-    middleScreenSubtitle->setColor(Color::White());
-    middleScreenSubtitle->setAnchor(gui::Anchor::BottomMiddle);
+    middleScreenSubtitle = gui->create<engine::gui::Text>(middleScreenPanel);
+    middleScreenSubtitle->setColor(engine::Color::White());
+    middleScreenSubtitle->setAnchor(engine::gui::Anchor::BottomMiddle);
     middleScreenSubtitle->setPosition({0, -30});
     middleScreenSubtitle->setCharacterSize(20);
 
@@ -87,7 +87,7 @@ Game::~Game() {
 }
 
 void Game::setDefaultValues() {
-    Settings& settings = Settings::getInstance();
+    auto& settings = engine::Settings::getInstance();
 
     physicEngine->setPlayer(player);
     player->setScale(5);
@@ -107,7 +107,7 @@ void Game::setDefaultValues() {
 }
 
 void Game::startGame() {
-    Settings& settings = Settings::getInstance();
+    auto& settings = engine::Settings::getInstance();
 
     asteroids->reset();
     player->reset();
@@ -132,14 +132,14 @@ int Game::run() {
 		handleEvents();
 
         renderer.clear();
-        this->RenderingHandler::notify(renderer);
+        this->engine::RenderingHandler::notify(renderer);
         renderer.present();
 
         Uint32 currentTime = SDL_GetTicks();
         double dt = (currentTime - lastUpdate) / 1000.;
 
         if (!paused && !gameOver) {
-            this->Subject<double>::notify(dt);
+            this->engine::Subject<double>::notify(dt);
         }
 
         lastUpdate = currentTime;
@@ -196,14 +196,14 @@ void Game::handleEvents() {
                 }
 
                 if (!paused && !gameOver) {
-                    KeyboardEventData data(
+                    engine::KeyboardEventData data(
                             event.key.type == SDL_KEYUP
-                            ? KeyboardEventData::Release
-                            : KeyboardEventData::Press,
+                            ? engine::KeyboardEventData::Release
+                            : engine::KeyboardEventData::Press,
                             event.key.keysym.scancode,
                             event.key.keysym.sym
                     );
-                    this->KeyboardHandler::notify(data);
+                    this->engine::KeyboardHandler::notify(data);
                 }
 
 		        break;

@@ -5,14 +5,14 @@
 
 #include "Game/Game.hpp"
 
-Asteroids::Asteroids(std::shared_ptr<PhysicEngine> physicEngine)  :
+Asteroids::Asteroids(std::shared_ptr<engine::PhysicEngine> physicEngine)  :
         physicEngine(std::move(physicEngine)),
         asteroidSpawnTimer(0) {}
 
 
 Asteroids::~Asteroids() = default;
 
-void Asteroids::update(Renderer& renderer) {
+void Asteroids::update(engine::Renderer& renderer) {
     for (auto& asteroid : asteroids) {
         renderer.setDrawColor(asteroid->getColor());
         renderer.draw(asteroid->getCircle(), asteroid->getTransformMatrix());
@@ -61,8 +61,8 @@ int Asteroids::handleExplosions() {
             ++scoreDelta;
 
             if ((*it)->size > 1) {
-                Circle circle((*it)->getCircle().getRadius() * 0.8f);
-                const Polygon& points = circle.getPolygon(3);
+                engine::Circle circle((*it)->getCircle().getRadius() * 0.8f);
+                const engine::Polygon& points = circle.getPolygon(3);
                 auto transform = (*it)->getTransformMatrix();
                 for (int i = 0; i < 3; ++i) {
                     auto newAsteroid = std::make_shared<Asteroid>();

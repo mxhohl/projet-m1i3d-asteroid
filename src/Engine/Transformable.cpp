@@ -1,6 +1,8 @@
 #include "Engine/Settings.hpp"
 #include "Engine/Transformable.hpp"
 
+using namespace engine;
+
 Transformable::Transformable() : position{0, 0}, rotation(0), scale{1, 1} {
 
 }

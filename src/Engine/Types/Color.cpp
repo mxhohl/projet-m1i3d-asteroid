@@ -1,5 +1,6 @@
 #include "Engine/Types/Color.hpp"
 
+using namespace engine;
 
 Color::Color() : Color(0) {}
 

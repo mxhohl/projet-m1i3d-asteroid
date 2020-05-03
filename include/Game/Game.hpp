@@ -1,12 +1,12 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
-#include <gui/Entities/Panel.hpp>
-#include "gui/Entities/Text.hpp"
-#include "gui/Gui.hpp"
-#include "Physic/PhysicEngine.hpp"
-#include "Rendering/Renderer.hpp"
-#include "Observer/Subject.hpp"
+#include "Engine/gui/Entities/Panel.hpp"
+#include "Engine/gui/Entities/Text.hpp"
+#include "Engine/gui/Gui.hpp"
+#include "Engine/Physic/PhysicEngine.hpp"
+#include "Engine/Rendering/Renderer.hpp"
+#include "Engine/Observer/Subject.hpp"
 #include "Game/Entities/Player.hpp"
 #include "Game/Entities/Asteroids.hpp"
 
@@ -14,9 +14,9 @@ extern "C" {
 #include <SDL.h>
 };
 
-class Game : public RenderingHandler,
-             public KeyboardHandler,
-             public UpdateHandler {
+class Game : public engine::RenderingHandler,
+             public engine::KeyboardHandler,
+             public engine::UpdateHandler {
 public:
     static Game& getInstance() {
         static Game instance;
@@ -59,19 +59,19 @@ private:
     int score;
 
     SDL_Window* window;
-    Renderer renderer;
+    engine::Renderer renderer;
 
 private:
     std::shared_ptr<Player> player;
     std::shared_ptr<Asteroids> asteroids;
-    std::shared_ptr<PhysicEngine> physicEngine;
-    std::shared_ptr<gui::Gui> gui;
+    std::shared_ptr<engine::PhysicEngine> physicEngine;
+    std::shared_ptr<engine::gui::Gui> gui;
 
-    gui::Text::Ptr scoreText;
+    engine::gui::Text::Ptr scoreText;
 
-    gui::Panel::Ptr middleScreenPanel;
-    gui::Text::Ptr middleScreenTitle;
-    gui::Text::Ptr middleScreenSubtitle;
+    engine::gui::Panel::Ptr middleScreenPanel;
+    engine::gui::Text::Ptr middleScreenTitle;
+    engine::gui::Text::Ptr middleScreenSubtitle;
 };
 
 #endif // GAME_HPP

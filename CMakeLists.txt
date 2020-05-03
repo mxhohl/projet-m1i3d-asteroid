@@ -12,7 +12,7 @@ set(SRC
         include/Game/Game.hpp
         src/Game/Game.cpp
         include/Engine/Rendering/Renderer.hpp
-        src/Engine/Rendering/GUIRenderer.cpp
+        src/Engine/Rendering/Renderer.cpp
         include/Engine/Observer/Observer.hpp
         include/Engine/Observer/Subject.hpp
         include/Engine/Types/Vec2.hpp
@@ -46,7 +46,7 @@ set(SRC
         src/Engine/gui/Entities/Panel.cpp
         include/Engine/gui/Gui.hpp
         src/Engine/gui/Gui.cpp src/Engine/gui/Entity.cpp
-        include/Engine/gui/GUIRenderer.hpp
+        include/Engine/gui/Renderer.hpp
         src/Engine/gui/GUIRenderer.cpp
         include/Engine/Logger.hpp
         src/Engine/Logger.cpp)

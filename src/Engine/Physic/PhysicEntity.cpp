@@ -2,6 +2,8 @@
 
 #include <utility>
 
+using namespace engine;
+
 PhysicEntity::PhysicEntity() : PhysicEntity({0, 0}, {0, 0}, 500) {}
 
 PhysicEntity::PhysicEntity(Vec2f  acceleration,

@@ -7,7 +7,7 @@
 #include <vector>
 #include <memory>
 
-namespace gui {
+namespace engine::gui {
 
 class Panel : public Entity {
 public:

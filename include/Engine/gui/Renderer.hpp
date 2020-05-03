@@ -1,9 +1,9 @@
-#ifndef PROJETPROGAVANCEE_GUIRENDERER_HPP
-#define PROJETPROGAVANCEE_GUIRENDERER_HPP
+#ifndef PROJETPROGAVANCEE_RENDERER_HPP
+#define PROJETPROGAVANCEE_RENDERER_HPP
 
 #include "Engine/Rendering/Renderer.hpp"
 
-namespace gui {
+namespace engine::gui {
 
 class GUIRenderer {
 public:
@@ -24,4 +24,4 @@ private:
 
 }
 
-#endif //PROJETPROGAVANCEE_GUIRENDERER_HPP
+#endif //PROJETPROGAVANCEE_RENDERER_HPP

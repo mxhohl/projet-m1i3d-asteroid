@@ -1,7 +1,7 @@
 #ifndef PROJETPROGAVANCEE_ANCHOR_HPP
 #define PROJETPROGAVANCEE_ANCHOR_HPP
 
-namespace gui {
+namespace engine::gui {
 
 enum class Anchor {
     TopLeft,

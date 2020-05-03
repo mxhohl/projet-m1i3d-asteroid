@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-using namespace gui;
+using namespace engine::gui;
 
 Text::Text(std::shared_ptr<Gui> gui) :
         Entity(std::move(gui)),
@@ -21,7 +21,7 @@ void Text::setText(const std::string& t) {
     text = t;
 }
 
-const Color& Text::getColor() const {
+const engine::Color& Text::getColor() const {
     return color;
 }
 

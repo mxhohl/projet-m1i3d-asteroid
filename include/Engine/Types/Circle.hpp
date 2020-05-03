@@ -8,13 +8,15 @@
 #include <optional>
 #include <string>
 
+namespace engine {
+
 class Circle {
 public:
     explicit Circle(float radius) : radius(radius) {}
 
-    friend std::ostream& operator<<(std::ostream& s, const Circle& circle) {
-        s << std::string("Circle(") 
-          << std::to_string(circle.radius) 
+    friend std::ostream &operator<<(std::ostream &s, const Circle &circle) {
+        s << std::string("Circle(")
+          << std::to_string(circle.radius)
           << std::string(")");
         return s;
     }
@@ -31,7 +33,7 @@ public:
         return radius * radius;
     }
 
-    const Polygon& getPolygon(size_t ptCount = 20) const {
+    const Polygon &getPolygon(size_t ptCount = 20) const {
         if (!polygon) {
             generatePolygon(ptCount);
         }
@@ -57,5 +59,7 @@ private:
 
     mutable std::optional<Polygon> polygon;
 };
+
+}
 
 #endif //PROJETPROGAVANCEE_CIRCLE_HPP

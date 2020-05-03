@@ -1,17 +1,17 @@
 #ifndef PROJETPROGAVANCEE_PLAYER_HPP
 #define PROJETPROGAVANCEE_PLAYER_HPP
 
-#include "Physic/PhysicEngine.hpp"
-#include "Observer/Observer.hpp"
-#include "Observer/KeyboardEventData.hpp"
-#include "Rendering/Renderer.hpp"
+#include "Engine/Physic/PhysicEngine.hpp"
+#include "Engine/Observer/Observer.hpp"
+#include "Engine/Observer/KeyboardEventData.hpp"
+#include "Engine/Rendering/Renderer.hpp"
 #include "Engine/Transformable.hpp"
 #include "Shot.hpp"
 
-class Player : public Renderable,
-               public KeyboardObserver,
-               public Updatable,
-               public Transformable {
+class Player : public engine::Renderable,
+               public engine::KeyboardObserver,
+               public engine::Updatable,
+               public engine::Transformable {
 private:
     static constexpr float ROTATION_SPEED = 4.;
     static constexpr float MAX_SPEED = 90.;
@@ -21,12 +21,12 @@ private:
     static constexpr float SHOOT_RATE = 0.5;
 
 public:
-    explicit Player(const std::shared_ptr<PhysicEngine>& physicEngine);
+    explicit Player(const std::shared_ptr<engine::PhysicEngine>& physicEngine);
 
-    [[nodiscard]] Vec2f getAbsoluteCollidePoint(size_t i);
+    [[nodiscard]] engine::Vec2f getAbsoluteCollidePoint(size_t i);
 
-    void update(Renderer& renderer) override;
-    void update(const KeyboardEventData& event) override;
+    void update(engine::Renderer& renderer) override;
+    void update(const engine::KeyboardEventData& event) override;
     void update(double dt) override;
 
     void reset();
@@ -34,12 +34,12 @@ public:
     void onCollide();
 
 private:
-    Polygon polygon;
-    Vec2f forward;
+    engine::Polygon polygon;
+    engine::Vec2f forward;
 
     bool accelerating;
-    Vec2f acceleration;
-    Vec2f speed;
+    engine::Vec2f acceleration;
+    engine::Vec2f speed;
 
     int rotationDir;
 

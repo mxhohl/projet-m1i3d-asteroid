@@ -1,8 +1,10 @@
-#include "Rendering/Renderer.hpp"
+#include "Engine/Rendering/Renderer.hpp"
 
 #include <iostream>
 
 #include "Engine/Logger.hpp"
+
+using namespace engine;
 
 Renderer::Renderer() : renderer(nullptr) {}
 

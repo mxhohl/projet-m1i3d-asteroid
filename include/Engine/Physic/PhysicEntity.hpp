@@ -4,30 +4,33 @@
 #include "Engine/Transformable.hpp"
 #include "PhysicEngine.hpp"
 
+namespace engine {
+
 class PhysicEntity : public Transformable {
     friend class PhysicEngine;
 
 public:
     PhysicEntity();
-    PhysicEntity(Vec2f  acceleration, Vec2f  speed, float maxSpeed);
+    PhysicEntity(Vec2f acceleration, Vec2f speed, float maxSpeed);
 
-    friend bool operator==(const PhysicEntity& e1, const PhysicEntity& e2) {
+    friend bool operator==(const PhysicEntity &e1, const PhysicEntity &e2) {
         return e1.uid == e2.uid;
     }
 
-    friend bool operator!=(const PhysicEntity& e1, const PhysicEntity& e2) {
+    friend bool operator!=(const PhysicEntity &e1, const PhysicEntity &e2) {
         return e1.uid != e2.uid;
     }
 
     virtual void onCollide(PhysicEngine::CollisionType collisionType,
                            Vec2f position) = 0;
+
     void physicUpdate(double dt);
 
-    [[nodiscard]] const Vec2f& getAcceleration() const;
-    void setAcceleration(const Vec2f& acc);
+    [[nodiscard]] const Vec2f &getAcceleration() const;
+    void setAcceleration(const Vec2f &acc);
 
-    [[nodiscard]] const Vec2f& getSpeed() const;
-    void setSpeed(const Vec2f& spd);
+    [[nodiscard]] const Vec2f &getSpeed() const;
+    void setSpeed(const Vec2f &spd);
 
     [[nodiscard]] float getMaxSpeed() const;
     void setMaxSpeed(float maxSpd);
@@ -47,5 +50,7 @@ private:
 private:
     uint32_t uid;
 };
+
+}
 
 #endif //PROJETPROGAVANCEE_PHYSICENTITY_HPP

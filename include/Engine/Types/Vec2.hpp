@@ -4,14 +4,17 @@
 #include <array>
 #include <cmath>
 
+namespace engine {
+
 template<class T>
 class Vec2 {
 public:
     Vec2() : Vec2(0) {}
+
     template<class U>
-    explicit Vec2(const Vec2<U>& copy) : Vec2(copy.x(), copy.y()) {}
-    Vec2(const Vec2& copy) = default;
-    Vec2(Vec2&& move) noexcept = default;
+    explicit Vec2(const Vec2<U> &copy) : Vec2(copy.x(), copy.y()) {}
+    Vec2(const Vec2 &copy) = default;
+    Vec2(Vec2 &&move) noexcept = default;
     explicit Vec2(T v) : Vec2(v, v) {}
     Vec2(T x, T y) : data{x, y} {}
     Vec2(std::initializer_list<T> params) {
@@ -20,7 +23,7 @@ public:
         data[1] = *param;
     }
 
-    Vec2<T>& operator=(const Vec2<T>& copy) {
+    Vec2<T> &operator=(const Vec2<T> &copy) {
         if (this == &copy) {
             return *this;
         }
@@ -66,96 +69,96 @@ public:
         return vec;
     }
 
-    T& operator[](size_t i) {
+    T &operator[](size_t i) {
         return data[i];
     }
 
-    const T& operator[](size_t i) const {
+    const T &operator[](size_t i) const {
         return data[i];
     }
 
-    friend std::ostream& operator<< (std::ostream& s, const Vec2<T>& v) {
+    friend std::ostream &operator<<(std::ostream &s, const Vec2<T> &v) {
         s << std::string("(") << v.data[0] << ", " << v.data[1] << ")";
         return s;
     }
 
-    friend Vec2<T> operator+(const Vec2<T>& right) {
+    friend Vec2<T> operator+(const Vec2<T> &right) {
         return Vec2(
-            +right.data[0],
-            +right.data[1]
+                +right.data[0],
+                +right.data[1]
         );
     }
 
-    friend Vec2<T> operator-(const Vec2<T>& right) {
+    friend Vec2<T> operator-(const Vec2<T> &right) {
         return Vec2(
                 -right.data[0],
                 -right.data[1]
         );
     }
 
-    friend auto operator+(const Vec2<T>& left, const Vec2<T>& right) {
+    friend auto operator+(const Vec2<T> &left, const Vec2<T> &right) {
         return Vec2(
-            left.data[0] + right.data[0],
-            left.data[1] + right.data[1]
+                left.data[0] + right.data[0],
+                left.data[1] + right.data[1]
         );
     }
 
-    friend auto operator-(const Vec2<T>& left, const Vec2<T>& right) {
+    friend auto operator-(const Vec2<T> &left, const Vec2<T> &right) {
         return Vec2(
                 left.data[0] - right.data[0],
                 left.data[1] - right.data[1]
         );
     }
 
-    friend auto operator*(const Vec2<T>& left, T right) {
+    friend auto operator*(const Vec2<T> &left, T right) {
         return Vec2(
                 left.data[0] * right,
                 left.data[1] * right
         );
     }
 
-    friend auto operator*(T left, const Vec2<T>& right) {
+    friend auto operator*(T left, const Vec2<T> &right) {
         return Vec2(
                 left * right.data[0],
                 left * right.data[1]
         );
     }
 
-    friend auto operator/(const Vec2<T>& left, T right) {
+    friend auto operator/(const Vec2<T> &left, T right) {
         return Vec2(
                 left.data[0] / right,
                 left.data[1] / right
         );
     }
 
-    friend auto operator+=(Vec2<T>& left, const Vec2<T>& right) {
+    friend auto operator+=(Vec2<T> &left, const Vec2<T> &right) {
         left.data[0] += right.data[0];
         left.data[1] += right.data[1];
     }
 
-    friend auto operator-=(Vec2<T>& left, const Vec2<T>& right) {
+    friend auto operator-=(Vec2<T> &left, const Vec2<T> &right) {
         left.data[0] -= right.data[0];
         left.data[1] -= right.data[1];
     }
 
-    friend auto operator*=(Vec2<T>& left, T right) {
+    friend auto operator*=(Vec2<T> &left, T right) {
         left.data[0] *= right;
         left.data[1] *= right;
     }
 
-    friend auto operator/=(Vec2<T>& left, T right) {
+    friend auto operator/=(Vec2<T> &left, T right) {
         left.data[0] /= right;
         left.data[1] /= right;
     }
 
-    friend auto operator==(const Vec2<T>& left, const Vec2<T>& right) {
+    friend auto operator==(const Vec2<T> &left, const Vec2<T> &right) {
         return left.data[0] == right.data[0]
-            && left.data[1] == right.data[1];
+               && left.data[1] == right.data[1];
     }
 
-    friend auto operator!=(const Vec2<T>& left, const Vec2<T>& right) {
+    friend auto operator!=(const Vec2<T> &left, const Vec2<T> &right) {
         return left.data[0] != right.data[0]
-            || left.data[1] != right.data[1];
+               || left.data[1] != right.data[1];
     }
 
 
@@ -166,5 +169,7 @@ private:
 using Vec2f = Vec2<float>;
 using Vec2i = Vec2<int>;
 using Vec2u = Vec2<unsigned>;
+
+}
 
 #endif // VEC2_HPP

@@ -5,19 +5,22 @@
 #include <unordered_map>
 #include <variant>
 
+namespace engine {
+
 class Settings {
 public:
-    static Settings& getInstance() {
+    static Settings &getInstance() {
         static Settings instance;
         return instance;
     }
 
-    Settings(const Settings&) = delete;
-    void operator=(const Settings&) = delete;
+    Settings(const Settings &) = delete;
+
+    void operator=(const Settings &) = delete;
 
 public:
-    template <class T>
-    const T& getParameter(const std::string& parameter) const {
+    template<class T>
+    const T &getParameter(const std::string &parameter) const {
         return std::get<T>(settings.at(parameter));
     }
 
@@ -36,5 +39,7 @@ private:
 private:
     std::unordered_map<std::string, std::variant<int, unsigned int>> settings;
 };
+
+}
 
 #endif //PROJETPROGAVANCEE_SETTINGS_HPP

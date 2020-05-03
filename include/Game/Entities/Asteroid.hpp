@@ -1,15 +1,15 @@
 #ifndef PROJETPROGAVANCEE_ASTEROID_HPP
 #define PROJETPROGAVANCEE_ASTEROID_HPP
 
-#include "Physic/PhysicEntity.hpp"
-#include "Types/Vec2.hpp"
-#include "Types/Color.hpp"
-#include "Rendering/Polygon.hpp"
+#include "Engine/Physic/PhysicEntity.hpp"
+#include "Engine/Types/Vec2.hpp"
+#include "Engine/Types/Color.hpp"
+#include "Engine/Rendering/Polygon.hpp"
 #include "Player.hpp"
 
 #include <random>
 
-class Asteroid : public PhysicEntity {
+class Asteroid : public engine::PhysicEntity {
     friend class Asteroids;
 
 private:
@@ -20,22 +20,22 @@ public:
     Asteroid();
     static Asteroid random(const std::shared_ptr<Player>& player = nullptr);
 
-    void onCollide(PhysicEngine::CollisionType collisionType,
-                   [[maybe_unused]]Vec2f position) override;
+    void onCollide(engine::PhysicEngine::CollisionType collisionType,
+                   [[maybe_unused]] engine::Vec2f position) override;
 
-    [[nodiscard]] const Color& getColor() const;
-    void setColor(const Color& col);
+    [[nodiscard]] const engine::Color& getColor() const;
+    void setColor(const engine::Color& col);
 
     [[nodiscard]] float getRadius() const;
     [[nodiscard]] int getSize() const;
     void setSize(int s);
 
-    [[nodiscard]] Circle getCircle() const;
+    [[nodiscard]] engine::Circle getCircle() const;
 
 private:
     float rotation_speed;
     int size;
-    Color color;
+    engine::Color color;
 
     bool exploding;
 

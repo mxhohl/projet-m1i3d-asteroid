@@ -3,7 +3,7 @@
 #include <iostream>
 #include "Game/Game.hpp"
 
-Player::Player(const std::shared_ptr<PhysicEngine>& physicEngine) :
+Player::Player(const std::shared_ptr<engine::PhysicEngine>& physicEngine) :
         shooting(false),
         shootTimer(SHOOT_RATE) {
     polygon = {
@@ -21,11 +21,11 @@ Player::Player(const std::shared_ptr<PhysicEngine>& physicEngine) :
     rotationDir = 0;
 
     accelerating = false;
-    acceleration = Vec2f(0);
+    acceleration = engine::Vec2f(0);
     speed = {0, 0};
 }
 
-Vec2f Player::getAbsoluteCollidePoint(size_t i) {
+engine::Vec2f Player::getAbsoluteCollidePoint(size_t i) {
     if (i == 0) {
         return getTransformMatrix().transformPoint({0, -2});
     } else if (i == 1) {
@@ -37,7 +37,7 @@ Vec2f Player::getAbsoluteCollidePoint(size_t i) {
     }
 }
 
-void Player::update(Renderer& renderer) {
+void Player::update(engine::Renderer& renderer) {
     renderer.setDrawColor({255, 255, 255, 255});
     renderer.draw(polygon, getTransformMatrix());
 
@@ -64,23 +64,23 @@ void Player::update(Renderer& renderer) {
 #endif
 }
 
-void Player::update(const KeyboardEventData& data) {
+void Player::update(const engine::KeyboardEventData& data) {
     if (data.keycode == SDLK_z) {
-        accelerating = data.type == KeyboardEventData::Press;
+        accelerating = data.type == engine::KeyboardEventData::Press;
     } else if (data.keycode == SDLK_q) {
-        if (data.type == KeyboardEventData::Press) {
+        if (data.type == engine::KeyboardEventData::Press) {
             rotationDir = -1;
         } else {
             rotationDir = 0;
         }
     } else if (data.keycode == SDLK_d) {
-        if (data.type == KeyboardEventData::Press) {
+        if (data.type == engine::KeyboardEventData::Press) {
             rotationDir = +1;
         } else {
             rotationDir = 0;
         }
     } else if (data.keycode == SDLK_SPACE) {
-        shooting = data.type == KeyboardEventData::Press;
+        shooting = data.type == engine::KeyboardEventData::Press;
     }
 }
 
@@ -89,7 +89,7 @@ void Player::update(double dt) {
         shootTimer += dt;
 
         if (shootTimer > SHOOT_RATE) {
-            Vec2f bulletPos = Mat3<float>::rotation(
+            engine::Vec2f bulletPos = engine::Mat3<float>::rotation(
                     getRotation()).transformPoint({0, -12}
             );
             shots->push_back({
@@ -115,7 +115,7 @@ void Player::update(double dt) {
     }
 
     rotate(ROTATION_SPEED * float(rotationDir) * float(dt));
-    forward = Mat3f::rotation(getRotation()).transformPoint({0, -1});
+    forward = engine::Mat3f::rotation(getRotation()).transformPoint({0, -1});
 
     if (accelerating) {
         acceleration = forward * ACCELERATION_FACTOR;
@@ -142,7 +142,7 @@ void Player::reset() {
     shootTimer = SHOOT_RATE;
     rotationDir = 0;
     accelerating = false;
-    acceleration = Vec2f(0);
+    acceleration = engine::Vec2f(0);
     speed = {0, 0};
     setRotation(0);
 }

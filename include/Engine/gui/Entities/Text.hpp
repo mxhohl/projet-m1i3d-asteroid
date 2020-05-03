@@ -7,7 +7,7 @@
 #include "Engine/Transformable.hpp"
 #include "Engine/gui/Entity.hpp"
 
-namespace gui {
+namespace engine::gui {
 
 class Text : public Entity {
 public:

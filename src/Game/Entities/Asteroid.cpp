@@ -5,15 +5,15 @@
 
 Asteroid::Asteroid() : rotation_speed(0), size(1), exploding(false) {};
 
-void Asteroid::onCollide(PhysicEngine::CollisionType collisionType,
-                         Vec2f position) {
+void Asteroid::onCollide(engine::PhysicEngine::CollisionType collisionType,
+                         engine::Vec2f position) {
     if (exploding) {
         return;
     }
 
-    if (collisionType == PhysicEngine::CollisionType::WithShot) {
+    if (collisionType == engine::PhysicEngine::CollisionType::WithShot) {
         exploding = true;
-    } else if (collisionType == PhysicEngine::CollisionType::WithAsteroid) {
+    } else if (collisionType == engine::PhysicEngine::CollisionType::WithAsteroid) {
         const auto bounceDirection =
                 ((getPosition() - position).normalized()
                 + getSpeed().normalized()).normalized();
@@ -23,18 +23,18 @@ void Asteroid::onCollide(PhysicEngine::CollisionType collisionType,
 
 Asteroid Asteroid::random(const std::shared_ptr<Player>& player) {
     static std::default_random_engine generator(
-            Settings::getInstance().getParameter<unsigned int>("seed")
+            engine::Settings::getInstance().getParameter<unsigned int>("seed")
     );
 
     static std::uniform_real_distribution<float> speed_dist(-50, 50);
     static std::uniform_real_distribution<float> rotation_spd_dist(-0.5, 0.5);
     static std::uniform_int_distribution<int> posX_dist(
             0,
-            Settings::getInstance().getParameter<int>("window_width")
+            engine::Settings::getInstance().getParameter<int>("window_width")
     );
     static std::uniform_int_distribution<int> posY_dist(
             0,
-            Settings::getInstance().getParameter<int>("window_height")
+            engine::Settings::getInstance().getParameter<int>("window_height")
     );
     static std::uniform_real_distribution<float> rotation_dist(0, 360);
     static std::uniform_int_distribution<int> color_dist(0, 5);
@@ -46,9 +46,9 @@ Asteroid Asteroid::random(const std::shared_ptr<Player>& player) {
     asteroid.setRotationDeg(rotation_dist(generator));
     asteroid.setScale(scale_dist(generator));
 
-    Vec2f position;
+    engine::Vec2f position;
     do {
-        position = Vec2f(posX_dist(generator), posY_dist(generator));
+        position = engine::Vec2f(posX_dist(generator), posY_dist(generator));
     } while(player &&
             (player->getPosition() - position).length()
             < MIN_PLAYER_DIST_ON_SPAWN
@@ -66,11 +66,11 @@ Asteroid Asteroid::random(const std::shared_ptr<Player>& player) {
     return asteroid;
 }
 
-const Color& Asteroid::getColor() const {
+const engine::Color& Asteroid::getColor() const {
     return color;
 }
 
-void Asteroid::setColor(const Color& col) {
+void Asteroid::setColor(const engine::Color& col) {
     color = col;
 }
 
@@ -86,6 +86,6 @@ void Asteroid::setSize(int s) {
     size = s;
 }
 
-Circle Asteroid::getCircle() const {
-    return Circle(static_cast<float>(getRadius()));
+engine::Circle Asteroid::getCircle() const {
+    return engine::Circle(static_cast<float>(getRadius()));
 }

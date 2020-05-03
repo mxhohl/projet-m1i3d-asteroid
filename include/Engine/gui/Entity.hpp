@@ -4,12 +4,12 @@
 #include "Anchor.hpp"
 #include "Engine/Types/Vec2.hpp"
 #include "Engine/Rendering/Renderer.hpp"
-#include "GUIRenderer.hpp"
+#include "Renderer.hpp"
 
 #include <memory>
 #include <vector>
 
-namespace gui {
+namespace engine::gui {
 
 class Gui;
 
