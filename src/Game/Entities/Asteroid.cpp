@@ -75,7 +75,7 @@ std::shared_ptr<Asteroid> Asteroid::fromExplosion(
     newAsteroid->setSpeed(
             parent->getSpeed()
             + (newAsteroid->getPosition() - parent->getPosition())
-              * 2.f
+              * .5f
     );
 
     return newAsteroid;

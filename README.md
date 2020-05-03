@@ -8,18 +8,16 @@ Le rapport est disponible dans le dossier `documents/rapport`.
 
  - Parler de l'ajout de OpenMP lib mais pas nécéssaire car 13ms (calculer fps) 
    constant sur ma machine ce qui est plus que avec OpenMP (car trop peut 
-   d'éléments peut-�tre avec particules)
+   d'éléments peut-être avec particules)
 
 TODO
 ----
- - Améliorer le calcul de la vitesse des astéroïdes après explosion
  - Faire en sorte que les astéroïdes ne se spawn pas dessus
  - Ajouter tout les paramètre dans le système de `settings` à la place de constexpr
  - Ajouter la lecture des settings à partir d'un fichier de config
  - Empecher le démarrage d'une nouvelle partie quand le joueur "spam" la touche espace
  - Ajout de la doc Doxygen
  - TOUJOURS PLUS DE LOG
- - Supprimer le point au milieu des entités quand pas on mode debug
 
 BUGS
 ----
