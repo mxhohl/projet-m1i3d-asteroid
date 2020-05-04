@@ -43,13 +43,15 @@
 
 \chapter{Design}
 
-Le jeu \textit{Asteroids} est découpé en deux grandes parties, le moteur et le jeu lui 
-même. Le moteur est lui même découpé en 3 modules~:
+Le jeu \textit{Asteroids} est découpé en deux grandes parties, le moteur et le jeu. 
+Le moteur est lui-même découpé en 3 modules~:
 \begin{itemize}
-	\item Le module de rendu~: qui s'occupe de l'affichage de différents éléments à l'écran.
+	\item Le module de rendu~: qui s'occupe de l'affichage de différents éléments à
+	      l'écran.
 	\item Le module de physique~: qui s'occupe des calculs physique, c'est à dire des
 	      déplacements et des collisions.
-	\item Le module de GUI~: qui s'occupe de l'affichage des éléments d'interface utilisateur.
+	\item Le module de GUI~: qui s'occupe de l'affichage des éléments d'interface
+	      utilisateur.
 	\item Le module de particules~: Un système de particules qui ne fonctionne pas encore 
 	      dans la version rendue, bien qu'il soit assez avancé d'un point de vue du 
 	      développement.
@@ -107,40 +109,40 @@ Observateur~: \url{https://en.wikipedia.org/wiki/Observer_pattern}.
 
 \section{Le module de rendu}
 
-Le module de rendu s'occupe de l'affichage de tout les éléments à l'écran. Il est basé
+Le module de rendu s'occupe de l'affichage de tous les éléments à l'écran. Il est basé
 sur la bibliothèque \textit{SDL2} mais est conçu pour pouvoir la remplacer très 
 facilement par un autre système comme \textit{OpenGL} ou \textit{Vulkan}.
 
-Il propose des fonctions de base permettant d'afficher tout les éléments simples 
+Il propose des fonctions de base permettant d'afficher tous les éléments simples 
 suivants~:
 \begin{itemize}
 	\item Des Points
 	\item Des Lignes
 	\item Des Rectangles vides et pleins
-	\item Des polygones quelconques vide
-	\item Des Cercle
+	\item Des Polygones quelconques vides
+	\item Des Cercles
 \end{itemize}
 
 Les modules de GUI et de particules se basent sur lui.
 
 \section{Le module de physique}
 
-Le module de physique s'occupe de tout les calculs physique, c'est à dire, en l'état
+Le module de physique s'occupe de tous les calculs physiques, c'est à dire, en l'état
 actuel des choses, des déplacements en utilisant accélération, vitesse et position 
-ainsi que des collisions cercles-cercles, point-cercle et joueur-cercle, le joueur
-étant un polygon quelconque bien définis (Voir Figure~\ref{fig:model-joueur}).
+ainsi que des collisions cercle-cercle, point-cercle et joueur-cercle, le joueur
+étant un polygone quelconque bien définis (Voir Figure~\ref{fig:model-joueur}).
 
 
 \section{Le module de GUI}
 
-Le module de GUI s'occupe de la gestion de tout les éléments d'interface graphique.
+Le module de GUI s'occupe de la gestion de tous les éléments d'interface graphique.
 En l'état actuel il permet de gérer~:
 \begin{itemize}
 	\item Des \textit{Panels}~: qui sont de simples rectangles.
 	\item Des textes~: qui, aussi surprenant que ça puisse paraitre, sont du texte.
 \end{itemize}
 
-Le module à était conçu pour permettre l'ajout de nouveaux éléments d'interface de 
+Le module a été conçu pour permettre l'ajout de nouveaux éléments d'interface de 
 manière assez facile. 
 
 \section{Le module de système de particules}
@@ -149,7 +151,7 @@ Ce module ne fonctionne pas encore, mais comme le gros est déjà développé et
 ressemble à quelque chose, il est présent dans le dossier \textbf{poc/particles} 
 mais n'est pas encore utilisé dans le projet.
 
-Il permet de gérer des particules de type point, avec un couleur spécifique.
+Il permet de gérer des particules de type point, avec une couleur spécifique.
 
 \section{Le jeu}
 
@@ -157,12 +159,12 @@ Le jeu permet de gérer les astéroïdes au fur et à mesure du temps et en fonc
 du score du joueur. 
 Le joueur gagne un point par astéroïde détruit. 
 
-Tout les éléments du jeu reposent sur les différents modules du moteur.
+Tous les éléments du jeu reposent sur les différents modules du moteur.
 
 
 \chapter{Implantation}
 
-L'implantation se s'est faite de manière très directe à partir du design décrit 
+L'implantation s'est faite de manière très directe à partir du design décrit 
 précédemment.
 Le projet est programmé en \textit{C++17} et repose sur la bibliothèque \textit{SDL2}
 qui est en \textit{C} ainsi que sur le système de compilation \textit{CMake}.
@@ -176,23 +178,23 @@ Le dossier du projet est découpé en plusieurs sous dossiers~:
 	\item [assets] Contient les différents éléments graphiques et audio, c'est à dire 
 	               uniquement l'icône du jeu dans le cas présent.
 	\item [documents] Contient le présent rapport ainsi que le sujet du projet
-	\item [external] Contient les bibliothèques externes essentiels au projet, 
+	\item [external] Contient les bibliothèques externes essentielles au projet, 
 	                 uniquement \textit{SDL2} actuellement.
-	\item [include] Contient tout les fichiers \textit{headers} du projet.
+	\item [include] Contient tous les fichiers \textit{headers} du projet.
 	\item [poc] Comme \textit{Proof Of Concept}, contient des modules, morceaux de code 
 				ou expérimentations plus ou moins aboutis qui ne sont pas encore intégrés
-				le projet.
-	\item [src] Contient tout les fichiers \textit{source} du projet.
+				au projet.
+	\item [src] Contient tous les fichiers \textit{source} du projet.
 \end{description}
 
-Les dossiers \textbf{include} et \textbf{src} sont eu-mêmes re-découpés en deux sous dossiers \textbf{Engine} et \textbf{Game} contenant respectivement les fichiers
+Les dossiers \textbf{include} et \textbf{src} sont eux-mêmes re-découpés en deux sous dossiers \textbf{Engine} et \textbf{Game} contenant respectivement les fichiers
 du moteur et ceux spécifiques au jeu.
 
 \section{Le \textit{design pattern} Observateur}
 
-Toutes les classes qui veulent échanger des donnés doivent hériter de la 
-classe \class{Subject} quand elles transmettent des donnés ou de la 
-classe \class{Observer} quand elles reçoivent des donnés. Ces deux classes on comme 
+Toutes les classes qui veulent échanger des données doivent hériter de la 
+classe \class{Subject} quand elles transmettent des données ou de la 
+classe \class{Observer} quand elles reçoivent des données. Ces deux classes on comme 
 paramètre de template le type de donné échangé.
 
 \section{Le module de rendu}
@@ -206,8 +208,8 @@ système en arrière-plan, comme \textit{OpenGL}, \textit{Vulkan}, \textit{Metal
 
 Le module de physique est axé sur deux classes principales, 
 \class{PhysicEngine} et \\ \class{PhysicEntity}. 
-La première effectue tout les calculs liés à la physique et 
-tous les objets qui doivent êtres inclus dans les calculs physiques doivent hériter
+La première effectue tous les calculs liés à la physique et 
+tous les objets qui doivent être inclus dans les calculs physiques doivent hériter
 de la seconde.
 
 Le calcul des mouvements des objets se basent sur les trois formules simples suivantes~:
@@ -217,18 +219,18 @@ Le calcul des mouvements des objets se basent sur les trois formules simples sui
 	r_t &= r_{t-\Delta t} + v_t * \Delta t
 \end{align}
 Avec $a$ l'accélération, $v$ la vitesse et $r$ la position, $a_0$, $v_0$ et $r_0$,
-respectivement l'accélération initial, la vitesse initial et la position initial 
+respectivement l'accélération initiale, la vitesse initiale et la position initiale 
 et $\Delta t$ le temps écoulé depuis le dernier rafraichissement du système 
 de physique.
 
 Le système de collision ne permet actuellement que de détecter des collisions du type
-cercle-cercle, cercle/point et cercle/joueur.
+cercle-cercle, cercle-point et cercle-joueur.
 
 Les collisions cercles/joueur sont gérés de manière assez particulières. 
 Le joueur est un polygone concave quelconque (voir Figure~\ref{fig:model-joueur}), 
 il faudrait donc utiliser un algorithme d'intersection entre cercle et polygone concave,
 mais ces algorithmes sont assez compliqués et complexes, et en observant bien la 
-forme do polygone joueur et la différence de taille entre le joueur et les cercles 
+forme du polygone joueur et la différence de taille entre le joueur et les cercles 
 (ici, les astéroïdes), on se rend compte que l'on peut tout simplement effectuer un 
 test de collision entre le cercle et les trois points \og extérieurs \fg{} (les points 
 cerclés de rouge sur la Figure~\ref{fig:model-joueur}) du polygone et si un point est 
@@ -254,8 +256,8 @@ Le module de GUI tourne autour des classes~:
 \begin{itemize}
 	\item \class{gui::Gui} qui est la classe de base de gestion des 
 	      éléments d'interface. C'est elle qui gère le rendu et qui doit être
-	      utilisée pour créer tout les éléments d'interface.
-	\item \class{gui::Entity} qui est la classe virtuelle pure dont tout
+	      utilisée pour créer tous les éléments d'interface.
+	\item \class{gui::Entity} qui est la classe virtuelle pure dont tous
 		  les éléments d'interface doivent hériter.
 \end{itemize}
 
@@ -265,7 +267,7 @@ de l'ancrage (voir Figure~\ref{fig:gui-positionement}).
 
 \begin{figure}[h]
 	\center
-	\caption{Le positionnement des éléments d'interface. Chaque élément est représenté avec son point d'ancrage. Les éléments vert et rouge ont pour parent l'élément blue, et ce dernier à pour parent la fenêtre (en noir).}
+	\caption{Le positionnement des éléments d'interface. Chaque élément est représenté avec son point d'ancrage. Les éléments vert et rouge ont pour parent l'élément blue, et ce dernier a pour parent la fenêtre (en noir).}
 	\begin{tikzpicture}		
 		\draw (0, 0) rectangle (5, 2.8125);
 		
@@ -286,7 +288,7 @@ Chaque entité va se dessiner en appelant des fonctions de la classe
 \class{GUIRenderer} puis appeler la fonction de rendu de ses enfants.
 Donc si l'on se représente les éléments d'interface via un arbre grâce à leur
 lien de parenté, le rendu se fait dans un ordre de parcoure en profondeur, ce
-qui permet de garantir que les parents sont toujours rendus avant leur enfants (et sont
+qui permet de garantir que les parents sont toujours rendus avant leurs enfants (et sont
 donc affichés derrière). Voir Figure~\ref{fig:gui-ordre-rendu}.
 
 \begin{figure}[h]
@@ -312,18 +314,18 @@ donc affichés derrière). Voir Figure~\ref{fig:gui-ordre-rendu}.
 \end{figure}
 
 Ce module est le plus aboutit de tous, il ne dispose pas de beaucoup d'éléments
-différents, mais il conçu de tel sorte qu'en ajouter un est extrêmement aisé.
+différents, mais il est conçu de tel sorte qu'en ajouter un est extrêmement aisé.
 Il suffit de créer une classe qui hérite de \class{gui::Entity} 
 
 \section{Le module de système de particules}
  
-Pour ce modulen je me suis fortement inspiré de système proposé sur la page suivante~:
+Pour ce module je me suis fortement inspiré de système proposé sur la page suivante~:
 \url{http://archive.gamedev.net/archive/reference/articles/article1982.html}.
 L'idée est de définir les particules et leur mise à jour grâce à des classes
 passées via les templates.
 
 Il y a une classe \class{ParticleEmitter} qui permet d'émettre des particules et qui 
-est paramétré avec des classes héritant de \class{InitializationPolicy}, 
+est paramétrée avec des classes héritants de \class{InitializationPolicy}, 
 \class{UpdatePolicy} et \class{Particle}. 
 Les classes \class{BaseXXXXXX} sont des implantations simples de ces classes de base et
 sont utilisées comme paramètre par défaut de \class{ParticleEmitter}.
@@ -336,41 +338,41 @@ d'\textit{OpenGL}).
 
 \section{Le jeu}
 
-Le jeu en lui même est axé autour des trois classes suivantes~:
+Le jeu en lui-même est axé autour des trois classes suivantes~:
 \begin{itemize}
-	\item \class{Game}~: qui gère toute la logique du jeu, c'est à dire la boucle
-		  principale, les appels de rendu, la gestion des évènements la créations
+	\item \class{Game}~: qui gère toute la logique du jeu, c'est-à-dire la boucle
+		  principale, les appels de rendu, la gestion des évènements la création
 		  des différents éléments du jeu, etc.
 	\item \class{Player}~: qui gère toute la logique derrière le joueur, c'est à dire
 		  ses déplacements, et ses tirs.
-	\item \class{Asteroids}~: qui gère tout les astéroïdes, de leur création au cours
-		  du temps et en fonction du score du joueur à leur destruction si ils sont
+	\item \class{Asteroids}~: qui gère tous les astéroïdes, de leur création au cours
+		  du temps et en fonction du score du joueur à leur destruction s'ils sont
 		  touchés par des tirs du joueur. 
 \end{itemize}
 
 \section{Optimisations}
 
 Toutes les fonctions sont conçues de la manière la plus optimisée possible, mais
-aucune passe d'optimisation n'a été effectué. Cela n'était pas nécessaire, étant
-donné que le programme tourne à 77 images par secondes constantes sur \textit{Debian~10} 
-avec \textit{KDE} et \textit{X11} et à 60 images par secondes constantes sur 
+aucune passe d'optimisation n'a été effectuée. Cela n'était pas nécessaire, étant
+donné que le programme tourne à 77 images par seconde constantes sur \textit{Debian~10} 
+avec \textit{KDE} et \textit{X11} et à 60 images par seconde constantes sur 
 \textit{Windows~10}, les deux avec le système suivant~:
 \begin{itemize}
 	\item Intel(R) Core(TM) i5-8500 CPU @  3.00GHz, 6 coeurs
 	\item 32Go de RAM DDR4
 	\item NVIDIA GeForce GTX 1060 6GB
 \end{itemize}
-On remarquera cependant que les valeurs d'images par secondes ne sont sans doutes pas représentatives car étant donné les valeurs, elles doivent êtres limités par une 
-synchronisation vertical. Mais elles permettent quand même de se rendre compte qu'il
+On remarquera cependant que les valeurs d'images par secondes ne sont sans doutes pas représentatives car étant donné les valeurs, elles doivent être limitées par une 
+synchronisation verticale. Mais elles permettent quand même de se rendre compte qu'il
 n'y a pas de ralentissement dans les temps de rafraichissements et donc pas de forte
-nécessite d'optimisation.
+nécessité d'optimisation.
 
 \chapter{Problèmes rencontrés et voies d'amélioration}
 
 \section{Problèmes rencontrés}
 
-Au cour du développement du projet, ne nombreux problèmes ont fait surfaces. 
-Par exemple, le développement à commencé en considérant des astéroïdes de 
+Au cour du développement du projet, de nombreux problèmes ont fait surface. 
+Par exemple, le développement a commencé en considérant des astéroïdes de 
 formes quelconques, mais après avoir eu beaucoup de difficultés (et pas assez de 
 temps pour les surmonter) pour gérer les collions entre eux, ils sont devenus de 
 simples cercles.
@@ -380,24 +382,24 @@ Le module de particules m'a aussi donné pas mal de fil à retordre.
 
 En l'état actuel, le projet présente trois bogues connues~:
 \begin{itemize}
-	\item Le jeu \og crash \fg{} quand un astéroïde avec un vitesse de $[0, 0]$ entre en 
+	\item Le jeu \og crash \fg{} quand un astéroïde avec une vitesse de $[0, 0]$ entre en 
 	      collision avec le tir d'un joueur. Ce bogue n'est pas urgent à corriger
-	      étant donné que les astéroïdes ont une vitesse minimal supérieur à $0$.
+	      étant donné que les astéroïdes ont une vitesse minimale supérieure à $0$.
 	\item Le jeu \og crash \fg{} lors de la collision entre un astéroïde et un tir de
 	      joueur quand le projet est compilé avec \textit{MSVC}.
 	\item Il arrive que des astéroïdes acquièrent une vitesse beaucoup trop élevée, ce
-	      qui les rends quasiment impossibles à éviter.
+	      qui les rends quasiment impossible à éviter.
 \end{itemize}
 
 \section{Voies d'amélioration}
 \label{sec:voies-amelioration}
 
-J'ai de très nombreuses idées de  voies d'amélioration pour le projet, donc je ne détaillerai que les quartes plus importantes.
+J'ai de très nombreuses idées de  voies d'amélioration pour le projet, donc je ne détaillerai que les quatre plus importantes.
 
 La  première concernant le module de physique. Il devrait gérer de manière générique
 toutes les entités et non pas spécifiquement les astéroïdes, tirs et joueurs et devrait 
 permettre de gérer les collisions entre polygones convexes, ce qui permettrait des 
-astéroïdes avec des formes plus folkloriques.
+astéroïdes avec des formes plus folklorique.
 
 La seconde concerne le visuel. Un module de particules fonctionnel devrait permettre 
 d'ajouter du dynamisme au jeu, par exemple en ajoutant des particules à la sortie du 
@@ -407,7 +409,7 @@ flexibilité sur les effets visuels, comme des distorsions ou des tremblements d
 l'écran lors d'une explosion.
 
 La troisième voie d'amélioration que j'ai envisagée est l'audio. 
-L'ajout de musiques et d'effets sonores devrait ajouter un peut de vie dans le jeu.
+L'ajout de musiques et d'effets sonores devrait ajouter un peu de vie dans le jeu.
 
 Enfin, un vrai module de gestion des évènements permettrait de rentre le moteur 
 réutilisable.
@@ -425,8 +427,8 @@ avec un des modules que je trouve très aboutis, comme le module de GUI et d'aut
 bien pensés comme le module de Particules ou le \textit{design pattern} Observateur 
 (bien que les idées de bases ne soit pas de moi).
 
-Si je devait exprimer une seul frustration ce serait de ne pas avoir put passer plus
-de temps sur ce projet. Mais je ne me priverait pas d'améliorer le moteur de jeu
-en suivant les quelques idées que j'ai cités à la section~\ref{sec:voies-amelioration}.
+Si je devais exprimer une seule frustration ce serait de ne pas avoir pu passer plus
+de temps sur ce projet. Mais je ne me priverais pas d'améliorer le moteur de jeu
+en suivant les quelques idées que j'ai cité à la section~\ref{sec:voies-amelioration}.
 
 \end{document}
