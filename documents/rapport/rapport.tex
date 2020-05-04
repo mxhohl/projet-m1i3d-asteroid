@@ -5,11 +5,11 @@
 \usepackage{graphicx}
 \usepackage{titlesec}
 \usepackage{tikz}
-\usepackage{uml}
 \usepackage[hidelinks]{hyperref}
-\usepackage{appendix}
 \usepackage{amsmath}
 \usepackage{todonotes}
+\usepackage{calc}
+\usepackage{enumitem}
 
 \newfontfamily{\codefont}{JetBrains Mono}[Scale=0.85]
 \setmainfont[Ligatures={TeX, Common, Rare, Historic}]{Linux Libertine}
@@ -23,8 +23,6 @@
    \NoAutoSpacing;}
 }}
 
-
-\renewcommand\appendixtocname{Annexes}
 
 \title{
 	\includegraphics[width=0.5\textwidth]{logo-uds.pdf}\\
@@ -48,17 +46,16 @@
 Le jeu \textit{Asteroids} est découpé en deux grandes parties, le moteur et le jeu lui 
 même. Le moteur est lui même découpé en 3 modules~:
 \begin{itemize}
-	\item Le module de rendu~: s'occupe de l'affichage de différents éléments à l'écran.
-	\item Le module de physique~: S'occupe des calculs physique, c'est à dire des
+	\item Le module de rendu~: qui s'occupe de l'affichage de différents éléments à l'écran.
+	\item Le module de physique~: qui s'occupe des calculs physique, c'est à dire des
 	      déplacements et des collisions.
-	\item Le module de GUI~: S'occupe de l'affichage des éléments d'interface utilisateur.
+	\item Le module de GUI~: qui s'occupe de l'affichage des éléments d'interface utilisateur.
 	\item Le module de particules~: Un système de particules qui ne fonctionne pas encore 
 	      dans la version rendue, bien qu'il soit assez avancé d'un point de vue du 
 	      développement.
 \end{itemize}
-Voir la Figure~\ref{fig:design-global}.
 
-Tout les éléments du jeu et du moteur interagissent ensemble grâce au \textit{design pattern} Observateur.
+Tout les éléments du jeu et du moteur interagissent ensemble grâce au \textit{design pattern} Observateur. Voir la Figure~\ref{fig:design-global}.
 
 \begin{figure}[h]
 	\center
@@ -105,14 +102,14 @@ Ce \textit{design pattern} permet la communication entre les différents éléme
 jeu. Il est composé d'éléments appelés \textit{Observer} qui vont \og recevoir \fg{} 
 les messages envoyés par les éléments \textit{Subject} qu'ils observent.
 
-Cf. L'article Wikipedia pour plus d'informations~: 
-\url{https://en.wikipedia.org/wiki/Observer_pattern}.
+Cf. L'article Wikipedia pour plus d'informations sur le \textit{design pattern}
+Observateur~: \url{https://en.wikipedia.org/wiki/Observer_pattern}.
 
 \section{Le module de rendu}
 
 Le module de rendu s'occupe de l'affichage de tout les éléments à l'écran. Il est basé
-sur la bibliothèque \textit{SDL2} mais à était conçu pour pouvoir changer très facilement, 
-par \textit{OpenGL} ou \textit{Vulkan} par example.
+sur la bibliothèque \textit{SDL2} mais est conçu pour pouvoir la remplacer très 
+facilement par un autre système comme \textit{OpenGL} ou \textit{Vulkan}.
 
 Il propose des fonctions de base permettant d'afficher tout les éléments simples 
 suivants~:
@@ -131,7 +128,7 @@ Les modules de GUI et de particules se basent sur lui.
 Le module de physique s'occupe de tout les calculs physique, c'est à dire, en l'état
 actuel des choses, des déplacements en utilisant accélération, vitesse et position 
 ainsi que des collisions cercles-cercles, point-cercle et joueur-cercle, le joueur
-étant un polygon quelconque et bien définis.
+étant un polygon quelconque bien définis (Voir Figure~\ref{fig:model-joueur}).
 
 
 \section{Le module de GUI}
@@ -148,9 +145,9 @@ manière assez facile.
 
 \section{Le module de système de particules}
 
-Ce module ne fonctionne pas encore, mais comme le gros est déjà développé et que, 
-personnellement, je le trouve plutôt réussi, je l'ai quand même ajouté au code, bien
-qu'il ne soit actuellement pas utilisé par le jeu.
+Ce module ne fonctionne pas encore, mais comme le gros est déjà développé et qu'il 
+ressemble à quelque chose, je l'ai quand même ajouté au projet, bien qu'il ne soit 
+actuellement pas utilisé.
 
 Il permet de gérer des particules de type point, avec un couleur spécifique.
 
@@ -165,17 +162,26 @@ Tout les éléments du jeu reposent sur les différents modules du moteur.
 
 \chapter{Implantation}
 
-L'implantation se s'est faite de manière très directe avec design décrit précédemment.
-Le projet repose sur du \textit{C++17} ainsi que sur la bibliothèque \textit{C}
-\textit{SDL2}, et est basé sur le système de compilation \textit{CMake}.
-
-Le digramme UML du projet, est disponible à l'annexe~\ref{chap:digramme-uml}.
+L'implantation se s'est faite de manière très directe à partir du design décrit 
+précédemment.
+Le projet est programmé en \textit{C++17} et repose sur la bibliothèque \textit{SDL2}
+qui est en \textit{C} ainsi que sur le système de compilation \textit{CMake}.
 
 \section{Structure du projet}
 
-Le dossier du projet est découpé en
+Le dossier du projet est découpé en plusieurs sous dossiers~:
+\begin{description}[leftmargin=!,labelwidth=\widthof{\bfseries documents}]
+	\item [assets] Contient les différents éléments graphiques et audio, c'est à dire 
+	               uniquement l'icône du jeu dans le cas présent.
+	\item [documents] Contient le présent rapport ainsi que le sujet du projet
+	\item [external] Contient les bibliothèques externes essentiels au projet, 
+	                 uniquement \textit{SDL2} actuellement.
+	\item [include] Contient tout les fichiers \textit{headers} du projet.
+	\item [src] Contient tout les fichiers \textit{source} du projet.
+\end{description}
 
-\todo[inline]{Parler de l'arborescence et ...}
+Les dossiers \textbf{include} et \textbf{src} sont eu-mêmes re-découpés en deux sous dossiers \textbf{Engine} et \textbf{Game} contenant respectivement les fichiers
+du moteur et ceux spécifiques au jeu.
 
 \section{Le \textit{design pattern} Observateur}
 
@@ -198,16 +204,16 @@ La première effectue tout les calculs liés à la physique et
 tous les objets qui doivent êtres inclus dans les calculs physiques doivent hériter
 de la seconde.
 
-Le calcul des mouvements des objets se basent sur les trois formules simples suivantes,
-avec $a$ l'accélération, $v$ la vitesse et $r$ la position~:
+Le calcul des mouvements des objets se basent sur les trois formules simples suivantes~:
 \begin{align}
 	a_t &= a_0\\
 	v_t &= v_{t-\Delta t} + a_t * \Delta t\\
 	r_t &= r_{t-\Delta t} + v_t * \Delta t
 \end{align}
-Avec $a_0$, $v_0$ et $r_0$ étant respectivement l'accélération initial, la vitesse 
-initial et la position initial et $\Delta t$ le temps écoulé depuis le dernier 
-appel de rafraichissement du système de physique.
+Avec $a$ l'accélération, $v$ la vitesse et $r$ la position, $a_0$, $v_0$ et $r_0$,
+respectivement l'accélération initial, la vitesse initial et la position initial 
+et $\Delta t$ le temps écoulé depuis le dernier rafraichissement du système 
+de physique.
 
 Le système de collision ne permet actuellement que de détecter des collisions du type
 cercle-cercle, cercle/point et cercle/joueur.
@@ -215,11 +221,12 @@ cercle-cercle, cercle/point et cercle/joueur.
 Les collisions cercles/joueur sont gérés de manière assez particulières. 
 Le joueur est un polygone concave quelconque (voir Figure~\ref{fig:model-joueur}), 
 il faudrait donc utiliser un algorithme d'intersection entre cercle et polygone concave,
-mais ces algorithmes sont assez complexes à mettre en place, et en observant bien la 
+mais ces algorithmes sont assez compliqués et complexes, et en observant bien la 
 forme do polygone joueur et la différence de taille entre le joueur et les cercles 
 (ici, les astéroïdes), on se rend compte que l'on peut tout simplement effectuer un 
-test de collision entre le cercle et les trois points \og extérieurs \fg{} (en rouge sur la Figure~\ref{fig:model-joueur}) du polygone et si un point est dans un cercle
-alors il y a collision entre cercle et joueur.
+test de collision entre le cercle et les trois points \og extérieurs \fg{} (les points 
+cerclés de rouge sur la Figure~\ref{fig:model-joueur}) du polygone et si un point est 
+dans un cercle alors il y a collision entre cercle et joueur.
 
 \begin{figure}[h]
 	\center
@@ -273,7 +280,8 @@ Chaque entité va se dessiner en appelant des fonctions de la \textit{class}
 \class{GUIRenderer} puis appeler la fonction de rendu de ses enfants.
 Donc si l'on se représente les éléments d'interface via un arbre grâce à leur
 lien de parenté, le rendu se fait dans un ordre de parcoure en profondeur, ce
-qui permet de garantir que les parents sont toujours rendus avant leur enfants (et donc sont affichés derrière). Voir Figure~\ref{fig:gui-ordre-rendu}.
+qui permet de garantir que les parents sont toujours rendus avant leur enfants (et sont
+donc affichés derrière). Voir Figure~\ref{fig:gui-ordre-rendu}.
 
 \begin{figure}[h]
 	\center
@@ -328,21 +336,37 @@ Le jeu en lui même est axé autour des trois \textit{class} suivantes~:
 
 \section{Bogues connus}
 
-\todo[inline]{A faire}
+En l'état actuel, le projet présente trois bogues connues~:
+\begin{itemize}
+	\item Le jeu \og crash \fg{} quand un astéroïde avec un vitesse de $[0, 0]$ entre en 
+	      collision avec le tir d'un joueur. Ce bogue n'est pas urgent à corriger
+	      étant donné que les astéroïdes ont une vitesse minimal supérieur à $0$.
+	\item Le jeu \og crash \fg{} lors de la collision entre un astéroïde et un tir de
+	      joueur quand le projet est compilé avec \textit{MSVC}.
+	\item Il arrive que des astéroïdes acquièrent une vitesse beaucoup trop élevée, ce
+	      qui les rends quasiment impossibles à éviter.
+\end{itemize}
 
 \section{Voies d'amélioration}
 
-\todo[inline]{A faire}
+J'ai de très nombreuses (trop nombreuses~?) idées de  voies d'amélioration pour le projet.
 
-\appendix
-\addappheadtotoc
+La  première concernant le module de physique. Il devrait gérer de manière générique
+toutes les entités et non pas spécifiquement les astéroïdes, tirs et joueurs et devrait 
+permettre de gérer les collisions entre polygones convexes, ce qui permettrait des 
+astéroïdes avec des formes plus folkloriques.
 
-\chapter{Diagramme UML du Projet}
-\label{chap:digramme-uml}
+La seconde concerne le visuel. Un module de particules fonctionnel devrait permettre 
+d'ajouter du dynamisme au jeu, par exemple en ajoutant des particules à la sortie du 
+moteur du vaisseau du joueur ou lors de l'explosion d'un astéroïde. On peut aussi 
+envisager de passer sur du rendu purement \textit{OpenGL} pour permettre plus de 
+flexibilité sur les effets visuels, comme des distorsions ou des tremblements de 
+l'écran lors d'une explosion.
 
-\todo[inline]{A faire}
+La troisième voie d'amélioration que j'ai envisagée est l'audio. 
+L'ajout de musiques et d'effets sonores devrait ajouter un peut de vie dans le jeu.
 
-\umlDiagram[box=,border,sizeX=7cm,sizeY=4cm]{%
-	\umlClass[refpoint=bl, pos={3,3}]{ClassName}{}{}}
+Enfin, un vrai module de gestion des évènements permettrait de rentre le moteur 
+réutilisable.
 
 \end{document}
