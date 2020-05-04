@@ -68,3 +68,6 @@ else()
 endif()
 
 target_link_libraries(${TARGET} PRIVATE SDL2main SDL2-static)
+
+
+add_subdirectory(poc)

@@ -5,10 +5,10 @@ Rapport
 -------
 
 Le rapport est disponible dans le dossier `documents/rapport`.
-
- - Parler de l'ajout de OpenMP lib mais pas nécéssaire car 13ms (calculer fps) 
-   constant sur ma machine ce qui est plus que avec OpenMP (car trop peut 
-   d'éléments peut-être avec particules)
+La génération du pdf à partir du fichier LaTeX nécéssitent les poslices de 
+caractère suivantes :
+ - Linux Libertine - http://www.linuxlibertine.org
+ - JetBrains Mono - https://www.jetbrains.com/lp/mono/
 
 Compilation
 -----------
