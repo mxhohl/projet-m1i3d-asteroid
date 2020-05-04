@@ -146,8 +146,8 @@ manière assez facile.
 \section{Le module de système de particules}
 
 Ce module ne fonctionne pas encore, mais comme le gros est déjà développé et qu'il 
-ressemble à quelque chose, je l'ai quand même ajouté au projet, bien qu'il ne soit 
-actuellement pas utilisé.
+ressemble à quelque chose, il est présent dans le dossier \textbf{poc/particles} 
+mais n'est pas encore utilisé dans le projet.
 
 Il permet de gérer des particules de type point, avec un couleur spécifique.
 
@@ -166,6 +166,8 @@ L'implantation se s'est faite de manière très directe à partir du design déc
 précédemment.
 Le projet est programmé en \textit{C++17} et repose sur la bibliothèque \textit{SDL2}
 qui est en \textit{C} ainsi que sur le système de compilation \textit{CMake}.
+Les fichiers sont gérés grâce au système de contrôle de version \textit{git} 
+et à \textit{GitLab} (\url{https://git.unistra.fr/m.hohl/projet-progav-maxime-hohl}).
 
 \section{Structure du projet}
 
@@ -177,6 +179,9 @@ Le dossier du projet est découpé en plusieurs sous dossiers~:
 	\item [external] Contient les bibliothèques externes essentiels au projet, 
 	                 uniquement \textit{SDL2} actuellement.
 	\item [include] Contient tout les fichiers \textit{headers} du projet.
+	\item [poc] Comme \textit{Proof Of Concept}, contient des modules, morceaux de code 
+				ou expérimentations plus ou moins aboutis qui ne sont pas encore intégrés
+				le projet.
 	\item [src] Contient tout les fichiers \textit{source} du projet.
 \end{description}
 
@@ -185,20 +190,21 @@ du moteur et ceux spécifiques au jeu.
 
 \section{Le \textit{design pattern} Observateur}
 
-Toutes les \textit{class} qui veulent échanger des donnés doivent hériter de la 
-\textit{class} \class{Subject} quand elles transmettent des donnés ou de la 
-\textit{class} \class{Observer} quand elles reçoivent des donnés. Ces deux \textit{class} on comme paramètre de template le type de donné échangé.
+Toutes les classes qui veulent échanger des donnés doivent hériter de la 
+classe \class{Subject} quand elles transmettent des donnés ou de la 
+classe \class{Observer} quand elles reçoivent des donnés. Ces deux classes on comme 
+paramètre de template le type de donné échangé.
 
 \section{Le module de rendu}
 
-Le module de rendu est constitué d'une \textit{class} appelée \class{Renderer} qui 
+Le module de rendu est constitué d'une classe appelée \class{Renderer} qui 
 se base sur \textit{SDL2} mais qui permet de changer aisément pour tout autre 
 système en arrière-plan, comme \textit{OpenGL}, \textit{Vulkan}, \textit{Metal}, etc. 
 
 
 \section{Le module de physique}
 
-Le module de physique est axé sur deux \textit{class} principales, 
+Le module de physique est axé sur deux classes principales, 
 \class{PhysicEngine} et \\ \class{PhysicEntity}. 
 La première effectue tout les calculs liés à la physique et 
 tous les objets qui doivent êtres inclus dans les calculs physiques doivent hériter
@@ -244,12 +250,12 @@ dans un cercle alors il y a collision entre cercle et joueur.
 
 \section{Le module de GUI}
 
-Le module de GUI tourne autour des \textit{class}~:
+Le module de GUI tourne autour des classes~:
 \begin{itemize}
-	\item \class{gui::Gui} qui est la \textit{class} de base de gestion des 
+	\item \class{gui::Gui} qui est la classe de base de gestion des 
 	      éléments d'interface. C'est elle qui gère le rendu et qui doit être
 	      utilisée pour créer tout les éléments d'interface.
-	\item \class{gui::Entity} qui est la \textit{class} virtuelle pure dont tout
+	\item \class{gui::Entity} qui est la classe virtuelle pure dont tout
 		  les éléments d'interface doivent hériter.
 \end{itemize}
 
@@ -276,7 +282,7 @@ de l'ancrage (voir Figure~\ref{fig:gui-positionement}).
 	\label{fig:gui-positionement}
 \end{figure}
 
-Chaque entité va se dessiner en appelant des fonctions de la \textit{class} 
+Chaque entité va se dessiner en appelant des fonctions de la classe
 \class{GUIRenderer} puis appeler la fonction de rendu de ses enfants.
 Donc si l'on se représente les éléments d'interface via un arbre grâce à leur
 lien de parenté, le rendu se fait dans un ordre de parcoure en profondeur, ce
@@ -307,15 +313,30 @@ donc affichés derrière). Voir Figure~\ref{fig:gui-ordre-rendu}.
 
 Ce module est le plus aboutit de tous, il ne dispose pas de beaucoup d'éléments
 différents, mais il conçu de tel sorte qu'en ajouter un est extrêmement aisé.
-Il suffit de créer une \textit{class} qui hérite de \class{gui::Entity} 
+Il suffit de créer une classe qui hérite de \class{gui::Entity} 
 
 \section{Le module de système de particules}
+ 
+Pour ce modulen je me suis fortement inspiré de système proposé sur la page suivante~:
+\url{http://archive.gamedev.net/archive/reference/articles/article1982.html}.
+L'idée est de définir les particules et leur mise à jour grâce à des classes
+passées via les templates.
 
-\todo[inline]{A faire}
+Il y a une classe \class{ParticleEmitter} qui permet d'émettre des particules et qui 
+est paramétré avec des classes héritant de \class{InitializationPolicy}, 
+\class{UpdatePolicy} et \class{Particle}. 
+Les classes \class{BaseXXXXXX} sont des implantations simples de ces classes de base et
+sont utilisées comme paramètre par défaut de \class{ParticleEmitter}.
+
+En l'état actuel, le module n'est pas viable, les temps de calculs étant très aléatoires,
+allant d'un temps raisonnable à plusieurs secondes. D'autres problèmes semblent
+exister, mais faute de temps le module a été délaissé (bien que je compte le reprendre
+à titre personnel en me basant peut-être sur les \textit{Compute Shader} 
+d'\textit{OpenGL}).
 
 \section{Le jeu}
 
-Le jeu en lui même est axé autour des trois \textit{class} suivantes~:
+Le jeu en lui même est axé autour des trois classes suivantes~:
 \begin{itemize}
 	\item \class{Game}~: qui gère toute la logique du jeu, c'est à dire la boucle
 		  principale, les appels de rendu, la gestion des évènements la créations
@@ -327,12 +348,33 @@ Le jeu en lui même est axé autour des trois \textit{class} suivantes~:
 		  touchés par des tirs du joueur. 
 \end{itemize}
 
+\section{Optimisations}
+
+Toutes les fonctions sont conçues de la manière la plus optimisée possible, mais
+aucune passe d'optimisation n'a été effectué. Cela n'était pas nécessaire, étant
+donné que le programme tourne à 77 images par secondes constantes sur \textit{Debian~10} 
+avec \textit{KDE} et \textit{X11} et à 60 images par secondes constantes sur 
+\textit{Windows~10}, les deux avec le système suivant~:
+\begin{itemize}
+	\item Intel(R) Core(TM) i5-8500 CPU @  3.00GHz, 6 coeurs
+	\item 32Go de RAM DDR4
+	\item NVIDIA GeForce GTX 1060 6GB
+\end{itemize}
+On remarquera cependant que les valeurs d'images par secondes ne sont sans doutes pas représentatives car étant donné les valeurs, elles doivent êtres limités par une 
+synchronisation vertical. Mais elles permettent quand même de se rendre compte qu'il
+n'y a pas de ralentissement dans les temps de rafraichissements et donc pas de forte
+nécessite d'optimisation.
 
 \chapter{Problèmes rencontrés et voies d'amélioration}
 
 \section{Problèmes rencontrés}
 
-\todo[inline]{A faire}
+Au cour du développement du projet, ne nombreux problèmes ont fait surfaces. 
+Par exemple, le développement à commencé en considérant des astéroïdes de 
+formes quelconques, mais après avoir eu beaucoup de difficultés (et pas assez de 
+temps pour les surmonter) pour gérer les collions entre eux, ils sont devenus de 
+simples cercles.
+Le module de particules m'a aussi donné pas mal de fil à retordre.
 
 \section{Bogues connus}
 
@@ -348,8 +390,9 @@ En l'état actuel, le projet présente trois bogues connues~:
 \end{itemize}
 
 \section{Voies d'amélioration}
+\label{sec:voies-amelioration}
 
-J'ai de très nombreuses (trop nombreuses~?) idées de  voies d'amélioration pour le projet.
+J'ai de très nombreuses idées de  voies d'amélioration pour le projet, donc je ne détaillerai que les quartes plus importantes.
 
 La  première concernant le module de physique. Il devrait gérer de manière générique
 toutes les entités et non pas spécifiquement les astéroïdes, tirs et joueurs et devrait 
@@ -368,5 +411,22 @@ L'ajout de musiques et d'effets sonores devrait ajouter un peut de vie dans le j
 
 Enfin, un vrai module de gestion des évènements permettrait de rentre le moteur 
 réutilisable.
+
+
+
+\chapter*{Conclusion}
+\addcontentsline{toc}{chapter}{Conclusion}
+
+Le projet était très intéressant, développer un jeu de zéro (en dehors de \textit{SDL2})
+a été très instructif pour moi. J'ai axé le développement du projet plus sur le 
+moteur que ce soit en utilisant la puissance du \textit{C++17} ou en essayant
+de bien le concevoir que sur le jeu en lui même. C'est pourquoi je me retrouve
+avec un des modules que je trouve très aboutis, comme le module de GUI et d'autres 
+bien pensés comme le module de Particules ou le \textit{design pattern} Observateur 
+(bien que les idées de bases ne soit pas de moi).
+
+Si je devait exprimer une seul frustration ce serait de ne pas avoir put passer plus
+de temps sur ce projet. Mais je ne me priverait pas d'améliorer le moteur de jeu
+en suivant les quelques idées que j'ai cités à la section~\ref{sec:voies-amelioration}.
 
 \end{document}
